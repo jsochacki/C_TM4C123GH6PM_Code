@@ -77,19 +77,17 @@ void setupChipSelect(int mode){
 	if(mode == CS_ACTIVE_HIGH){
 
 		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x00);
-		cs_config = 1;
+		cs_config = 0;
 	}
 
 	else if(mode == CS_ACTIVE_LOW){
 
 		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x10);
-		cs_config = 0;
+		cs_config = 1;
 	}
 
 
 }
-
-
 
 void sendWord(unsigned long word){
 
@@ -105,7 +103,7 @@ void sendWord(unsigned long word){
 
 	// Enable chip select to start transfer
 	if(cs_config){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x10); }
-	else { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x00); }
+	else { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x00);}
 
 	// Send both halves of the original word, MSB first
 	MAP_SSIDataPut(SSI0_BASE, upper);
@@ -113,7 +111,7 @@ void sendWord(unsigned long word){
 
 	// Close the frame by de-asserting chip select
 	if(cs_config){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x00); }
-	else { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x10); }
+	else { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x10);}
 
 }
 
@@ -134,8 +132,7 @@ void setupSPI(void){
 	// Begin configuration of the SPI0 interface
 	MAP_SSIDisable(SSI0_BASE);
 
-	// Sets the clock polarity to steady state low and rising edge
-	MAP_SSIConfigSetExpClk(SSI0_BASE, MAP_SysCtlClockGet(), SSI_FRF_MOTO_MODE_0, SSI_MODE_MASTER, 500000, 16);
+	MAP_SSIConfigSetExpClk(SSI0_BASE, MAP_SysCtlClockGet(), SSI_FRF_MOTO_MODE_3 , SSI_MODE_MASTER, 500000, 16);
 
 	MAP_SSIEnable(SSI0_BASE);
 

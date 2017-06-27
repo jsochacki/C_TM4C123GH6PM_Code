@@ -134,8 +134,7 @@ void setupSPI(void){
 	// Begin configuration of the SPI0 interface
 	MAP_SSIDisable(SSI0_BASE);
 
-	// Sets the clock polarity to steady state low and rising edge
-	MAP_SSIConfigSetExpClk(SSI0_BASE, MAP_SysCtlClockGet(), SSI_FRF_MOTO_MODE_0, SSI_MODE_MASTER, 500000, 16);
+	MAP_SSIConfigSetExpClk(SSI0_BASE, MAP_SysCtlClockGet(), SSI_FRF_MOTO_MODE_3 , SSI_MODE_MASTER, 500000, 16);
 
 	MAP_SSIEnable(SSI0_BASE);
 
