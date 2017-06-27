@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="PreferencesImportWizard">
+		<item value="C:\Users\medgar\Desktop\Mason&apos;s New Theme.epf" key=""/>
+		<list key="WizardPreferencesExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="C:\Users\medgar\Desktop\Mason&apos;s New Theme.epf"/>
+		</list>
 	</section>
 	<section name="org.eclipse.ui.internal.QuickAccess">
 		<item value="-1" key="dialogWidth"/>
@@ -19,5 +23,9 @@
 		<item value="607" key="DIALOG_X_ORIGIN"/>
 	</section>
 	<section name="ImportExportAction">
+		<item value="org.eclipse.ui.wizards.import.Preferences" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+		</list>
 	</section>
 </section>

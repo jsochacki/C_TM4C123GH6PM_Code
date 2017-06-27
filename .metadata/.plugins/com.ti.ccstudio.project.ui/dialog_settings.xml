@@ -3,6 +3,7 @@
 	<section name="com.ti.ccstudio.project.ui.internal.properties.DynamicPropertiesPageManager">
 	</section>
 	<section name="com.ti.ccstudio.project.ui.internal.preferences.DynamicPreferencePageManager">
+		<item value="true" key="CCS.VIEW_ADVANCED"/>
 	</section>
 	<section name="CCS.ImportCCSProjectWizard">
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
