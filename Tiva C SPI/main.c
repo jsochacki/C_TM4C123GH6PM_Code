@@ -42,12 +42,20 @@ void sendWord(unsigned long word);
 int main(void) {
 	
 	setupClock();
+	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	setupChipSelect(CS_ACTIVE_HIGH);
 	setupSPI();
 
-	unsigned long word = 0x12345678;
+	unsigned long word = 0xFFFFFFFF;
 
-	sendWord(word);
+
+	while(1){
+
+		sendWord(word);
+//		SysCtlDelay(1000);
+
+	}
+
 
 
 
@@ -69,20 +77,20 @@ void setupClock(void){
 
 void setupChipSelect(int mode){
 
-	// Pin B4 is the new chip select
+	// Pin B1 is the new chip select
 	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
-	MAP_GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_4);
+	MAP_GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_1);
 
 	// Allow user to decide if the chip select is active high or active low
 	if(mode == CS_ACTIVE_HIGH){
 
-		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x00);
+		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00);
 		cs_config = 1;
 	}
 
 	else if(mode == CS_ACTIVE_LOW){
 
-		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x10);
+		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2);
 		cs_config = 0;
 	}
 
@@ -104,16 +112,16 @@ void sendWord(unsigned long word){
 	lower = temp2;
 
 	// Enable chip select to start transfer
-	if(cs_config){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x10); }
-	else { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x00); }
+	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
+	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
 
 	// Send both halves of the original word, MSB first
 	MAP_SSIDataPut(SSI0_BASE, upper);
 	MAP_SSIDataPut(SSI0_BASE, lower);
 
 	// Close the frame by de-asserting chip select
-	if(cs_config){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x00); }
-	else { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0x10); }
+	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
+	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
 
 }
 
