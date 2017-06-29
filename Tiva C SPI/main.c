@@ -39,30 +39,26 @@ void setupChipSelect(int mode);
 void sendWord(unsigned long word);
 
 
+
+
 int main(void) {
 	
 	setupClock();
-	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	setupChipSelect(CS_ACTIVE_HIGH);
 	setupSPI();
 
 	unsigned long word = 0xFFFFFFFF;
 
-
-	while(1){
-
-		sendWord(word);
-//		SysCtlDelay(1000);
-
-	}
-
-
-
-
+	sendWord(word);
 
 
 	return 0;
 }
+
+
+
+
+
 
 
 void setupClock(void){
@@ -115,13 +111,20 @@ void sendWord(unsigned long word){
 	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
 	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
 
+
+
 	// Send both halves of the original word, MSB first
 	MAP_SSIDataPut(SSI0_BASE, upper);
 	MAP_SSIDataPut(SSI0_BASE, lower);
 
+	while(MAP_SSIBusy(SSI0_BASE)){};
+
 	// Close the frame by de-asserting chip select
 	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
 	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
+
+
+
 
 }
 
@@ -129,7 +132,7 @@ void sendWord(unsigned long word){
 
 void setupSPI(void){
 
-	// Enable peripheral SSI0
+	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);  // Enable SPI Port 0
 
 	// Configure the GPIO pins to access SPI port 0
