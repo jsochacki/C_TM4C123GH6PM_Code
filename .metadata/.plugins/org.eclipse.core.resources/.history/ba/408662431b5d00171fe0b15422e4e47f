@@ -1,14 +1,3 @@
-/*
-
-Author: Mason Edgar
-Supervisor: John Sochacki
-ViaSat Inc. Tempe, AZ
-
-Master Code For TivaC PLL Control
-
-*/
-
-
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>

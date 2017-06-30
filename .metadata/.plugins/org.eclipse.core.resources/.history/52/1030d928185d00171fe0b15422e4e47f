@@ -1,14 +1,3 @@
-/*
-
-Author: Mason Edgar
-Supervisor: John Sochacki
-ViaSat Inc. Tempe, AZ
-
-Master Code For TivaC PLL Control
-
-*/
-
-
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -101,6 +90,7 @@ void setupChipSelect(int mode){
 		cs_config = 0;
 	}
 
+
 }
 
 
@@ -121,6 +111,8 @@ void sendWord(unsigned long word){
 	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
 	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
 
+
+
 	// Send both halves of the original word, MSB first
 	MAP_SSIDataPut(SSI0_BASE, upper);
 	MAP_SSIDataPut(SSI0_BASE, lower);
@@ -130,6 +122,9 @@ void sendWord(unsigned long word){
 	// Close the frame by de-asserting chip select
 	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
 	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
+
+
+
 
 }
 
@@ -168,6 +163,9 @@ void setupSPI(void){
 //	MAP_IntMasterEnable();
 
 }
+
+
+
 
 
 void SPI_ISR_Handler(void){
