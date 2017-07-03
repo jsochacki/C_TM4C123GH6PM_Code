@@ -55,12 +55,17 @@ void sendWord(unsigned long word);
 int main(void) {
 	
 	setupClock();
-	setupChipSelect(CS_ACTIVE_HIGH);
+	setupChipSelect(CS_ACTIVE_LOW);
 	setupSPI();
 
-	unsigned long word = 0xFFFFFFFF;
+	unsigned long word = 0x12345678;
 
-	sendWord(word);
+	while(1){
+
+		sendWord(word);
+
+	}
+
 
 
 	return 0;

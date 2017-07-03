@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v15.12.5                    
 ******************************************************************************
->> Linked Thu Jun 29 14:46:35 2017
+>> Linked Mon Jul 03 13:19:40 2017
 
 OUTPUT FILE NAME:   <Tiva C SPI.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00000669
@@ -133,7 +133,7 @@ address   name
 00000797  ResetISR                       
 UNDEFED   SHT$$INIT_ARRAY$$Base          
 UNDEFED   SHT$$INIT_ARRAY$$Limit         
-00000445  SPI_ISR_Handler                
+00000441  SPI_ISR_Handler                
 20000200  __STACK_END                    
 00000200  __STACK_SIZE                   
 20000200  __STACK_TOP                    
@@ -183,10 +183,10 @@ ffffffff  binit
 20000214  main_func_sp                   
 00000475  memcpy                         
 00000519  memset                         
-000002f5  sendWord                       
-0000029d  setupChipSelect                
-0000028d  setupClock                     
-000003a7  setupSPI                       
+000002f1  sendWord                       
+00000299  setupChipSelect                
+00000289  setupClock                     
+000003a3  setupSPI                       
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -197,11 +197,11 @@ address   name
 00000000  g_pfnVectors                   
 00000200  __STACK_SIZE                   
 0000026d  main                           
-0000028d  setupClock                     
-0000029d  setupChipSelect                
-000002f5  sendWord                       
-000003a7  setupSPI                       
-00000445  SPI_ISR_Handler                
+00000289  setupClock                     
+00000299  setupChipSelect                
+000002f1  sendWord                       
+000003a3  setupSPI                       
+00000441  SPI_ISR_Handler                
 00000475  __aeabi_memcpy                 
 00000475  __aeabi_memcpy4                
 00000475  __aeabi_memcpy8                
