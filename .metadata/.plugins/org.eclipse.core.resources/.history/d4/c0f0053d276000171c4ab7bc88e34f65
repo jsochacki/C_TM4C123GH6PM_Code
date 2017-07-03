@@ -51,9 +51,6 @@ int main(void) {
 
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_3, 0);
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2 , 4);
-
 
 	setupSPI();
 
@@ -75,7 +72,6 @@ int main(void) {
 	}
 
 
-	while(1){ };
 
 	return 0;
 }

@@ -45,37 +45,17 @@ void setupSPI(void);
 
 int main(void) {
 	
-	uint32_t upper, lower, full_word;
+	uint32_t upper, lower;
 
 	setupClock();
-
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_3, 0);
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2 , 4);
-
-
 	setupSPI();
 
 	SSIDataGet(SSI0_BASE, &upper);
 	SSIDataGet(SSI0_BASE, &lower);
 
-	upper = upper << 16;
-
-	full_word = upper | lower;
-
-	if(full_word == 0xFFFFFFFF){
-		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2, 0);
-		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3 , 8);
-	}
-
-	else{
-		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3, 0);
-		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 , 2);
-	}
 
 
-	while(1){ };
+
 
 	return 0;
 }
