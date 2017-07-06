@@ -42,11 +42,6 @@
 #define MIDDLE_8_BITS 0X0000FF00
 #define UPPER_8_BITS 0x00FF0000
 
-// Macros Specific to Register Programming
-#define SOFT_RESET 0x81
-#define READ_FROM_ACTIVE_REGISTERS 0x100
-
-
 
 // flag that makes sure chip select is asserted the correct way
 int cs_config;
@@ -152,55 +147,8 @@ void sendWord_24Bit(unsigned long word){
 
 
 /*******************************************************************************************************/
-/*                                    Preface Register
 /*
-/*   By default, the SPI interface is in 3-wire mode with SDO in high-impedance, MSB-first mode,
-/*   and address is in auto-decrement mode. Setting the soft reset pins will ensure default operation
 /*******************************************************************************************************/
-
-
-
-void InitPrefaceRegister(void){
-
-	sendWord_24Bit(SOFT_RESET); // Register 0h
-
-	sendWord_24Bit(READ_FROM_ACTIVE_REGISTERS); // Register 1h
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

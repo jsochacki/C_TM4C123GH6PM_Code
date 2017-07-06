@@ -42,11 +42,6 @@
 #define MIDDLE_8_BITS 0X0000FF00
 #define UPPER_8_BITS 0x00FF0000
 
-// Macros Specific to Register Programming
-#define SOFT_RESET 0x81
-#define READ_FROM_ACTIVE_REGISTERS 0x100
-
-
 
 // flag that makes sure chip select is asserted the correct way
 int cs_config;
@@ -61,7 +56,6 @@ void setupClock(void){
 	// Set the system clock to 40 MHz
 	MAP_SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
 }
-
 
 /*******************************************************************************************************/
 /*    Allows the user to decide whether the chip select pin uses Active Low or Active High protocol
@@ -86,7 +80,6 @@ void setupChipSelect(int mode){
 		cs_config = 0;
 	}
 }
-
 
 /*******************************************************************************************************/
 /*             Creates the SPI interface in 8-bit mode for 24-bit word transmission
@@ -113,7 +106,6 @@ void setupSPI_8Bit(void){
 	MAP_SSIEnable(SSI0_BASE);
 
 }
-
 
 /*******************************************************************************************************/
 /* 	       Breaks down 24-bit word into 3 8-bit chunks and sends them over the SPI lines
@@ -150,58 +142,7 @@ void sendWord_24Bit(unsigned long word){
 
 }
 
-
 /*******************************************************************************************************/
-/*                                    Preface Register
-/*
-/*   By default, the SPI interface is in 3-wire mode with SDO in high-impedance, MSB-first mode,
-/*   and address is in auto-decrement mode. Setting the soft reset pins will ensure default operation
-/*******************************************************************************************************/
-
-
-
-void InitPrefaceRegister(void){
-
-	sendWord_24Bit(SOFT_RESET); // Register 0h
-
-	sendWord_24Bit(READ_FROM_ACTIVE_REGISTERS); // Register 1h
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
