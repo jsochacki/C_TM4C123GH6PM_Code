@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v15.12.5                    
 ******************************************************************************
->> Linked Mon Jul 03 13:30:57 2017
+>> Linked Mon Jul 03 13:42:57 2017
 
 OUTPUT FILE NAME:   <Tiva C SPI.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00000665
@@ -182,10 +182,10 @@ ffffffff  binit
 20000214  main_func_sp                   
 00000471  memcpy                         
 00000515  memset                         
-000002f3  sendWord                       
-0000029b  setupChipSelect                
-0000028b  setupClock                     
-000003a5  setupSPI                       
+000002f1  sendWord                       
+00000299  setupChipSelect                
+00000289  setupClock                     
+000003a3  setupSPI                       
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -196,10 +196,10 @@ address   name
 00000000  g_pfnVectors                   
 00000200  __STACK_SIZE                   
 0000026d  main                           
-0000028b  setupClock                     
-0000029b  setupChipSelect                
-000002f3  sendWord                       
-000003a5  setupSPI                       
+00000289  setupClock                     
+00000299  setupChipSelect                
+000002f1  sendWord                       
+000003a3  setupSPI                       
 00000471  __aeabi_memcpy                 
 00000471  __aeabi_memcpy4                
 00000471  __aeabi_memcpy8                

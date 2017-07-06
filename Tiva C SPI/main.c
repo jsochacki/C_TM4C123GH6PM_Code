@@ -58,7 +58,7 @@ int main(void) {
 	setupChipSelect(CS_ACTIVE_LOW);
 	setupSPI();
 
-	unsigned long word = 0xFFFFFFFF;
+	unsigned long word = 0x12345678;
 
 	while(1){
 

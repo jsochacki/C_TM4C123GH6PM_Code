@@ -2,7 +2,7 @@
 <link_info>
    <banner>TI ARM Linker PC v15.12.5.LTS</banner>
    <copyright>Copyright (c) 1996-2017 Texas Instruments Incorporated</copyright>
-   <link_time>0x595aa981</link_time>
+   <link_time>0x595aac51</link_time>
    <link_errors>0x0</link_errors>
    <output_file>Tiva C SPI.out</output_file>
    <entry_point>
@@ -2226,219 +2226,219 @@
          <name>__TI_prof_data_size</name>
          <value>0xffffffff</value>
       </symbol>
-      <symbol id="sm-52">
+      <symbol id="sm-53">
          <name>cs_config</name>
          <value>0x20000218</value>
       </symbol>
-      <symbol id="sm-53">
-         <name>sendWord</name>
-         <value>0x2f3</value>
-         <object_component_ref idref="oc-ab"/>
-      </symbol>
       <symbol id="sm-54">
-         <name>setupSPI</name>
-         <value>0x3a5</value>
+         <name>sendWord</name>
+         <value>0x2f1</value>
          <object_component_ref idref="oc-ab"/>
       </symbol>
       <symbol id="sm-55">
+         <name>setupSPI</name>
+         <value>0x3a3</value>
+         <object_component_ref idref="oc-ab"/>
+      </symbol>
+      <symbol id="sm-56">
          <name>main</name>
          <value>0x26d</value>
          <object_component_ref idref="oc-ab"/>
       </symbol>
-      <symbol id="sm-56">
-         <name>setupChipSelect</name>
-         <value>0x29b</value>
-         <object_component_ref idref="oc-ab"/>
-      </symbol>
       <symbol id="sm-57">
-         <name>setupClock</name>
-         <value>0x28b</value>
+         <name>setupChipSelect</name>
+         <value>0x299</value>
          <object_component_ref idref="oc-ab"/>
       </symbol>
-      <symbol id="sm-78">
+      <symbol id="sm-58">
+         <name>setupClock</name>
+         <value>0x289</value>
+         <object_component_ref idref="oc-ab"/>
+      </symbol>
+      <symbol id="sm-79">
          <name>ResetISR</name>
          <value>0x793</value>
          <object_component_ref idref="oc-2b"/>
       </symbol>
-      <symbol id="sm-79">
+      <symbol id="sm-7a">
          <name>g_pfnVectors</name>
          <value>0x0</value>
          <object_component_ref idref="oc-f"/>
       </symbol>
-      <symbol id="sm-8a">
+      <symbol id="sm-8b">
          <name>_c_int00</name>
          <value>0x665</value>
          <object_component_ref idref="oc-24"/>
       </symbol>
-      <symbol id="sm-8b">
+      <symbol id="sm-8c">
          <name>__stack</name>
          <value>0x20000000</value>
          <object_component_ref idref="oc-2a"/>
       </symbol>
-      <symbol id="sm-a2">
+      <symbol id="sm-a3">
          <name>__TI_decompress_none</name>
          <value>0x785</value>
          <object_component_ref idref="oc-12"/>
       </symbol>
-      <symbol id="sm-ca">
+      <symbol id="sm-cb">
          <name>__TI_decompress_rle24</name>
          <value>0x79f</value>
          <object_component_ref idref="oc-18"/>
       </symbol>
-      <symbol id="sm-ec">
+      <symbol id="sm-ed">
          <name>C$$EXIT</name>
          <value>0x6b9</value>
          <object_component_ref idref="oc-71"/>
       </symbol>
-      <symbol id="sm-ed">
+      <symbol id="sm-ee">
          <name>abort</name>
          <value>0x6bd</value>
          <object_component_ref idref="oc-71"/>
       </symbol>
-      <symbol id="sm-ee">
+      <symbol id="sm-ef">
          <name>exit</name>
          <value>0x6c5</value>
          <object_component_ref idref="oc-71"/>
       </symbol>
-      <symbol id="sm-ef">
+      <symbol id="sm-f0">
          <name>__TI_dtors_ptr</name>
          <value>0x20000204</value>
          <object_component_ref idref="oc-b3"/>
       </symbol>
-      <symbol id="sm-f0">
+      <symbol id="sm-f1">
          <name>__TI_cleanup_ptr</name>
          <value>0x20000200</value>
          <object_component_ref idref="oc-b3"/>
       </symbol>
-      <symbol id="sm-f1">
+      <symbol id="sm-f2">
          <name>__TI_enable_exit_profile_output</name>
          <value>0x20000208</value>
          <object_component_ref idref="oc-b3"/>
       </symbol>
-      <symbol id="sm-10c">
+      <symbol id="sm-10d">
          <name>memcpy</name>
          <value>0x471</value>
          <object_component_ref idref="oc-34"/>
       </symbol>
-      <symbol id="sm-10d">
+      <symbol id="sm-10e">
          <name>__aeabi_memcpy</name>
          <value>0x471</value>
          <object_component_ref idref="oc-34"/>
       </symbol>
-      <symbol id="sm-10e">
+      <symbol id="sm-10f">
          <name>__aeabi_memcpy8</name>
          <value>0x471</value>
          <object_component_ref idref="oc-34"/>
       </symbol>
-      <symbol id="sm-10f">
+      <symbol id="sm-110">
          <name>__aeabi_memcpy4</name>
          <value>0x471</value>
          <object_component_ref idref="oc-34"/>
       </symbol>
-      <symbol id="sm-11e">
+      <symbol id="sm-11f">
          <name>__aeabi_memset</name>
          <value>0x50f</value>
          <object_component_ref idref="oc-4d"/>
       </symbol>
-      <symbol id="sm-11f">
+      <symbol id="sm-120">
          <name>memset</name>
          <value>0x515</value>
          <object_component_ref idref="oc-4d"/>
       </symbol>
-      <symbol id="sm-120">
+      <symbol id="sm-121">
          <name>__aeabi_memset8</name>
          <value>0x50f</value>
          <object_component_ref idref="oc-4d"/>
       </symbol>
-      <symbol id="sm-121">
+      <symbol id="sm-122">
          <name>__aeabi_memset4</name>
          <value>0x50f</value>
          <object_component_ref idref="oc-4d"/>
       </symbol>
-      <symbol id="sm-122">
+      <symbol id="sm-123">
          <name>__aeabi_memclr8</name>
          <value>0x50d</value>
          <object_component_ref idref="oc-4d"/>
       </symbol>
-      <symbol id="sm-123">
+      <symbol id="sm-124">
          <name>__aeabi_memclr4</name>
          <value>0x50d</value>
          <object_component_ref idref="oc-4d"/>
       </symbol>
-      <symbol id="sm-124">
+      <symbol id="sm-125">
          <name>__aeabi_memclr</name>
          <value>0x50d</value>
          <object_component_ref idref="oc-4d"/>
       </symbol>
-      <symbol id="sm-12e">
+      <symbol id="sm-12f">
          <name>__mpu_init</name>
          <value>0x587</value>
          <object_component_ref idref="oc-59"/>
       </symbol>
-      <symbol id="sm-138">
+      <symbol id="sm-139">
          <name>_system_pre_init</name>
          <value>0x7a5</value>
          <object_component_ref idref="oc-5f"/>
       </symbol>
-      <symbol id="sm-140">
+      <symbol id="sm-141">
          <name>main_func_sp</name>
          <value>0x20000214</value>
          <object_component_ref idref="oc-77"/>
       </symbol>
-      <symbol id="sm-159">
+      <symbol id="sm-15a">
          <name>_nop</name>
          <value>0x77f</value>
          <object_component_ref idref="oc-df"/>
       </symbol>
-      <symbol id="sm-15a">
+      <symbol id="sm-15b">
          <name>_lock</name>
          <value>0x2000020c</value>
          <object_component_ref idref="oc-b6"/>
       </symbol>
-      <symbol id="sm-15b">
+      <symbol id="sm-15c">
          <name>_unlock</name>
          <value>0x20000210</value>
          <object_component_ref idref="oc-b6"/>
       </symbol>
-      <symbol id="sm-15c">
+      <symbol id="sm-15d">
          <name>_register_lock</name>
          <value>0x777</value>
          <object_component_ref idref="oc-df"/>
       </symbol>
-      <symbol id="sm-15d">
+      <symbol id="sm-15e">
          <name>_register_unlock</name>
          <value>0x771</value>
          <object_component_ref idref="oc-df"/>
       </symbol>
-      <symbol id="sm-171">
+      <symbol id="sm-172">
          <name>_args_main</name>
          <value>0x759</value>
          <object_component_ref idref="oc-6b"/>
       </symbol>
-      <symbol id="sm-196">
+      <symbol id="sm-197">
          <name>__TI_auto_init</name>
          <value>0x589</value>
          <object_component_ref idref="oc-65"/>
       </symbol>
-      <symbol id="sm-1b0">
+      <symbol id="sm-1b1">
          <name>copy_in</name>
          <value>0x70d</value>
          <object_component_ref idref="oc-9d"/>
       </symbol>
-      <symbol id="sm-1ba">
+      <symbol id="sm-1bb">
          <name>_system_post_cinit</name>
          <value>0x663</value>
          <object_component_ref idref="oc-a3"/>
       </symbol>
-      <symbol id="sm-1bb">
+      <symbol id="sm-1bc">
          <name>__TI_static_base__</name>
          <value>0x0</value>
       </symbol>
-      <symbol id="sm-1be">
+      <symbol id="sm-1bf">
          <name>SHT$$INIT_ARRAY$$Limit</name>
          <value>0x0</value>
       </symbol>
-      <symbol id="sm-1bf">
+      <symbol id="sm-1c0">
          <name>SHT$$INIT_ARRAY$$Base</name>
          <value>0x0</value>
       </symbol>

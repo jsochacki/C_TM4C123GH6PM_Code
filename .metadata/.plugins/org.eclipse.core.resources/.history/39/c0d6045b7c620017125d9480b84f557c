@@ -1,0 +1,75 @@
+/*
+ * Author: Mason Edgar
+ * Supervisor: John Sochacki
+ * ViaSat Inc.
+ * Tempe, AZ
+ *
+ * 8V97003 Frequency Synth API for the Tiva C
+ */
+
+
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include "inc/tm4c123gh6pm.h"
+#include "inc/hw_adc.h"
+#include "inc/hw_ints.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_sysctl.h"
+#include "inc/hw_gpio.h"
+#include "inc/hw_types.h"
+#include "inc/hw_ssi.h"
+#include "driverlib/gpio.h"
+#include "driverlib/interrupt.h"
+#include "driverlib/timer.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/uart.h"
+#include "driverlib/debug.h"
+#include "driverlib/adc.h"
+#include "driverlib/rom.h"
+#include "driverlib/rom_map.h"
+#include "driverlib/pwm.h"
+#include "driverlib/ssi.h"
+
+
+
+#define CS_ACTIVE_HIGH 0
+#define CS_ACTIVE_LOW  1
+#define UPPER_16_BITS 0xFFFF0000
+#define LOWER_16_BITS 0x0000FFFF
+
+
+int cs_config; // flag that makes sure chip select is asserted the correct way
+
+
+void setupClock(void){
+
+	// Set the system clock to 40 MHz
+	MAP_SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
+
+}
+
+
+void setupChipSelect(int mode){
+
+	// Pin B1 is the new chip select
+	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+	MAP_GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_1);
+
+	// Allow user to decide if the chip select is active high or active low
+	if(mode == CS_ACTIVE_HIGH){
+
+		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00);
+		cs_config = 1;
+	}
+
+	else if(mode == CS_ACTIVE_LOW){
+
+		MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2);
+		cs_config = 0;
+	}
+
+}

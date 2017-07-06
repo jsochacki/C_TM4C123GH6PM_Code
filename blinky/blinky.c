@@ -68,6 +68,10 @@ main(void)
 
     uint8_t var = 2;
 
+    printf("Hello world");
+
+
+
     //
     // Loop forever.
     //

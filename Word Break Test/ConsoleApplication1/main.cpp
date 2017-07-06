@@ -2,24 +2,28 @@
 #include <stdlib.h>
 
 
-#define UPPER_16_BITS 0xFFFF0000
-#define LOWER_16_BITS 0x0000FFFF
+#define LOWER_8_BITS 0x000000FF
+#define MIDDLE_8_BITS 0X0000FF00
+#define UPPER_8_BITS 0x00FF0000
 
 int main(void)
 {
 
-	unsigned long temp = 0x12345678; 
+	unsigned long temp = 0x128565; 
 
-	unsigned long num1 = temp & UPPER_16_BITS;
-	unsigned long num2 = temp & LOWER_16_BITS;
+	
+	unsigned long num1 = temp & UPPER_8_BITS;
+	unsigned long num2 = temp & LOWER_8_BITS;
+	unsigned long num3 = temp & MIDDLE_8_BITS; 
 
-	unsigned short upper = num1 >> 16; 
+	unsigned short upper = num1 >> 16;
+	unsigned short middle = num3 >> 8;
 	unsigned short lower = num2; 
 
 	
 
 
-	printf("upper: %x\n\nlower: %x\n\n", upper, lower);
+	printf("upper: %x\n\nmiddle: %x\n\nlower: %x\n\n", upper, middle, lower);
 
 
 

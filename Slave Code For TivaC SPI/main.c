@@ -58,13 +58,14 @@ int main(void) {
 	setupSPI();
 
 	SSIDataGet(SSI0_BASE, &upper);
+
 	SSIDataGet(SSI0_BASE, &lower);
 
 	upper = upper << 16;
 
 	full_word = upper | lower;
 
-	if(full_word == 0xFFFFFFFF){
+	if(full_word == 0x12345678){
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2, 0);
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3 , 8);
 	}
