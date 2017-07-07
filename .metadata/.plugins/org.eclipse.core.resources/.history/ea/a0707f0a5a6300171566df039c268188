@@ -9,6 +9,7 @@
 */
 
 
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -54,11 +55,9 @@
 #define LOWER_MIDDLE_32Bit 0x0000FF00
 #define BOTTOM_8_32Bit 0x000000FF
 
-
 /* Macros Specific to Register Programming */
 
-
-// These define the address for each register so that it can be combined with a data byte to form the full 24-bit frame
+// These macros define the address for each register so that it can be combined with the data byte and sent off to the PLL
 #define REG_10h 0x1000
 #define REG_11h 0x1100
 #define REG_12h 0x1200
@@ -82,10 +81,7 @@
 #define REG_24h 0x2400
 #define REG_25h 0x2500
 
-// Sets the Soft Reset pins in Register 0h. Further explained in the InitPrefaceRegister function comments
 #define SOFT_RESET 0x81
-
-// Sets the Read From Active Registers pin inside Register 1h. Further explained in the InitPrefaceRegister function comments
 #define READ_FROM_ACTIVE_REGISTERS 0x100
 
 
@@ -122,7 +118,7 @@ int cs_config;
 
 
 /*******************************************************************************************************/
-/*                                 Initial clock setup routine                                         */
+/*                                 Initial clock setup routine
 /*******************************************************************************************************/
 
 void setupClock(void){
@@ -135,7 +131,7 @@ void setupClock(void){
 
 
 /*******************************************************************************************************/
-/*    Allows the user to decide whether the chip select pin uses Active Low or Active High protocol    */
+/*    Allows the user to decide whether the chip select pin uses Active Low or Active High protocol
 /*******************************************************************************************************/
 
 void setupChipSelect(int mode){
@@ -160,7 +156,7 @@ void setupChipSelect(int mode){
 
 
 /*******************************************************************************************************/
-/*             Creates the SPI interface in 8-bit mode for 24-bit word transmission                    */
+/*             Creates the SPI interface in 8-bit mode for 24-bit word transmission
 /*******************************************************************************************************/
 
 void setupSPI_8Bit(void){
@@ -188,7 +184,7 @@ void setupSPI_8Bit(void){
 
 
 /*******************************************************************************************************/
-/*            Splits 16-bit number into 2 8-bit data chunks for register programming                   */
+/*            Splits 16-bit number into 2 8-bit data chunks for register programming
 /*******************************************************************************************************/
 
 void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigned long* bottom_half) {
@@ -206,7 +202,7 @@ void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigne
 
 
 /*******************************************************************************************************/
-/*            Splits 32-bit number into 4 8-bit data chunks for register programming                   */
+/*            Splits 32-bit number into 4 8-bit data chunks for register programming
 /*******************************************************************************************************/
 
 void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsigned long* upper_middle_portion, unsigned long* lower_middle_portion, unsigned long* bottom_portion){
@@ -229,7 +225,7 @@ void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsig
 
 
 /*******************************************************************************************************/
-/*            Creates properly formatted data word to program a particular register                    */
+/*            Creates properly formatted data word to program a particular register
 /*******************************************************************************************************/
 
 unsigned long Create24BitWord(unsigned long data, unsigned long reg){
@@ -244,7 +240,7 @@ unsigned long Create24BitWord(unsigned long data, unsigned long reg){
 
 
 /*******************************************************************************************************/
-/*         Breaks down 24-bit word into 3 8-bit chunks and sends them over the SPI lines               */
+/*         Breaks down 24-bit word into 3 8-bit chunks and sends them over the SPI lines
 /*******************************************************************************************************/
 
 void sendWord_24Bit(unsigned long word){
@@ -286,7 +282,6 @@ void sendWord_24Bit(unsigned long word){
  * By default, the SPI interface is in 3-wire mode with SDO in high-impedance, MSB-first mode,
  * and address is in auto-decrement mode. Setting the soft reset pins will ensure default operation
  *
- */
 /*******************************************************************************************************/
 
 
@@ -442,23 +437,13 @@ ________________________________________________________________________________
  *
  * FB divider Modulus Portion: Range is 2d - 4,294,967,295d. Default is 4,294,966,784d
  *
- */
 /***************************************************************************************************************************************/
 
 
 
 void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned long Nmod){
 
-	/*
 
-	 Since the chip has 8-bit registers, the values for Nint, Nfrac, and Nmod are spread out across
-	 multiple (consecutive) registers. The code below breaks each argument down into single-byte
-	 pieces and sends them to their appropriate register.
-
-	*/
-
-
-	// Integer Portion
 	unsigned long Nint_top, Nint_bottom, Nint_bottom_word, Nint_top_word;
 
 	SplitNumber_16Bit(Nint, &Nint_top, &Nint_bottom);
@@ -469,7 +454,6 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 	sendWord_24Bit(Nint_bottom_word);
 	sendWord_24Bit(Nint_top_word);
 
-	// Fractional Portion
 	unsigned long Nfrac_top, Nfrac_upper_middle, Nfrac_lower_middle, Nfrac_bottom;
 	unsigned long Nfrac_top_word, Nfrac_uppermiddle_word, Nfrac_lowermiddle_word, Nfrac_bottom_word;
 
@@ -485,7 +469,7 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 	sendWord_24Bit(Nfrac_uppermiddle_word);
 	sendWord_24Bit(Nfrac_top_word);
 
-	// Modulus Portion
+
 	unsigned long Nmod_top, Nmod_upper_middle, Nmod_lower_middle, Nmod_bottom;
 	unsigned long Nmod_top_word, Nmod_uppermiddle_word, Nmod_lowermiddle_word, Nmod_bottom_word;
 

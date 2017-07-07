@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v15.12.5                    
 ******************************************************************************
->> Linked Thu Jul 06 11:48:08 2017
+>> Linked Fri Jul 07 14:29:14 2017
 
 OUTPUT FILE NAME:   <8V97003 Synth API.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00000461
@@ -11,7 +11,7 @@ MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00040000  000005d0  0003fa30  R  X
+  FLASH                 00000000   00040000  000005cc  0003fa34  R  X
   SRAM                  20000000   00008000  00000218  00007de8  RW X
 
 
@@ -21,7 +21,7 @@ run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
 00000000    00000000    000005d0   000005d0    r-x
   00000000    00000000    0000026c   0000026c    r-- .intvecs
-  0000026c    0000026c    0000033c   0000033c    r-x .text
+  0000026c    0000026c    00000338   00000338    r-x .text
   000005a8    000005a8    00000028   00000028    r-- .cinit
 20000000    20000000    00000218   00000000    rw-
   20000000    20000000    00000200   00000000    rw- .stack
@@ -36,7 +36,7 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    0000026c     
                   00000000    0000026c     tm4c123gh6pm_startup_ccs.obj (.intvecs)
 
-.text      0    0000026c    0000033c     
+.text      0    0000026c    00000338     
                   0000026c    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.obj (.text)
                   00000308    0000007a                                   : memset_t2.obj (.text)
                   00000382    00000002                                   : mpu_init.obj (.text)
@@ -51,8 +51,7 @@ section   page    origin      length       input sections
                   00000580    0000000e                                   : copy_decompress_none.obj (.text:decompress:none)
                   0000058e    0000000c     tm4c123gh6pm_startup_ccs.obj (.text)
                   0000059a    00000006     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_rle.obj (.text:decompress:rle24)
-                  000005a0    00000004     main.obj (.text)
-                  000005a4    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.obj (.text)
+                  000005a0    00000004                                   : pre_init.obj (.text)
 
 .cinit     0    000005a8    00000028     
                   000005a8    00000016     (.cinit..data.load) [load image, compression = rle]
@@ -77,9 +76,8 @@ MODULE SUMMARY
        ------                         ----   -------   -------
     .\
        tm4c123gh6pm_startup_ccs.obj   12     620       0      
-       main.obj                       4      0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         16     620       0      
+       Total:                         12     620       0      
                                                               
     C:\ti\ccsv6\tools\compiler\ti-cgt-arm_15.12.5.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
        memcpy_t2.obj                  156    0         0      
@@ -102,7 +100,7 @@ MODULE SUMMARY
        Stack:                         0      0         512    
        Linker Generated:              0      38        0      
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   828    658       536    
+       Grand Total:                   824    658       536    
 
 
 LINKER GENERATED COPY TABLES
@@ -163,14 +161,14 @@ ffffffff  __c_args__
 00000573  _register_lock                 
 0000056d  _register_unlock               
 0000045f  _system_post_cinit             
-000005a5  _system_pre_init               
+000005a1  _system_pre_init               
 20000210  _unlock                        
 000004b9  abort                          
 ffffffff  binit                          
 00000509  copy_in                        
 000004c1  exit                           
 00000000  g_pfnVectors                   
-000005a1  main                           
+UNDEFED   main                           
 20000214  main_func_sp                   
 0000026d  memcpy                         
 00000311  memset                         
@@ -209,8 +207,7 @@ address   name
 00000581  __TI_decompress_none           
 0000058f  ResetISR                       
 0000059b  __TI_decompress_rle24          
-000005a1  main                           
-000005a5  _system_pre_init               
+000005a1  _system_pre_init               
 000005c0  __TI_Handler_Table_Base        
 000005c8  __TI_CINIT_Base                
 000005c8  __TI_Handler_Table_Limit       
@@ -232,5 +229,6 @@ ffffffff  __c_args__
 ffffffff  binit                          
 UNDEFED   SHT$$INIT_ARRAY$$Base          
 UNDEFED   SHT$$INIT_ARRAY$$Limit         
+UNDEFED   main                           
 
 [52 symbols]

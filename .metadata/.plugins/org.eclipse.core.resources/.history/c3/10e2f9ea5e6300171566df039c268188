@@ -453,12 +453,11 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 
 	 Since the chip has 8-bit registers, the values for Nint, Nfrac, and Nmod are spread out across
 	 multiple (consecutive) registers. The code below breaks each argument down into single-byte
-	 pieces and sends them to their appropriate register.
+	 pieces and sends them to the appropriate register.
+
 
 	*/
 
-
-	// Integer Portion
 	unsigned long Nint_top, Nint_bottom, Nint_bottom_word, Nint_top_word;
 
 	SplitNumber_16Bit(Nint, &Nint_top, &Nint_bottom);
@@ -469,7 +468,7 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 	sendWord_24Bit(Nint_bottom_word);
 	sendWord_24Bit(Nint_top_word);
 
-	// Fractional Portion
+
 	unsigned long Nfrac_top, Nfrac_upper_middle, Nfrac_lower_middle, Nfrac_bottom;
 	unsigned long Nfrac_top_word, Nfrac_uppermiddle_word, Nfrac_lowermiddle_word, Nfrac_bottom_word;
 
@@ -485,7 +484,7 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 	sendWord_24Bit(Nfrac_uppermiddle_word);
 	sendWord_24Bit(Nfrac_top_word);
 
-	// Modulus Portion
+
 	unsigned long Nmod_top, Nmod_upper_middle, Nmod_lower_middle, Nmod_bottom;
 	unsigned long Nmod_top_word, Nmod_uppermiddle_word, Nmod_lowermiddle_word, Nmod_bottom_word;
 
