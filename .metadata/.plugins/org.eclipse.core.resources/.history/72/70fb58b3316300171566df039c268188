@@ -265,15 +265,12 @@ ________________________________________________________________________________
 SPI 3/4-Wire Mode:
 
 Selects the unidirectional or bidirectional data transfer mode for the SDIO pin.
-
 0 = SPI 3-wire mode:
 - SDIO is the SPI bidirectional data I/O pin
 - SDO pin is not used and is in high-impedance
-
 1 = SPI 4-wire mode
 - SDIO is the SPI data input pin
 - SDO is the SPI data output pin
-
 SDOActive bit D4 is mirrored with <SDOActive> in bit position D3. Changing
 SDOActive to SPI 4-wire mode requires setting both SDOActive and
 <SDOActive> bits.

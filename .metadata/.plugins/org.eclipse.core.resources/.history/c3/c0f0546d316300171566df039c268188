@@ -225,7 +225,7 @@ void InitPrefaceRegister(void){
            D               D
 
 
-___________________________________________________________________________________
+
 
 Soft Reset Function:
 
@@ -237,7 +237,6 @@ not reset.
 Soft reset bit D7 is mirrored with <Softreset> in bit position D0. Register reset
 requires setting both SoftReset and <SoftReset> bits.
 
-___________________________________________________________________________________
 
 Least Significant Bit Position:
 
@@ -248,7 +247,6 @@ LSBFirst bit D6 is mirrored with <LSBFirst> in bit position D1. Changing
 LSBFirst to most significant bit requires setting both LSBFirst and <LSBFirst>
 bits.
 
-___________________________________________________________________________________
 
 Address Ascend On:
 
@@ -260,25 +258,20 @@ AddressAscend bit D5 is mirrored with <AddressAscend> in bit position D2.
 Changing AddressAscend to “ON” requires to set both AddressAscend and
 <AddressAscend> bits
 
-___________________________________________________________________________________
 
 SPI 3/4-Wire Mode:
 
 Selects the unidirectional or bidirectional data transfer mode for the SDIO pin.
-
 0 = SPI 3-wire mode:
 - SDIO is the SPI bidirectional data I/O pin
 - SDO pin is not used and is in high-impedance
-
 1 = SPI 4-wire mode
 - SDIO is the SPI data input pin
 - SDO is the SPI data output pin
-
 SDOActive bit D4 is mirrored with <SDOActive> in bit position D3. Changing
 SDOActive to SPI 4-wire mode requires setting both SDOActive and
 <SDOActive> bits.
 
-___________________________________________________________________________________
 
 Read Back Mode of the Buffer Registers:
 
@@ -287,7 +280,6 @@ Read Back Mode of the Buffer Registers:
 register being read is not doubled buffered, a 1 value will read from the active
 register
 
-___________________________________________________________________________________
 
 */
 
