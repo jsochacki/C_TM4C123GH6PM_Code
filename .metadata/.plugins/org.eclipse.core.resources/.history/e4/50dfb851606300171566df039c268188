@@ -58,12 +58,7 @@
 /* Macros Specific to Register Programming */
 
 
-/*
-
- These define the address for each register so that it can be combined with a data byte to form the full 24-bit frame.
-  - All of the below register macros include the '0' MSB which indicates a write operation.
-
-*/
+// These define the address for each register so that it can be combined with a data byte to form the full 24-bit frame. These include the '0' MSB which indicates a write operation
 #define REG_10h 0x1000
 #define REG_11h 0x1100
 #define REG_12h 0x1200
