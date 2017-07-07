@@ -280,35 +280,6 @@ SDOActive to SPI 4-wire mode requires setting both SDOActive and
 
 ___________________________________________________________________________________
 
-
-
-
-            Register 1h
-
-+--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
-|  | |  | |  | |  | |  | |  | |  | |  |
-|D7| |D6| |D5| |D4| |D3| |D2| |D1| |D0|
-|  | |  | |  | |  | |  | |  | |  | |  |
-+--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
- U    U    B    U    U    U    U    U
- N    N    U    N    N    N    N    N
- U    U    F    U    U    U    U    U
- S    S    F    S    S    S    S    S
- E    E    E    E    E    E    E    E
- D    D    R    D    D    D    D    D
-
-           R
-           E
-           A
-           D
-
-           M
-           O
-           D
-           E
-
-___________________________________________________________________________________
-
 Read Back Mode of the Buffer Registers:
 
 0 = Read from active registers
@@ -317,8 +288,6 @@ register being read is not doubled buffered, a 1 value will read from the active
 register
 
 ___________________________________________________________________________________
-
-
 
 */
 
