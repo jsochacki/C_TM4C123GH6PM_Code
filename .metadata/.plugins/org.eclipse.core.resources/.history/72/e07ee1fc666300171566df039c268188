@@ -461,7 +461,7 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 	 pieces and sends them to their appropriate register.
 
 
-                               Feedback Control Register Map (ADDR is in hex)
+                                        Feedback Control Register Map
 
   +------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
   |            |           |           |           |           |           |           |           |           |
