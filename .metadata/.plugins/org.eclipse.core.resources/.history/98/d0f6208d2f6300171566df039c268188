@@ -247,7 +247,6 @@ LSBFirst bit D6 is mirrored with <LSBFirst> in bit position D1. Changing
 LSBFirst to most significant bit requires setting both LSBFirst and <LSBFirst>
 bits.
 
-
 Address Ascend On:
 
 0 = Address Ascend is off (Addresses auto-decrement in streaming SPI mode)
@@ -257,7 +256,6 @@ decremented in streaming SPI transfers.
 AddressAscend bit D5 is mirrored with <AddressAscend> in bit position D2.
 Changing AddressAscend to “ON” requires to set both AddressAscend and
 <AddressAscend> bits
-
 
 SPI 3/4-Wire Mode:
 
@@ -272,13 +270,34 @@ SDOActive bit D4 is mirrored with <SDOActive> in bit position D3. Changing
 SDOActive to SPI 4-wire mode requires setting both SDOActive and
 <SDOActive> bits.
 
-
 Read Back Mode of the Buffer Registers:
 
 0 = Read from active registers
 1 = Read from the Buffer Register (case of Doubled Buffer Registers); If the
 register being read is not doubled buffered, a 1 value will read from the active
 register
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 */
