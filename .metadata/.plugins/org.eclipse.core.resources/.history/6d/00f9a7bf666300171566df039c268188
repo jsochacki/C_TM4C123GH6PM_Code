@@ -454,14 +454,14 @@ ________________________________________________________________________________
 
 void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned long Nmod){
 
-/*
+	/*
 
 	 Since the chip has 8-bit registers, the values for Nint, Nfrac, and Nmod are spread out across
 	 multiple (consecutive) registers. The code below breaks each argument down into single-byte
 	 pieces and sends them to their appropriate register.
 
 
-                                        Feedback Control Register Map
+Feedback Control Register Map
 
   +------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
   |            |           |           |           |           |           |           |           |           |
