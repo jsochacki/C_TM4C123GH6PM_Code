@@ -43,17 +43,8 @@
 #define UPPER_8_BITS 0x00FF0000
 #define TOP_HALF_16_BIT 0xFF00
 #define BOTTOM_HALF_16_BIT 0x00FF
-#define TOP_8_32Bit 0xFF000000
-#define UPPER_MIDDLE_32Bit 0x00FF0000
-#define LOWER_MIDDLE_32Bit 0x0000FF00
-#define BOTTOM_8_32Bit 0x000000FF
 
 // Macros Specific to Register Programming
-#define REG_10h 0x1000
-#define REG_11h 0x1100
-#define REG_12h 0x1200
-#define REG_13h 0x1300
-#define REG_14h 0x1400
 #define SOFT_RESET 0x81
 #define READ_FROM_ACTIVE_REGISTERS 0x100
 
@@ -151,63 +142,6 @@ void setupSPI_8Bit(void){
 	MAP_SSIConfigSetExpClk(SSI0_BASE, MAP_SysCtlClockGet(), SSI_FRF_MOTO_MODE_0, SSI_MODE_MASTER, 500000, 8);
 
 	MAP_SSIEnable(SSI0_BASE);
-
-}
-
-
-
-/*******************************************************************************************************/
-/*            Splits 16-bit number into 2 8-bit data chunks for register programming
-/*******************************************************************************************************/
-
-void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigned long* bottom_half) {
-
-	unsigned short top = original & TOP_HALF_16_BIT;
-	unsigned short bottom = original & BOTTOM_HALF_16_BIT;
-
-	unsigned long top_32bit = top >> 8;
-	unsigned long bottom_32bit = bottom;
-
-	*top_half = top_32bit;
-	*bottom_half = bottom_32bit;
-}
-
-
-
-/*******************************************************************************************************/
-/*            Splits 32-bit number into 4 8-bit data chunks for register programming
-/*******************************************************************************************************/
-
-void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsigned long* upper_middle_portion, unsigned long* lower_middle_portion, unsigned long* bottom_portion){
-
-	unsigned long top = original & TOP_8_32Bit;
-	unsigned long upper_middle = original & UPPER_MIDDLE_32Bit;
-	unsigned long lower_middle = original & LOWER_MIDDLE_32Bit;
-	unsigned long bottom = original & BOTTOM_8_32Bit;
-
-	top = top >> 24;
-	upper_middle = upper_middle >> 16;
-	lower_middle = lower_middle >> 8;
-
-	*top_portion = top;
-	*upper_middle_portion = upper_middle;
-	*lower_middle_portion = lower_middle;
-	*bottom_portion = bottom;
-}
-
-
-
-/*******************************************************************************************************/
-/*            Creates properly formatted data word to program a particular register
-/*******************************************************************************************************/
-
-unsigned long Create24BitWord(unsigned long data, unsigned long reg){
-
-	unsigned long word;
-
-	word = data | reg;
-
-	return word;
 
 }
 
@@ -416,7 +350,17 @@ ________________________________________________________________________________
 
 void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned long Nmod){
 
+		unsigned short temp_top = Nint & TOP_HALF_16_BIT;
+		unsigned short temp_bottom = Nint & BOTTOM_HALF_16_BIT;
 
+		unsigned long Nint_top_half = temp_top >> 8;
+		unsigned long Nint_bottom_half = temp_bottom;
+
+		Nint_bottom_half = Nint_bottom_half | 0x10; // Register 10h
+		Nint_top_half = Nint_top_half | 0x11; // Register 11h
+
+		sendWord_24Bit(Nint_bottom_half);
+		sendWord_24Bit(Nint_top_half);
 
 
 

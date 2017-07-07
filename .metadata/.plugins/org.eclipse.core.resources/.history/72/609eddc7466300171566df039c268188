@@ -174,26 +174,11 @@ void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigne
 
 
 
-/*******************************************************************************************************/
-/*            Splits 32-bit number into 4 8-bit data chunks for register programming
-/*******************************************************************************************************/
 
-void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsigned long* upper_middle_portion, unsigned long* lower_middle_portion, unsigned long* bottom_portion){
 
-	unsigned long top = original & TOP_8_32Bit;
-	unsigned long upper_middle = original & UPPER_MIDDLE_32Bit;
-	unsigned long lower_middle = original & LOWER_MIDDLE_32Bit;
-	unsigned long bottom = original & BOTTOM_8_32Bit;
 
-	top = top >> 24;
-	upper_middle = upper_middle >> 16;
-	lower_middle = lower_middle >> 8;
 
-	*top_portion = top;
-	*upper_middle_portion = upper_middle;
-	*lower_middle_portion = lower_middle;
-	*bottom_portion = bottom;
-}
+
 
 
 
