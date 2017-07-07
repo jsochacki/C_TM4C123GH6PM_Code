@@ -54,33 +54,6 @@
 int cs_config;
 
 
-
-/*
-
-	+                                                                                                                                               +
-	+------------------------------------------------------+   24-BIT DATA WORD FORMAT   +----------------------------------------------------------+
-	+                                                                                                                                               +
-
-	+-----+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+
-	|     | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   |
-	| R/W | |A14| |A13| |A12| |A11| |A10| |A09| |A08| |A07| |A06| |A05| |A04| |A03| |A02| |A01| |A00| |D07| |D06| |D05| |D04| |D03| |D02| |D01| |D00|
-	|     | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   |
-	+-----+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+
-			|                                                                                       | |                                             |
-			|                                                                                       | |                                             |
-			|                            REGISTER LOCATION (15-BIT)                                 | |            REGISTER DATA (8-BIT)            |
-			+                                                                                       + +                                             +
-
-
- */
-
-
-
-
-
-
-
-
 /*******************************************************************************************************/
 /*                                 Initial clock setup routine
 /*******************************************************************************************************/
@@ -228,14 +201,12 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 		unsigned short temp_top = Nint & TOP_HALF_16_BIT;
 		unsigned short temp_bottom = Nint & BOTTOM_HALF_16_BIT;
 
-		unsigned long Nint_top_half = temp_top >> 8;
-		unsigned long Nint_bottom_half = temp_bottom;
+		uint32_t Nint_top_half = temp_top >> 8;
+		uint32_t Nint_bottom_half = temp_bottom;
 
-		Nint_bottom_half = Nint_bottom_half | 0x10; // Register 10h
-		Nint_top_half = Nint_top_half | 0x11; // Register 11h
 
-		sendWord_24Bit(Nint_bottom_half);
-		sendWord_24Bit(Nint_top_half);
+
+
 
 
 

@@ -41,8 +41,6 @@
 #define LOWER_8_BITS 0x000000FF
 #define MIDDLE_8_BITS 0x0000FF00
 #define UPPER_8_BITS 0x00FF0000
-#define TOP_HALF_16_BIT 0xFF00
-#define BOTTOM_HALF_16_BIT 0x00FF
 
 // Macros Specific to Register Programming
 #define SOFT_RESET 0x81
@@ -52,33 +50,6 @@
 
 // flag that makes sure chip select is asserted the correct way
 int cs_config;
-
-
-
-/*
-
-	+                                                                                                                                               +
-	+------------------------------------------------------+   24-BIT DATA WORD FORMAT   +----------------------------------------------------------+
-	+                                                                                                                                               +
-
-	+-----+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+
-	|     | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   |
-	| R/W | |A14| |A13| |A12| |A11| |A10| |A09| |A08| |A07| |A06| |A05| |A04| |A03| |A02| |A01| |A00| |D07| |D06| |D05| |D04| |D03| |D02| |D01| |D00|
-	|     | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   | |   |
-	+-----+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+ +---+
-			|                                                                                       | |                                             |
-			|                                                                                       | |                                             |
-			|                            REGISTER LOCATION (15-BIT)                                 | |            REGISTER DATA (8-BIT)            |
-			+                                                                                       + +                                             +
-
-
- */
-
-
-
-
-
-
 
 
 /*******************************************************************************************************/
@@ -201,7 +172,7 @@ void InitPrefaceRegister(void){
 
 
 
-/***************************************************************************************************************************************/
+/*******************************************************************************************************/
 /*                             Feedback Control Divider Registers
  *
  * The feedback divider N supports fractional division capability in the PLL feedback path. It consists
@@ -212,30 +183,14 @@ void InitPrefaceRegister(void){
  * (Nmod[31:0] in the Feedback Divider Control Registers) set the denominator of the fraction that goes
  * into the Sigma Delta modulator.
  *
- *
- * FB Divider Integer Portion: Minimum divide ratio is 7d. Default is 31d
- *
- * FB Divider Fractional Portion: Nfrac is the numerator value of the fractional divide ratio. It is programmable from 0 to (Nmod - 1).
- *
- * FB divider Modulus Portion: Range is 2d - 4,294,967,295d. Default is 4,294,966,784d
- *
-/***************************************************************************************************************************************/
+/*******************************************************************************************************/
 
 
 
 void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned long Nmod){
 
-		unsigned short temp_top = Nint & TOP_HALF_16_BIT;
-		unsigned short temp_bottom = Nint & BOTTOM_HALF_16_BIT;
 
-		unsigned long Nint_top_half = temp_top >> 8;
-		unsigned long Nint_bottom_half = temp_bottom;
 
-		Nint_bottom_half = Nint_bottom_half | 0x10; // Register 10h
-		Nint_top_half = Nint_top_half | 0x11; // Register 11h
-
-		sendWord_24Bit(Nint_bottom_half);
-		sendWord_24Bit(Nint_top_half);
 
 
 
