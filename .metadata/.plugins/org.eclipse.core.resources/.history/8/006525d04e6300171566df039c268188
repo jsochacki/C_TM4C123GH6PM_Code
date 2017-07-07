@@ -59,18 +59,13 @@
 #define REG_17h 0x1700
 #define REG_18h 0x1800
 #define REG_19h 0x1900
-#define REG_1Ah 0x1A00
-#define REG_1Bh 0x1B00
-#define REG_1Ch 0x1C00
-#define REG_1Dh 0x1D00
-#define REG_1Eh 0x1E00
-#define REG_1Fh 0x1F00
 #define REG_20h 0x2000
 #define REG_21h 0x2100
 #define REG_22h 0x2200
 #define REG_23h 0x2300
 #define REG_24h 0x2400
 #define REG_25h 0x2500
+
 
 #define SOFT_RESET 0x81
 #define READ_FROM_ACTIVE_REGISTERS 0x100
@@ -442,39 +437,10 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
 	Nint_bottom_word = Create24BitWord(Nint_bottom, REG_10h);
 	Nint_top_word = Create24BitWord(Nint_top, REG_11h);
 
-	sendWord_24Bit(Nint_bottom_word);
-	sendWord_24Bit(Nint_top_word);
-
-	unsigned long Nfrac_top, Nfrac_upper_middle, Nfrac_lower_middle, Nfrac_bottom;
-	unsigned long Nfrac_top_word, Nfrac_uppermiddle_word, Nfrac_lowermiddle_word, Nfrac_bottom_word;
-
-	SplitNumber_32Bit(Nfrac, &Nfrac_top, &Nfrac_upper_middle, &Nfrac_lower_middle, &Nfrac_bottom);
-
-	Nfrac_bottom_word = Create24BitWord(Nfrac_bottom, REG_12h);
-	Nfrac_lowermiddle_word = Create24BitWord(Nfrac_lower_middle, REG_13h);
-	Nfrac_uppermiddle_word = Create24BitWord(Nfrac_upper_middle, REG_14h);
-	Nfrac_top_word = Create24BitWord(Nfrac_top, REG_15h);
-
-	sendWord_24Bit(Nfrac_bottom_word);
-	sendWord_24Bit(Nfrac_lowermiddle_word);
-	sendWord_24Bit(Nfrac_uppermiddle_word);
-	sendWord_24Bit(Nfrac_top_word);
 
 
-	unsigned long Nmod_top, Nmod_upper_middle, Nmod_lower_middle, Nmod_bottom;
-	unsigned long Nmod_top_word, Nmod_uppermiddle_word, Nmod_lowermiddle_word, Nmod_bottom_word;
 
-	SplitNumber_32Bit(Nmod, &Nmod_top, &Nmod_upper_middle, &Nmod_lower_middle, &Nmod_bottom);
 
-	Nmod_bottom_word = Create24BitWord(Nmod_bottom, REG_16h);
-	Nmod_lowermiddle_word = Create24BitWord(Nmod_lower_middle, REG_17h);
-	Nmod_uppermiddle_word = Create24BitWord(Nmod_upper_middle, REG_18h);
-	Nmod_top_word = Create24BitWord(Nmod_top, REG_19h);
-
-	sendWord_24Bit(Nmod_bottom_word);
-	sendWord_24Bit(Nmod_lowermiddle_word);
-	sendWord_24Bit(Nmod_uppermiddle_word);
-	sendWord_24Bit(Nmod_top_word);
 
 }
 
