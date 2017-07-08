@@ -567,45 +567,21 @@ void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned
  *                               Default: 2,560d
  *                               Range: 1d - 131,071d
  *
- *   This ratio should be set so that F_pfd / BndSelDiv is < 100kHz.
+ *   This ratio should be set so that Fpfd / BndSelDiv is < 100kHz.
  */
 /*******************************************************************************************************/
 
 void SetBandSelectClockDivider(unsigned short divider_value){
 
 
-/*
-
-                                                    Band Select Clock Diver Control Register Map
-
-  +------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
-  |      |                |                |                |                |                |                |                |                |
-  | ADDR |       D7       |       D6       |       D5       |       D4       |       D3       |       D2       |       D1       |       D0       |
-  |      |                |                |                |                |                |                |                |                |
-  +----------------------------------------------------------------------------------------------------------------------------------------------+
-  |      |                |                |                |                |                |                |                |                |
-  | 0022 | BndSelDiv <07> | BndSelDiv <06> | BndSelDiv <05> | BndSelDiv <04> | BndSelDiv <03> | BndSelDiv <02> | BndSelDiv <01> | BndSelDiv <00> |
-  |      |                |                |                |                |                |                |                |                |
-  +----------------------------------------------------------------------------------------------------------------------------------------------+
-  |      |                |                |                |                |                |                |                |                |
-  | 0023 |     Unused     |     Unused     |     Unused     | BndSelDiv <12> | BndSelDiv <11> | BndSelDiv <10> | BndSelDiv <09> | BndSelDiv <08> |
-  |      |                |                |                |                |                |                |                |                |
-  +------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
 
 
 
-*/
-
-	unsigned long upper, lower, upper_word, lower_word;
-
-	SplitNumber_16Bit(divider_value, &upper, &lower);
-
-	lower_word = Create24BitWord(lower, REG_22h);
-	upper_word = Create24BitWord(upper, REG_23h);
 
 
-	sendWord_24Bit(lower_word);
-	sendWord_24Bit(upper_word);
+
+
+
 
 }
 

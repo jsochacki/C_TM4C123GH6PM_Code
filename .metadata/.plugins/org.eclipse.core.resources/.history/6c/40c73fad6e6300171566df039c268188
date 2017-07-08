@@ -594,18 +594,22 @@ void SetBandSelectClockDivider(unsigned short divider_value){
 
 
 
-*/
-
-	unsigned long upper, lower, upper_word, lower_word;
-
-	SplitNumber_16Bit(divider_value, &upper, &lower);
-
-	lower_word = Create24BitWord(lower, REG_22h);
-	upper_word = Create24BitWord(upper, REG_23h);
 
 
-	sendWord_24Bit(lower_word);
-	sendWord_24Bit(upper_word);
+
+
+
+
+
+
+ */
+
+
+
+
+
+
+
 
 }
 
