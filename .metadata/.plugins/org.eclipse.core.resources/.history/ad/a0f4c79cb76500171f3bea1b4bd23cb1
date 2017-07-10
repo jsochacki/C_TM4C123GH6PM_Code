@@ -731,17 +731,15 @@ ________________________________________________
 		bleeder_with_HiZ = icp_bleeder | CP_HIGH_Z;
 
 		icp_bleeder_word = Create24BitWord(bleeder_with_HiZ, REG_2Fh);
-	}
 
-	else{
-
-		icp_bleeder_word = Create24BitWord(icp_bleeder, REG_2Fh);
 	}
 
 
-	sendWord_24Bit(icp_pmos_word);
-	sendWord_24Bit(icp_nmos_word);
-	sendWord_24Bit(icp_bleeder_word);
+
+
+
+
+
 
 }
 

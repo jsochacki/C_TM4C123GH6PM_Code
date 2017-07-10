@@ -86,18 +86,6 @@
 #define REG_23h 0x2300
 #define REG_24h 0x2400
 #define REG_25h 0x2500
-#define REG_26h 0x2600
-#define REG_27h 0x2700
-#define REG_28h 0x2800
-#define REG_29h 0x2900
-#define REG_2Ah 0x2A00
-#define REG_2Bh 0x2B00
-#define REG_2Ch 0x2C00
-#define REG_2Dh 0x2D00
-#define REG_2Eh 0x2E00
-#define REG_2Fh 0x2F00
-#define REG_30h 0x3000
-
 
 // Sets the Soft Reset pins in Register 0h. Further explained in the InitPrefaceRegister function comments
 #define SOFT_RESET 0x81
@@ -105,8 +93,7 @@
 // Sets the Read From Active Registers pin inside Register 1h. Further explained in the InitPrefaceRegister function comments
 #define READ_FROM_ACTIVE_REGISTERS 0x100
 
-// Charge Pump High Impedance Macros
-#define CP_HIGH_Z 0x00000020
+
 
 // flag that makes sure chip select is asserted the correct way
 int cs_config;
@@ -625,123 +612,21 @@ void SetBandSelectClockDivider(unsigned short divider_value){
 
 
 
-void SetupChargePump(unsigned long icp_pmos, unsigned long icp_nmos, bool CP_HiZ, unsigned long icp_bleeder){
-
-
-/*
-
-                                                             Charge Pump Control Register Map
-
-  +----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
-  |                |                |                |                |                |                |                |                |                |
-  |      ADDR      |       D7       |       D6       |       D5       |       D4       |       D3       |       D2       |       D1       |       D0       |
-  |                |                |                |                |                |                |                |                |                |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                |                |                |                |                |                |                |                |                |
-  |      002D      |     UNUSED     |     UNUSED     |   Icp_pmos<5>  |   Icp_pmos<4>  |   Icp_pmos<3>  |   Icp_pmos<2>  |   Icp_pmos<1>  |   Icp_pmos<0>  |
-  |                |                |                |                |                |                |                |                |                |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                |                |                |                |                |                |                |                |                |
-  |      002E      |     UNUSED     |     UNUSED     |   Icp_nmos<5>  |   Icp_nmos<4>  |   Icp_nmos<3>  |   Icp_nmos<2>  |   Icp_nmos<1>  |   Icp_nmos<0>  |
-  |                |                |                |                |                |                |                |                |                |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                |                |                |                |                |                |                |                |                |
-  |      002F      |     UNUSED     |     UNUSED     |     CP_HiZ     | Icp_bleeder<4> | Icp_bleeder<3> | Icp_bleeder<2> | Icp_bleeder<1> | Icp_bleeder<0> |
-  |                |                |                |                |                |                |                |                |                |
-  +----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
-
-
- In order to put the charge pump into three-state mode, the user must set the bits CP_HiZ (Bit D5) to 1 in Register 47d in the Charge Pump Control Registers.
-
- This bit should be set to 0 for normal operation.
-
-________________________________________________
-
- Charge Pump Pmos Current Setting:
-
- 00 0000 = 166 uA
-
- 00 0001 = 333 uA
-
- ...
-
- 01 1101 = 5 mA (default)
-
- ...
-
- 11 1111 = 10.66 mA
-
-________________________________________________
-
- Charge Pump Nmos Current Setting
-
- 00 0000 = 166 uA
-
- 00 0001 = 333 uA
-
- ...
-
- 01 1101 = 5 mA (default)
-
- ...
-
- 01 1111 = 10.66 mA
-
-________________________________________________
-
- Charge Pump High-Impedance Control
-
- 0 = Charge Pump Active
-
- 1 = Charge Pump High-Impedance
+void SetupChargePump(uint8_t icp_pmos, uint8_t icp_nmos, uint8_t CP_HiZ, uint8_t icp_bleeder){
 
 
 
- Charge Pump High Impedance Macros:
-
- CP_HIGH_Z 0x00000020
-
-________________________________________________
-
- Charge Pump Bleeder Current Setting
-
- 0 0000 = Off (0 uA) (Default)
-
- 0 0001 = 5.3 uA
-
- 0 0010 = 10.6 uA
-
- ...
-
- 1 1111 = 166 uA
-
-________________________________________________
-
-*/
 
 
-	unsigned long icp_pmos_word, icp_nmos_word, icp_bleeder_word, bleeder_with_HiZ;
-
-	icp_pmos_word = Create24BitWord(icp_pmos, REG_2Dh);
-	icp_nmos_word = Create24BitWord(icp_nmos, REG_2Eh);
 
 
-	if(CP_HiZ){
-
-		bleeder_with_HiZ = icp_bleeder | CP_HIGH_Z;
-
-		icp_bleeder_word = Create24BitWord(bleeder_with_HiZ, REG_2Fh);
-	}
-
-	else{
-
-		icp_bleeder_word = Create24BitWord(icp_bleeder, REG_2Fh);
-	}
 
 
-	sendWord_24Bit(icp_pmos_word);
-	sendWord_24Bit(icp_nmos_word);
-	sendWord_24Bit(icp_bleeder_word);
+
+
+
+
+
 
 }
 
