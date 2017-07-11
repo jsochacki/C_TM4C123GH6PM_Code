@@ -97,6 +97,31 @@
 #define REG_2Eh 0x2E00
 #define REG_2Fh 0x2F00
 #define REG_30h 0x3000
+#define REG_31h 0x3100
+#define REG_32h 0x3200
+#define REG_33h 0x3300
+#define REG_34h 0x3400
+#define REG_35h 0x3500
+#define REG_36h 0x3600
+#define REG_37h 0x3700
+#define REG_38h 0x3800
+#define REG_39h 0x3900
+#define REG_3Ah 0x3A00
+#define REG_3Bh 0x3B00
+#define REG_3Ch 0x3C00
+#define REG_3Dh 0x3D00
+#define REG_3Eh 0x3E00
+#define REG_3Fh 0x3F00
+#define REG_40h 0x4000
+#define REG_41h 0x4100
+#define REG_42h 0x4200
+#define REG_43h 0x4300
+#define REG_44h 0x4400
+#define REG_45h 0x4500
+#define REG_46h 0x4600
+#define REG_47h 0x4700
+#define REG_48h 0x4800
+#define REG_49h 0x4900
 
 
 // Sets the Soft Reset pins in Register 0h. Further explained in the InitPrefaceRegister function comments
@@ -105,8 +130,18 @@
 // Sets the Read From Active Registers pin inside Register 1h. Further explained in the InitPrefaceRegister function comments
 #define READ_FROM_ACTIVE_REGISTERS 0x100
 
-// Charge Pump High Impedance Macros
+// Charge Pump Register: High Impedance Macro
 #define CP_HIGH_Z 0x00000020
+
+// Output Control Register Macros
+#define QA_ENABLE_MUTE_UNTIL_LOCK_DETECT 0x38
+#define QA_ENABLE_NO_MUTE 0x18
+#define QB_ENABLE 0x18
+#define MUTE_UNTIL_LOCK_DETECT_WITHOUT_QA_ENABLED 0x28
+#define DISABLE_MUTE_WITHOUT_QA_ENABLED 0x08
+#define OutputDoublerEnable 0x80
+
+
 
 // flag that makes sure chip select is asserted the correct way
 int cs_config;
@@ -747,10 +782,239 @@ ________________________________________________
 
 
 
+void SetupOutputControl(bool QA_enable, unsigned long QA_power, bool QB_enable, unsigned long QB_power, bool MuteUntil_LockDetect, bool OutDoublerEnable, unsigned long OutDivider){
+
+/*
+
+  The 8V97003 device provides two differential outputs. These two outputs generate the same frequency equal to f_VCO when bypassing the optional output doubler
+  and the optional output divider M0, or to 2 × f_VCO (up to 18GHz) when using the optional output doubler, or an integer division of the VCO frequency f_VCO.
+  The division ratios of the output divider are provided in the Outputs Control Registers (see below).
+
+  Each output buffer RF_OUTA and RF_OUTB offer a programmable RF output power. The programmable output power settings can be selected from -2dBm to +12dBm with steps of 2dBm.
+  The RF output power can be programmed via the bits QA_pwr[7:0] and QB_pwr[7:0].
+
+  The 8V97003 offers an auxiliary output (RF_OUTB). If the auxiliary output stage is not used, it can be powered down by using the QB_Ena bit in the Outputs Control Registers
+  (refer to below register map). The outputs can be disabled until the part achieves lock. To enable this mode, the user will set the Mute_until_LD bit in the Outputs Control
+  Registers (refer to below register map). The MUTE pin can be used to mute all outputs and be used as a similar function.
+
+
+                                                               Output Control Register Map
+
+  +---------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     ADDR      |       D7       |       D6       |       D5       |       D4       |       D3       |       D2       |       D1       |       D0       |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     0033      |    QA_pwr<7>   |    QA_pwr<6>   |    QA_pwr<5>   |    QA_pwr<4>   |    QA_pwr<3>   |    QA_pwr<2>   |    QA_pwr<1>   |    QA_pwr<0>   |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     0034      |       0        |     UNUSED     | Mute_Until_LD  |     QA_ena     |       1        |       0        |       0        |       0        |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     0035      |   QB_pwr<7>    |    QB_pwr<6>   |    QB_pwr<5>   |    QB_pwr<4>   |    QB_pwr<3>   |    QB_pwr<2>   |    QB_pwr<1>   |    QB_pwr<0>   |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     0036      |       0        |     UNUSED     |     UNUSED     |     QB_ena     |       1        |       0        |       0        |       0        |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     0037      |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     0038      |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     0039      |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     003A      |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |    RESERVED    |
+  |               |                |                |                |                |                |                |                |                |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |               |                |                |                |                |                |                |                |                |
+  |     003B      | OutDoubler_Ena |     UNUSED     |     UNUSED     |     UNUSED     |     UNUSED     |   OutDiv <2>   |   OutDiv <1>   |   OutDiv <0>   |
+  |               |                |                |                |                |                |                |                |                |
+  +---------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+
+
+__________________________________________________________________________________
+
+ QA_Power:
+
+ RF_OUTA Power Setting
+
+ 0000 0000 = OFF (Default)
+ 0000 0001 = -2dBm
+ 0000 0011 = 0dBm
+ 0000 0111 = +2dBm
+ 0000 1111 = +4dBm
+ 0001 1111 = +6dBm
+ 0011 1111 = +8dBm
+ 0111 1111 = +10dBm
+ 1111 1111 = +12dBm
+
+__________________________________________________________________________________
+
+ QA_ena:
+
+ RF_OUTA Enable
+
+ 0 = RF_OUTA is OFF (Default)
+ 1 = RF_OUTA is Enabled
+
+__________________________________________________________________________________
+
+ QB_Power:
+
+ RF_OUTB Power Setting
+
+ 0000 0000 = OFF (Default)
+ 0000 0001 = -2dBm
+ 0000 0011 = 0dBm
+ 0000 0111 = +2dBm
+ 0000 1111 = +4dBm
+ 0001 1111 = +6dBm
+ 0011 1111 = +8dBm
+ 0111 1111 = +10dBm
+ 1111 1111 = +12dBm
+
+__________________________________________________________________________________
+
+ QB_ena:
+
+ RF_OUTB Enable
+
+ 0 = RF_OUTB is OFF (Default)
+ 1 = RF_OUTB is Enabled
+
+__________________________________________________________________________________
+
+ Mute_Until_LD:
+
+ Mute until Lock Detect selection
+
+ 0: Outputs are enabled independent of Lock Detect (Default)
+ 1: Outputs are enabled only when Lock Detect is high
+
+__________________________________________________________________________________
+
+ Out_Doubler_Ena:
+
+ RF Output Doubler Enable
+
+ 0 = RF Output Doubler Disabled (default)
+ 1 = RF Output Doubler Enabled
+
+ OutDoubler_Ena may only be set to 1 if the VCO frequency is not greater than 9GHz.
+
+__________________________________________________________________________________
+
+ OutDivider:
+
+ RF Output Divider Settings
+
+ 000 = Divide By 1
+ 001 = Divide By 2
+ 010 = Divide By 4
+ 011 = Divide By 8
+ 100 = Divide By 16
+ 101 = Divide By 32
+ 110 = Unused
+ 111 = Unused
+
+__________________________________________________________________________________
+
+
+*/
+
+
+	if(QA_enable){
+
+		unsigned long QA_power_word, QA_enable_word;
+
+		QA_power_word = Create24BitWord(QA_power, REG_33h);
+
+		sendWord_24Bit(QA_power_word);
+
+		if(MuteUntil_LockDetect){ QA_enable_word = Create24BitWord(QA_ENABLE_MUTE_UNTIL_LOCK_DETECT, REG_34h); }
+
+		else{ QA_enable_word = Create24BitWord(QA_ENABLE_NO_MUTE, REG_34h); }
+
+		sendWord_24Bit(QA_enable_word);
+
+	}
+
+	if(QB_enable){
+
+		unsigned long QB_power_word, QB_enable_word, Enable_MuteUntilLockDetect_WithoutQA_word, Disable_MuteUntilLockDetect_WithoutQA_word;
+
+		QB_power_word = Create24BitWord(QB_power, REG_35h);
+
+		sendWord_24Bit(QB_power_word);
+
+		if(QA_enable){
+
+			// QA already set the MuteUntilLockDetect bit to the appropriate value, so we only need to enable the QB_enable bit
+			QB_enable_word = Create24BitWord(QB_ENABLE, REG_36h);
+			sendWord_24Bit(QB_enable_word);
+
+		}
+
+		else if(MuteUntil_LockDetect){
+
+			// Set the MuteUntilLockDetect Bit inside register 34h since QA didn't set it already
+			Enable_MuteUntilLockDetect_WithoutQA_word = Create24BitWord(MUTE_UNTIL_LOCK_DETECT_WITHOUT_QA_ENABLED, REG_34h);
+			sendWord_24Bit(Enable_MuteUntilLockDetect_WithoutQA_word);
+
+			// Set the QB_enable pin
+			QB_enable_word = Create24BitWord(QB_ENABLE, REG_36h);
+			sendWord_24Bit(QB_enable_word);
+
+		}
+
+		else if(!MuteUntil_LockDetect){
+
+			// Clear the MuteUntilLockDetect Bit inside register 34h since QA didn't do it already
+			Disable_MuteUntilLockDetect_WithoutQA_word = Create24BitWord(DISABLE_MUTE_WITHOUT_QA_ENABLED, REG_34h);
+			sendWord_24Bit(Disable_MuteUntilLockDetect_WithoutQA_word);
+
+			// Set the QB_enable pin
+			QB_enable_word = Create24BitWord(QB_ENABLE, REG_36h);
+			sendWord_24Bit(QB_enable_word);
+
+		}
+
+	}
+
+	unsigned long output_divider_word, output_divider_value;
+
+	if(OutDoublerEnable){
+
+		output_divider_value = OutDivider | OutputDoublerEnable;
+		output_divider_word = Create24BitWord(output_divider_value, REG_3Bh);
+		sendWord_24Bit(output_divider_word);
+	}
+
+	else{
+		output_divider_word = Create24BitWord(OutDivider, REG_3Bh);
+		sendWord_24Bit(output_divider_word);
+	}
+
+
+
+}
 
 
 
 
+
+// New Function Here
 
 
 
