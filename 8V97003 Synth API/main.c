@@ -173,7 +173,9 @@ int cs_config;
 
 
 
+void main(void){
 
+}
 
 
 
@@ -1064,11 +1066,12 @@ ________________________________________________________________________
  010 = 1.8
  011 = 3.0
  100 = 6.4
- 101 = 6.4
+ 101 = 6.4*
  110 = 10.4
- 111 = 10.4
+ 111 = 10.4*
 
- These values are under review because they don't really make sense rn
+ *The duplicate values are correct, according to the chip manufacturer.
+          There are redundant settings for this parameter.
 ________________________________________________________________________
 
 
@@ -1186,7 +1189,90 @@ void SetPhaseAdjustment(unsigned long PhaseAdjustment){
 
 
 
+void CalibrationControl(bool ForceRelock, bool PhaseAdjustTrigger, bool BandSelectDisable, unsigned long BandSelectAccuracy){
 
+
+/*
+
+                                                                     Calibration Control Register Map
+
+  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  |       ADDR       |        D7        |        D6        |        D5        |        D4        |        D3        |        D2        |        D1        |        D0        |
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  |       0021       |   ForceRelock    |   PhaseAdjTrig   |  BandSelDisable  |      UNUSED      |        0         |        0         |   BandSelAcc<1>  |   BandSelAcc<0>  |
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
+
+
+____________________________________________________________________________
+
+ ForceRelock
+
+ 0 = Normal operation (Default)
+ 1 = VCO forced to recalibrate.
+
+ This bit is self-clearing.
+
+____________________________________________________________________________
+
+ Phase Adjust Trigger
+
+ 0 = Normal operation
+ 1 = Trigger phase adjustment once.
+
+ This bit is self-clearing.
+
+____________________________________________________________________________
+
+ Band Select Disable
+
+ This bit will prevent a VCO recalibration when registers 16:25 are written
+   - Registers 16:25 are the feedback divider values Nint, Nfrac, & Nmod
+
+ 0 = VCO recalibrates when registers 16:25 are written
+ 1 = VCO does not recalibrate when registers 16:25 are written
+
+____________________________________________________________________________
+
+Band select/Calibration Accuracy
+
+00 = 1x resolution
+01 = 2x resolution
+10 = 4x resolution
+11 = 8x resolution (default)
+
+____________________________________________________________________________
+
+
+
+*/
+
+
+	unsigned long FR_Part, PAT_Part, BSD_Part, Calibration, Calibration_word;
+
+	// To reduce code complexity and size, i'm checking all three booleans individually and OR-ing them together at the end
+
+	if(ForceRelock){ FR_Part = 0x80; }
+	else if(!ForceRelock){ FR_Part = 0x00; }
+
+	if(PhaseAdjustTrigger){PAT_Part = 0x40; }
+	else if(!PhaseAdjustTrigger){PAT_Part = 0x00; }
+
+	if(BandSelectDisable){BSD_Part = 0x20; }
+	else if(!BandSelectDisable){ BSD_Part = 0x00; }
+
+	Calibration = FR_Part | PAT_Part | BSD_Part | BandSelectAccuracy;
+
+	Calibration_word = Create24BitWord(Calibration, REG_21h);
+
+	sendWord_24Bit(Calibration_word);
+
+
+
+}
 
 
 
