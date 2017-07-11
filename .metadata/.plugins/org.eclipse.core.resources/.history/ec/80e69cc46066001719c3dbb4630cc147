@@ -141,10 +141,6 @@
 #define DISABLE_MUTE_WITHOUT_QA_ENABLED 0x08
 #define OutputDoublerEnable 0x80
 
-// Lock Detection Control Register Macros
-#define UNLOCK_DETECTION 0x08
-#define NO_UNLOCK_DETECTION 0x00
-
 
 
 // flag that makes sure chip select is asserted the correct way
@@ -1017,87 +1013,7 @@ ________________________________________________________________________________
 
 
 
-void SetupLockDetect(bool Unlock_Detection, unsigned long LD_PinMode, unsigned long LD_Precision){
 
-/*
-
-
-                                                                        Lock Detect Control Register Map
-
-  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       ADDR       |        D7        |        D6        |        D5        |        D4        |        D3        |        D2        |        D1        |        D0        |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       0026       |      UNUSED      |      UNUSED      |      UNUSED      |      UNUSED      | LDUnlockDetectEn |        0         |        0         |       0          |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       0027       |      UNUSED      |      UNUSED      |   LDPinMode<1>   |   LDPinMode<0>   |      UNUSED      |      LPD<2>      |      LPD<1>      |      LPD<0>      |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
-
-
-________________________________________________________________________
-
- Lock Detect - Unlock Detection
-
- 0 = Disable (default)
- 1 = Enable (a recalibration occurs if an unlock on LD is detected)
-
-________________________________________________________________________
-
- LD Pin Mode
-
- 00 = Digital Lock Detect (default); Normal lock detector function
- 01 = Calibration done
- 10 = Low
- 11 = High
-
-________________________________________________________________________
-
- Lock Detector Precision setting (ns)
-
- 000 = 0.5 (default)
- 001 = 1.0
- 010 = 1.8
- 011 = 3.0
- 100 = 6.4
- 101 = 6.4
- 110 = 10.4
- 111 = 10.4
-
- These values are under review because they don't really make sense rn
-________________________________________________________________________
-
-
-*/
-
-	unsigned long unlock_detection_word, LD_PinMode_and_Precision, LD_PinMode_and_Precision_word;
-
-	if(Unlock_Detection){
-
-		unlock_detection_word = Create24BitWord(UNLOCK_DETECTION, REG_26h);
-		sendWord_24Bit(unlock_detection_word);
-	}
-
-	else if(!Unlock_Detection){
-
-		unlock_detection_word = Create24BitWord(NO_UNLOCK_DETECTION, REG_26h);
-		sendWord_24Bit(unlock_detection_word);
-	}
-
-	LD_PinMode = LD_PinMode << 4;
-
-	LD_PinMode_and_Precision = LD_PinMode | LD_Precision;
-
-	LD_PinMode_and_Precision_word = Create24BitWord(LD_PinMode_and_Precision, REG_27h);
-
-	sendWord_24Bit(LD_PinMode_and_Precision_word);
-
-
-}
 
 
 

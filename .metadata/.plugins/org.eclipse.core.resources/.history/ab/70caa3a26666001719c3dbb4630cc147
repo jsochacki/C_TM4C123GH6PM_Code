@@ -1074,7 +1074,7 @@ ________________________________________________________________________
 
 */
 
-	unsigned long unlock_detection_word, LD_PinMode_and_Precision, LD_PinMode_and_Precision_word;
+	unsigned long unlock_detection_word;
 
 	if(Unlock_Detection){
 
@@ -1088,13 +1088,14 @@ ________________________________________________________________________
 		sendWord_24Bit(unlock_detection_word);
 	}
 
-	LD_PinMode = LD_PinMode << 4;
 
-	LD_PinMode_and_Precision = LD_PinMode | LD_Precision;
 
-	LD_PinMode_and_Precision_word = Create24BitWord(LD_PinMode_and_Precision, REG_27h);
 
-	sendWord_24Bit(LD_PinMode_and_Precision_word);
+
+
+
+
+
 
 
 }

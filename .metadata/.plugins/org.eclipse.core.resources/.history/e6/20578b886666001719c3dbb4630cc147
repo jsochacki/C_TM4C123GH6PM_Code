@@ -143,7 +143,6 @@
 
 // Lock Detection Control Register Macros
 #define UNLOCK_DETECTION 0x08
-#define NO_UNLOCK_DETECTION 0x00
 
 
 
@@ -1074,27 +1073,21 @@ ________________________________________________________________________
 
 */
 
-	unsigned long unlock_detection_word, LD_PinMode_and_Precision, LD_PinMode_and_Precision_word;
+	unsigned long unlock_detection_word;
 
 	if(Unlock_Detection){
 
 		unlock_detection_word = Create24BitWord(UNLOCK_DETECTION, REG_26h);
-		sendWord_24Bit(unlock_detection_word);
 	}
 
-	else if(!Unlock_Detection){
 
-		unlock_detection_word = Create24BitWord(NO_UNLOCK_DETECTION, REG_26h);
-		sendWord_24Bit(unlock_detection_word);
-	}
 
-	LD_PinMode = LD_PinMode << 4;
 
-	LD_PinMode_and_Precision = LD_PinMode | LD_Precision;
 
-	LD_PinMode_and_Precision_word = Create24BitWord(LD_PinMode_and_Precision, REG_27h);
 
-	sendWord_24Bit(LD_PinMode_and_Precision_word);
+
+
+
 
 
 }

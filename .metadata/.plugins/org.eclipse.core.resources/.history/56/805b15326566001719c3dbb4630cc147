@@ -141,10 +141,6 @@
 #define DISABLE_MUTE_WITHOUT_QA_ENABLED 0x08
 #define OutputDoublerEnable 0x80
 
-// Lock Detection Control Register Macros
-#define UNLOCK_DETECTION 0x08
-#define NO_UNLOCK_DETECTION 0x00
-
 
 
 // flag that makes sure chip select is asserted the correct way
@@ -1022,7 +1018,7 @@ void SetupLockDetect(bool Unlock_Detection, unsigned long LD_PinMode, unsigned l
 /*
 
 
-                                                                        Lock Detect Control Register Map
+                                                                          Lock Detect Control Register Map
 
   +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
   |                  |                  |                  |                  |                  |                  |                  |                  |                  |
@@ -1039,14 +1035,14 @@ void SetupLockDetect(bool Unlock_Detection, unsigned long LD_PinMode, unsigned l
   +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
 
 
-________________________________________________________________________
+____________________________________________________________________
 
- Lock Detect - Unlock Detection
+ Unlock Detection
 
  0 = Disable (default)
  1 = Enable (a recalibration occurs if an unlock on LD is detected)
 
-________________________________________________________________________
+____________________________________________________________________
 
  LD Pin Mode
 
@@ -1055,7 +1051,7 @@ ________________________________________________________________________
  10 = Low
  11 = High
 
-________________________________________________________________________
+____________________________________________________________________
 
  Lock Detector Precision setting (ns)
 
@@ -1069,32 +1065,22 @@ ________________________________________________________________________
  111 = 10.4
 
  These values are under review because they don't really make sense rn
-________________________________________________________________________
+____________________________________________________________________
 
 
 */
 
-	unsigned long unlock_detection_word, LD_PinMode_and_Precision, LD_PinMode_and_Precision_word;
 
-	if(Unlock_Detection){
 
-		unlock_detection_word = Create24BitWord(UNLOCK_DETECTION, REG_26h);
-		sendWord_24Bit(unlock_detection_word);
-	}
 
-	else if(!Unlock_Detection){
 
-		unlock_detection_word = Create24BitWord(NO_UNLOCK_DETECTION, REG_26h);
-		sendWord_24Bit(unlock_detection_word);
-	}
 
-	LD_PinMode = LD_PinMode << 4;
 
-	LD_PinMode_and_Precision = LD_PinMode | LD_Precision;
 
-	LD_PinMode_and_Precision_word = Create24BitWord(LD_PinMode_and_Precision, REG_27h);
 
-	sendWord_24Bit(LD_PinMode_and_Precision_word);
+
+
+
 
 
 }
