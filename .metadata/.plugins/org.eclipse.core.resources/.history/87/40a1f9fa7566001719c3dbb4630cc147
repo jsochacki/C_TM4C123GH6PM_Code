@@ -1105,81 +1105,32 @@ ________________________________________________________________________
 
 
 
-void SetPhaseAdjustment(unsigned long PhaseAdjustment){
-
-/*
-
-
- The 8V97003 offers the possibility to adjust the phase delay between the outputs (RF_OUT/ nRF_OUT) and the input (REF_IN)
- of the device by shifting the output phase by a fraction of the size of the fractional denominator, when the part is used
- in fractional mode. Writing to the Phase Adjustment Control Registers triggers a phase shift (refer to below table).
- The phase adjustment value set by the bits, Phase[31:0], should be less than the fractional-N denominator register, MOD.
- The actual phase shift can be obtained with the following equation:
-
-
-
-
-                                      Phase     T_pfd
- Phase Adjustment (degrees) =  360 X ------- X -------
-                                       MOD      T_out
-
-
-           OR
-
-                                   Phase
- Phase Adjustment (ns) =  T_pfd X -------
-                                    MOD
-
-
-
- Where 360° represents one cycle of output clock, T_pfd is the period at the input to the PFD (in ns), T_out is the period at the
- output of the 8V97003, and Phase is a programmable value, the same bit length as MOD.
+void SetPhaseAdjustment(unsigned long phase_adjustment){
 
 
 
 
 
-                                                                        Phase Adjustment Register Map
-
-  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       ADDR       |        D7        |        D6        |        D5        |        D4        |        D3        |        D2        |        D1        |        D0        |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       001A       |     Phase<7>     |     Phase<6>     |    Phase<5>      |    Phase<4>      |    Phase<3>      |    Phase<2>      |    Phase<1>      |    Phase<0>      |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       001B       |    Phase<15>     |    Phase<14>     |    Phase<13>     |    Phase<12>     |    Phase<11>     |    Phase<10>     |     Phase<9>     |     Phase<8>     |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       001C       |    Phase<23>     |    Phase<22>     |    Phase<21>     |    Phase<20>     |    Phase<19>     |    Phase<18>     |    Phase<17>     |    Phase<16>     |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  |       001D       |    Phase<31>     |    Phase<30>     |    Phase<29>     |    Phase<28>     |    Phase<27>     |    Phase<26>     |    Phase<25>     |    Phase<24>     |
-  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
-  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
 
 
-*/
 
-	unsigned long top, upper_middle, lower_middle, bottom;
-	unsigned long top_word, upper_middle_word, lower_middle_word, bottom_word;
 
-	SplitNumber_32Bit(PhaseAdjustment, &top, &upper_middle, &lower_middle, &bottom);
 
-	bottom_word = Create24BitWord(bottom, REG_1Ah);
-	lower_middle_word = Create24BitWord(lower_middle, REG_1Bh);
-	upper_middle_word = Create24BitWord(upper_middle, REG_1Ch);
-	top_word = Create24BitWord(top, REG_1Dh);
 
-	sendWord_24Bit(bottom_word);
-	sendWord_24Bit(lower_middle_word);
-	sendWord_24Bit(upper_middle_word);
-	sendWord_24Bit(top_word);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

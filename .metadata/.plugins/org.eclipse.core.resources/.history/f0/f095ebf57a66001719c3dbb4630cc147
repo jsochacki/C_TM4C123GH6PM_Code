@@ -1176,10 +1176,24 @@ void SetPhaseAdjustment(unsigned long PhaseAdjustment){
 	upper_middle_word = Create24BitWord(upper_middle, REG_1Ch);
 	top_word = Create24BitWord(top, REG_1Dh);
 
-	sendWord_24Bit(bottom_word);
-	sendWord_24Bit(lower_middle_word);
-	sendWord_24Bit(upper_middle_word);
-	sendWord_24Bit(top_word);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

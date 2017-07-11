@@ -1166,20 +1166,28 @@ void SetPhaseAdjustment(unsigned long PhaseAdjustment){
 
 */
 
-	unsigned long top, upper_middle, lower_middle, bottom;
-	unsigned long top_word, upper_middle_word, lower_middle_word, bottom_word;
 
-	SplitNumber_32Bit(PhaseAdjustment, &top, &upper_middle, &lower_middle, &bottom);
 
-	bottom_word = Create24BitWord(bottom, REG_1Ah);
-	lower_middle_word = Create24BitWord(lower_middle, REG_1Bh);
-	upper_middle_word = Create24BitWord(upper_middle, REG_1Ch);
-	top_word = Create24BitWord(top, REG_1Dh);
 
-	sendWord_24Bit(bottom_word);
-	sendWord_24Bit(lower_middle_word);
-	sendWord_24Bit(upper_middle_word);
-	sendWord_24Bit(top_word);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
