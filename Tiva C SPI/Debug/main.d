@@ -15,6 +15,7 @@ main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_sysctl.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_gpio.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_types.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_ssi.h
+main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_uart.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/gpio.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/interrupt.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/timer.h
@@ -27,6 +28,8 @@ main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom_map.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/pwm.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ssi.h
+main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/utils/uartstdio.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdarg.h
 
 ../main.c: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdint.h: 
@@ -43,6 +46,7 @@ C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_sysctl.h:
 C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_gpio.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_types.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_ssi.h: 
+C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_uart.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/gpio.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/interrupt.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/timer.h: 
@@ -55,3 +59,5 @@ C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom.h:
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom_map.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/pwm.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ssi.h: 
+C:/ti/TivaWare_C_Series-2.1.4.178/utils/uartstdio.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdarg.h: 

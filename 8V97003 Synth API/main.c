@@ -58,12 +58,12 @@
 /* Macros Specific to Register Programming */
 
 
-/*
 
- These define the address for each register so that it can be combined with a data byte to form the full 24-bit frame.
-  - All of the below register macros include the '0' MSB which indicates a write operation.
 
-*/
+// These define the address for each register so that it can be combined with a data byte to form the full 24-bit frame.
+// All of the below register macros include the '0' MSB which indicates a write operation.
+
+
 #define REG_10h 0x1000
 #define REG_11h 0x1100
 #define REG_12h 0x1200
@@ -116,12 +116,17 @@
 #define REG_41h 0x4100
 #define REG_42h 0x4200
 #define REG_43h 0x4300
-#define REG_44h 0x4400
-#define REG_45h 0x4500
-#define REG_46h 0x4600
-#define REG_47h 0x4700
-#define REG_48h 0x4800
-#define REG_49h 0x4900
+
+// Read-Only Registers
+#define REG_44h_READ 0x804400
+#define REG_45h_READ 0x804500
+#define REG_46h_READ 0x804600
+#define REG_47h_READ 0x804700
+#define REG_48h_READ 0x804800
+
+// R/W Capability
+#define REG_49h_READ 0x804900
+#define REG_49h_WRITE 0x4900
 
 
 // Sets the Soft Reset pins in Register 0h. Further explained in the InitPrefaceRegister function comments
@@ -1255,16 +1260,18 @@ ____________________________________________________________________________
 
 	// To reduce code complexity and size, i'm checking all three booleans individually and OR-ing them together at the end
 
-	if(ForceRelock){ FR_Part = 0x80; }
+
+
+	if(ForceRelock){ FR_Part = 0x80; } // Set the ForceRelock bit
 	else if(!ForceRelock){ FR_Part = 0x00; }
 
-	if(PhaseAdjustTrigger){PAT_Part = 0x40; }
+	if(PhaseAdjustTrigger){PAT_Part = 0x40; } // Set the Phase Adjust Trigger bit
 	else if(!PhaseAdjustTrigger){PAT_Part = 0x00; }
 
-	if(BandSelectDisable){BSD_Part = 0x20; }
+	if(BandSelectDisable){BSD_Part = 0x20; } // Set the Band Disable bit
 	else if(!BandSelectDisable){ BSD_Part = 0x00; }
 
-	Calibration = FR_Part | PAT_Part | BSD_Part | BandSelectAccuracy;
+	Calibration = FR_Part | PAT_Part | BSD_Part | BandSelectAccuracy; // Put them all together to form the data byte
 
 	Calibration_word = Create24BitWord(Calibration, REG_21h);
 
@@ -1273,6 +1280,114 @@ ____________________________________________________________________________
 
 
 }
+
+
+
+void SetCalibrationVoltage(unsigned long CaliVoltage){
+
+/*
+
+
+                                                                    Additional Calibration Control Register Map
+
+  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  |       ADDR       |        D7        |        D6        |        D5        |        D4        |        D3        |        D2        |        D1        |        D0        |
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  |       003C       |      UNUSED      |      UNUSED      |      UNUSED      |      UNUSED      |  CaliVoltage<3>  |  CaliVoltage<2>  |  CaliVoltage<1>  |  CaliVoltage<0>  |
+  |                  |                  |                  |                  |                  |                  |                  |                  |                  |
+  +------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
+
+
+____________________________________________________________________
+
+ Calibration Voltage Setting, sets Vc voltage during calibration
+
+ 0000 = 0.29V (default)
+ 0001 = 0.56V
+ 0010 = 0.83V
+ 0011 = 1.1V
+ 0100 = 1.37V
+ 0101 = 1.645V
+ 0110 = 1.915V
+ 0111 = 2.185V
+ 1000 = 2.455V
+ 1001 = 2.725V
+ 1010 = 3.0V
+
+ 1011 - 1111 = Unused
+
+____________________________________________________________________
+
+
+*/
+
+	unsigned long CaliVoltage_word;
+
+	CaliVoltage_word = Create24BitWord(CaliVoltage, REG_3Ch);
+
+	sendWord_24Bit(CaliVoltage_word);
+
+
+
+}
+
+unsigned long ReadWord_24Bit(unsigned long data_word){
+
+
+
+
+}
+
+
+
+
+
+
+
+
+uint8_t ReadFromStatusRegister(unsigned long parameter){
+
+
+
+	// Need to use SSI_DataGet and read back the data in the Rx FIFO
+
+	// Gonna need a 'ReadWord' Function Now
+
+
+	// Should be able to write the R-only word to the appropriate register then read back what the slave sends
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
