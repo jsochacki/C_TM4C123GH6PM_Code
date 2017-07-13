@@ -97,8 +97,6 @@ int main(void) {
 	printString("\n\r");
 
 
-	atoi(user_input);
-
 
 	while(1){};
 
@@ -130,69 +128,6 @@ void getString(char* user_string){
 	}
 
 }
-
-
-unsigned long ConvertStringToNumber(char* string) {
-
-	// This function properly converts all legal values for an >>unsigned<< long integer: 0d - 4,294,967,295d
-
-	// Number string MUST be in decimal format, this function isn't designed to accept hex values
-
-	int i, digit, current_power = -1;
-	unsigned long value = 0;
-	char* temp_ptr;
-
-	temp_ptr = string;
-
-	while (*temp_ptr++ != '\0') { current_power++; }
-
-	while (*string != '\0') {
-
-		unsigned long multiplier = 1;
-
-		for(i = current_power--; i > 0; i--) { multiplier *= 10; }
-
-		switch (*string++) {
-
-		case '0':
-			digit = 0;
-			break;
-		case '1':
-			digit = 1;
-			break;
-		case '2':
-			digit = 2;
-			break;
-		case '3':
-			digit = 3;
-			break;
-		case '4':
-			digit = 4;
-			break;
-		case '5':
-			digit = 5;
-			break;
-		case '6':
-			digit = 6;
-			break;
-		case '7':
-			digit = 7;
-			break;
-		case '8':
-			digit = 8;
-			break;
-		case '9':
-			digit = 9;
-			break;
-		}
-
-		value += digit * multiplier;
-	}
-
-	return value;
-}
-
-
 
 
 void printString(char *string){

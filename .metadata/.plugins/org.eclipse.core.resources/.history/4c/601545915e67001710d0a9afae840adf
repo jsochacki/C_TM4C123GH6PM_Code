@@ -136,8 +136,6 @@ unsigned long ConvertStringToNumber(char* string) {
 
 	// This function properly converts all legal values for an >>unsigned<< long integer: 0d - 4,294,967,295d
 
-	// Number string MUST be in decimal format, this function isn't designed to accept hex values
-
 	int i, digit, current_power = -1;
 	unsigned long value = 0;
 	char* temp_ptr;

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 
 #define LOWER_8_BITS 0x000000FF
@@ -27,6 +28,8 @@ void AddNum(int a, int b, int* c);
 void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigned long* bottom_half);
 unsigned long Create24BitWord(unsigned long data, unsigned long reg);
 void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsigned long* upper_middle_portion, unsigned long* lower_middle_portion, unsigned long* bottom_portion);
+unsigned long ConvertStringToNumber(char* string);
+
 
 int main(void)
 {
@@ -61,22 +64,104 @@ int main(void)
 
 	//printf("Word: %x\n\n", word); 
 
-	unsigned long test = 0x12345678; 
-	unsigned long upper, upper_middle, lower_middle, bottom; 
+	//unsigned long test = 0x12345678; 
+	//unsigned long upper, upper_middle, lower_middle, bottom; 
 
-	SplitNumber_32Bit(test, &upper, &upper_middle, &lower_middle, &bottom); 
+	//SplitNumber_32Bit(test, &upper, &upper_middle, &lower_middle, &bottom); 
 
-	printf("Top: %x\nUpper Middle: %x\nLower Middle: %x\nBottom: %x\n", upper, upper_middle, lower_middle, bottom);
-
-
+	//printf("Top: %x\nUpper Middle: %x\nLower Middle: %x\nBottom: %x\n", upper, upper_middle, lower_middle, bottom);
 
 
+	char number_str[] = "0"; 
+	unsigned long  actual_number;
 
+	actual_number = ConvertStringToNumber(number_str);
 
-
+	printf("Actual number: %u\n\n\n", actual_number);
 
 	return 0;
 }
+
+
+
+unsigned long ConvertStringToNumber(char* string) {
+
+	// This function properly converts all legal values for an >>unsigned<< long integer: 0d - 4,294,967,295d
+
+	// Number string MUST be in decimal format, this function isn't designed to accept hex values 
+
+	int i, digit, current_power = -1; 
+	unsigned long value = 0;
+	char* temp_ptr; 
+
+	temp_ptr = string; 
+
+	while (*temp_ptr++ != '\0') { current_power++; }
+
+	while (*string != '\0') {
+
+		unsigned long multiplier = 1; 
+
+		for(i = current_power--; i > 0; i--) { multiplier *= 10; }
+		
+		switch (*string++) {
+
+		case '0':
+			digit = 0; 
+			break;
+		case '1': 
+			digit = 1;
+			break;
+		case '2':
+			digit = 2;
+			break;
+		case '3': 
+			digit = 3;
+			break;
+		case '4':
+			digit = 4;
+			break;
+		case '5':
+			digit = 5;
+			break;
+		case '6':
+			digit = 6;
+			break;
+		case '7':
+			digit = 7;
+			break;
+		case '8':
+			digit = 8;
+			break;
+		case '9':
+			digit = 9;
+			break;
+		}
+
+		value += digit * multiplier; 
+	}
+
+	return value;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 unsigned long Create24BitWord(unsigned long data, unsigned long reg){
