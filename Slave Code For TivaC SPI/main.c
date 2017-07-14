@@ -40,12 +40,9 @@ void setupSPI(void);
 
 
 
-
-
-
 int main(void) {
 	
-	uint32_t upper, lower, full_word;
+	uint32_t upper, lower, middle, full_word;
 
 	setupClock();
 
@@ -58,25 +55,30 @@ int main(void) {
 	setupSPI();
 
 	SSIDataGet(SSI0_BASE, &upper);
-
+	SSIDataGet(SSI0_BASE, &middle);
 	SSIDataGet(SSI0_BASE, &lower);
 
+
 	upper = upper << 16;
+	middle = middle << 8;
 
-	full_word = upper | lower;
+	full_word = upper | middle | lower;
 
-	if(full_word == 0x12345678){
+	if(full_word == 0x123456){
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2, 0);
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3 , 8);
+		SSIDataPut(SSI0_BASE, 69);
+
 	}
 
 	else{
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3, 0);
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 , 2);
+		SSIDataPut(SSI0_BASE, 3);
+
 	}
 
 
-	while(1){ };
 
 	return 0;
 }
@@ -112,7 +114,7 @@ void setupSPI(void){
 	MAP_SSIDisable(SSI0_BASE);
 
 	// Sets the clock polarity to steady state low and rising edge
-	MAP_SSIConfigSetExpClk(SSI0_BASE, MAP_SysCtlClockGet(), SSI_FRF_MOTO_MODE_0, SSI_MODE_SLAVE, 500000, 16);
+	MAP_SSIConfigSetExpClk(SSI0_BASE, MAP_SysCtlClockGet(), SSI_FRF_MOTO_MODE_0, SSI_MODE_SLAVE, 500000, 8);
 
 	MAP_SSIEnable(SSI0_BASE);
 

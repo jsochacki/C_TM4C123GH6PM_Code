@@ -53,10 +53,13 @@ Master Code For TivaC PLL Control
 // flag that makes sure chip select is asserted the correct way
 int cs_config;
 
+// Macro that sets the input array size to get from user
+#define MAX_INPUT_LENGTH 100
+
 
 
 void setupClock(void);
-void setupSPI(void);
+void setupSPI_16Bit(void);
 void setupChipSelect(int mode);
 void sendWord(unsigned long word);
 void sendWord_24Bit(unsigned long word);
@@ -67,51 +70,93 @@ void printString(char *string1);
 void InitConsole(void);
 void getString(char* user_string);
 void ClearUserInput(char* input);
-
+uint32_t readWord_24Bit(unsigned long word);
+uint32_t GetRegisterValue(unsigned long word);
 
 
 int main(void) {
 	
 	setupClock();
-	//setupChipSelect(CS_ACTIVE_LOW);
-	//setupSPI_8Bit();
-	//unsigned long word = 0xffffff;
-
-
-	//sendWord_24Bit(word);
-
-
 	InitConsole();
+	setupChipSelect(CS_ACTIVE_LOW);
+	setupSPI_8Bit();
+	unsigned long address = 0x123450;
 
-	char user_input[100];
+	uint32_t registerValue;
 
-	ClearUserInput(user_input);
+	registerValue = GetRegisterValue(address);
 
-	getString(user_input);
-
-	printString("\n\n\r");
-
-	printString("You entered: ");
-	printString(user_input);
-
+	printString("Return Value: ");
+	printInt(registerValue);
 	printString("\n\r");
 
 
-	atoi(user_input);
-
-
-	while(1){};
+	while(1){ };
 
 
 
 	return 0;
 }
 
+
+uint32_t GetRegisterValue(unsigned long address){
+
+	uint32_t regData;
+	int i;
+
+	for(i=0; i<2; i++){ regData = readWord_24Bit(address); }
+
+	return regData;
+}
+
+
+
+uint32_t readWord_24Bit(unsigned long word){
+
+	// Break 24-bit word into 3 8-bit words
+	uint32_t upper, middle, lower;
+	unsigned long temp1, temp2, temp3;
+	uint32_t dummyVar, returnValue;
+
+	while(MAP_SSIDataGetNonBlocking(SSI0_BASE, &dummyVar)){ }; // Clear out unwanted bits from Rx FIFO
+
+	temp1 = word & UPPER_8_BITS;
+	temp2 = word & MIDDLE_8_BITS;
+	temp3 = word & LOWER_8_BITS;
+
+	upper = temp1 >> 16;
+	middle = temp2 >> 8;
+	lower = temp3;
+
+	// Enable chip select to start transfer
+	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
+	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
+
+	// Send all 3 pieces of the original word, MSB first
+	MAP_SSIDataPut(SSI0_BASE, upper);
+	MAP_SSIDataPut(SSI0_BASE, middle);
+	MAP_SSIDataPut(SSI0_BASE, lower);
+
+	while(MAP_SSIBusy(SSI0_BASE)){};
+
+	MAP_SSIDataGet(SSI0_BASE, &returnValue);
+
+	// Close the frame by de-asserting chip select
+	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
+	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
+
+
+	return returnValue;
+
+}
+
+
+
 void ClearUserInput(char* input){
 
 	int i;
 
-	for(i=0; i<100; i++){ *input++ = '\0'; }
+	for(i = 0; i < MAX_INPUT_LENGTH; i++){ *input++ = '\0'; }
 
 }
 
@@ -125,7 +170,7 @@ void getString(char* user_string){
 	while( (*user_string = MAP_UARTCharGet(UART0_BASE)) != ENTER ){
 
 		MAP_UARTCharPut(UART0_BASE, *user_string++);
-		if(++count == 100){ break; }
+		if(++count == MAX_INPUT_LENGTH){ break; }
 
 	}
 
@@ -193,8 +238,6 @@ unsigned long ConvertStringToNumber(char* string) {
 }
 
 
-
-
 void printString(char *string){
 
     uint32_t ui32Counter = 0;
@@ -209,21 +252,18 @@ void printString(char *string){
 
 void InitConsole(void){
 
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
-	GPIOPinConfigure(GPIO_PA0_U0RX);
-	GPIOPinConfigure(GPIO_PA1_U0TX);
-	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
-    UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
+	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+	MAP_GPIOPinConfigure(GPIO_PA0_U0RX);
+	MAP_GPIOPinConfigure(GPIO_PA1_U0TX);
+	MAP_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+	MAP_UARTConfigSetExpClk(UART0_BASE, MAP_SysCtlClockGet(), 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
 
     printString("Welcome to the 8V97003 API Console\n\r");
     printString("\nEnter a command: ");
 
 
 }
-
-
-
 
 
 void printInt(int value){
@@ -258,7 +298,7 @@ void printInt(int value){
 
 void printSingleNumber(int num){
 
-    switch ( num ) {
+    switch (num) {
     case 0:
         MAP_UARTCharPut(UART0_BASE, '0');
         break;
@@ -327,6 +367,11 @@ void setupChipSelect(int mode){
 
 }
 
+
+
+
+
+
 void sendWord_24Bit(unsigned long word){
 
 	// Break 24-bit word into 3 8-bit words
@@ -357,6 +402,8 @@ void sendWord_24Bit(unsigned long word){
 	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
 
 }
+
+
 
 void sendWord(unsigned long word){
 
@@ -408,7 +455,7 @@ void setupSPI_8Bit(void){
 
 }
 
-void setupSPI(void){
+void setupSPI_16Bit(void){
 
 	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);  // Enable SPI Port 0
