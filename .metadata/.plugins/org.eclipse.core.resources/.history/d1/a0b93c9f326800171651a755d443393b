@@ -80,7 +80,7 @@ int main(void) {
 	InitConsole();
 	setupChipSelect(CS_ACTIVE_LOW);
 	setupSPI_8Bit();
-	unsigned long address = 0x123456;
+	unsigned long address = 0x123450;
 
 	uint32_t registerValue;
 
@@ -139,11 +139,11 @@ uint32_t readWord_24Bit(unsigned long word){
 
 	while(MAP_SSIBusy(SSI0_BASE)){};
 
+	MAP_SSIDataGet(SSI0_BASE, &returnValue);
+
 	// Close the frame by de-asserting chip select
 	if(cs_config == 1){ MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x00); }
 	else if(cs_config == 0) { MAP_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0x2); }
-
-	MAP_SSIDataGet(SSI0_BASE, &returnValue);
 
 
 	return returnValue;

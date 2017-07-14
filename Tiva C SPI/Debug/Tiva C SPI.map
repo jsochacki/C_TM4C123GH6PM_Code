@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v15.12.5                    
 ******************************************************************************
->> Linked Thu Jul 13 18:15:01 2017
+>> Linked Thu Jul 13 18:22:41 2017
 
 OUTPUT FILE NAME:   <Tiva C SPI.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00000e15
@@ -205,7 +205,7 @@ ffffffff  binit
 000007e5  sendWord_24Bit                 
 0000077f  setupChipSelect                
 0000076f  setupClock                     
-00000a61  setupSPI                       
+00000a61  setupSPI_16Bit                 
 000009b5  setupSPI_8Bit                  
 
 
@@ -231,7 +231,7 @@ address   name
 000007e5  sendWord_24Bit                 
 000008f9  sendWord                       
 000009b5  setupSPI_8Bit                  
-00000a61  setupSPI                       
+00000a61  setupSPI_16Bit                 
 00000b25  __aeabi_dmul                   
 00000c21  __aeabi_memcpy                 
 00000c21  __aeabi_memcpy4                

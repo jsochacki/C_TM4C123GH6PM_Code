@@ -80,7 +80,7 @@ int main(void) {
 	InitConsole();
 	setupChipSelect(CS_ACTIVE_LOW);
 	setupSPI_8Bit();
-	unsigned long address = 0x123456;
+	unsigned long address = 0x123450;
 
 	uint32_t registerValue;
 
