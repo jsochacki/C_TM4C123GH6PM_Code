@@ -363,9 +363,9 @@ uint32_t GetRegisterValue(unsigned long address){
 }
 
 
-/*********************************************************************************************************/
-/*          Subsidiary function for GetRegisterValue that actually handles the SPI transaction           */
-/*********************************************************************************************************/
+/*******************************************************************************************************/
+/*        Subsidiary function for GetRegisterValue that actually handles the SPI transaction           */
+/*******************************************************************************************************/
 
 uint32_t readWord_24Bit(unsigned long word){
 
@@ -406,7 +406,6 @@ uint32_t readWord_24Bit(unsigned long word){
 
 }
 
-
 /*******************************************************************************************************/
 /*           Clears out a given character array with null terminators for housekeeping                 */
 /*******************************************************************************************************/
@@ -438,25 +437,8 @@ void getString(char* user_string){
 }
 
 
-/*******************************************************************************************************/
-/*                           Prints a given string to the UART console                                 */
-/*******************************************************************************************************/
-
-void printString(char *string){
-
-    uint32_t ui32Counter = 0;
-
-    while (string[ui32Counter] != '\0'){
-
-        MAP_UARTCharPut(UART0_BASE, string[ui32Counter]);
-        ui32Counter = ui32Counter + 1;
-    }
-}
-
-
-
 /*************************************************************************************************************/
-/*           Takes a character string entered by a user and converts it to an unsigned long int              */
+/*            Takes a character string entered by a user and converts the string into a number               */
 /*************************************************************************************************************/
 
 unsigned long ConvertStringToNumber(char* string) {
@@ -520,9 +502,17 @@ unsigned long ConvertStringToNumber(char* string) {
 }
 
 
-/*******************************************************************************************************/
-/*                           Initializes the console using the UART0 module                            */
-/*******************************************************************************************************/
+void printString(char *string){
+
+    uint32_t ui32Counter = 0;
+
+    while (string[ui32Counter] != '\0'){
+
+        MAP_UARTCharPut(UART0_BASE, string[ui32Counter]);
+        ui32Counter = ui32Counter + 1;
+    }
+}
+
 
 void InitConsole(void){
 
@@ -539,10 +529,6 @@ void InitConsole(void){
 
 }
 
-
-/*******************************************************************************************************/
-/*          Converts a given integer value to a character array and prints to the console              */
-/*******************************************************************************************************/
 
 void printInt(int value){
 
@@ -573,11 +559,6 @@ void printInt(int value){
         }
 
 }
-
-
-/*******************************************************************************************************/
-/*                       Converts a single digit to a single ASCII character                           */
-/*******************************************************************************************************/
 
 void printSingleNumber(int num){
 
@@ -617,6 +598,31 @@ void printSingleNumber(int num){
       break;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*******************************************************************************************************/

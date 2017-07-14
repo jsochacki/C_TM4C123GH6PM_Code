@@ -363,9 +363,9 @@ uint32_t GetRegisterValue(unsigned long address){
 }
 
 
-/*********************************************************************************************************/
-/*          Subsidiary function for GetRegisterValue that actually handles the SPI transaction           */
-/*********************************************************************************************************/
+/*******************************************************************************************************/
+/*        Subsidiary function for GetRegisterValue that actually handles the SPI transaction           */
+/*******************************************************************************************************/
 
 uint32_t readWord_24Bit(unsigned long word){
 
@@ -406,7 +406,6 @@ uint32_t readWord_24Bit(unsigned long word){
 
 }
 
-
 /*******************************************************************************************************/
 /*           Clears out a given character array with null terminators for housekeeping                 */
 /*******************************************************************************************************/
@@ -438,6 +437,7 @@ void getString(char* user_string){
 }
 
 
+
 /*******************************************************************************************************/
 /*                           Prints a given string to the UART console                                 */
 /*******************************************************************************************************/
@@ -456,7 +456,7 @@ void printString(char *string){
 
 
 /*************************************************************************************************************/
-/*           Takes a character string entered by a user and converts it to an unsigned long int              */
+/*            Takes a character string entered by a user and converts the string into a number               */
 /*************************************************************************************************************/
 
 unsigned long ConvertStringToNumber(char* string) {
@@ -521,7 +521,7 @@ unsigned long ConvertStringToNumber(char* string) {
 
 
 /*******************************************************************************************************/
-/*                           Initializes the console using the UART0 module                            */
+/*                           Intializes the console using the UART0 module                             */
 /*******************************************************************************************************/
 
 void InitConsole(void){
@@ -539,10 +539,6 @@ void InitConsole(void){
 
 }
 
-
-/*******************************************************************************************************/
-/*          Converts a given integer value to a character array and prints to the console              */
-/*******************************************************************************************************/
 
 void printInt(int value){
 
@@ -573,11 +569,6 @@ void printInt(int value){
         }
 
 }
-
-
-/*******************************************************************************************************/
-/*                       Converts a single digit to a single ASCII character                           */
-/*******************************************************************************************************/
 
 void printSingleNumber(int num){
 
@@ -617,6 +608,31 @@ void printSingleNumber(int num){
       break;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*******************************************************************************************************/
