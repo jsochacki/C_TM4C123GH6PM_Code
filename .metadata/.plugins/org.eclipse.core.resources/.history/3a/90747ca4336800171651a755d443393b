@@ -71,7 +71,7 @@ void InitConsole(void);
 void getString(char* user_string);
 void ClearUserInput(char* input);
 uint32_t readWord_24Bit(unsigned long word);
-uint32_t GetRegisterValue(unsigned long address);
+uint32_t GetRegisterValue(unsigned long word);
 
 
 int main(void) {
