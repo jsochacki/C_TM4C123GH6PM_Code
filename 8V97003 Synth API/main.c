@@ -75,6 +75,7 @@
 
 
 
+
 /* Macros Specific to Register Programming */
 
 
@@ -959,6 +960,163 @@ void SetBandSelectClockDivider(unsigned short divider_value){
 	sendWord_24Bit(upper_word);
 
 }
+
+
+
+
+void SetupInputControlRegisters(bool inputType, bool refDoublerEn, bool multEnable, bool nMultReset, unsigned long refDivider, unsigned long multRatio, unsigned long nMultPwrDwn){
+
+
+/*
+
+                                                                Input Control Register Map
+
+  +----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+  |                |                |                |                |                |                |                |                |                |
+  |      ADDR      |       D7       |       D6       |      D5        |       D4       |       D3       |       D2       |       D1       |       D0       |
+  |                |                |                |                |                |                |                |                |                |
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |                |                |                |                |                |                |                |                |                |
+  |      0029      |     Ref<7>     |     Ref<6>     |     Ref<5>     |     Ref<4>     |     Ref<3>     |     Ref<2>     |     Ref<1>     |     Ref<0>     |
+  |                |                |                |                |                |                |                |                |                |
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |                |                |                |                |                |                |                |                |                |
+  |      002A      |     UNUSED     |     UNUSED     |     UNUSED     |     UNUSED     |   InputType    | RefDoubler_En  |     Ref<9>     |     Ref<8>     |
+  |                |                |                |                |                |                |                |                |                |
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |                |                |                |                |                |                |                |                |                |
+  |      002B      |    Mult_En     |  nMult_Reset   |     Mult<5>    |     Mult<4>    |     Mult<3>    |     Mult<2>    |     Mult<1>    |     Mult<0>    |
+  |                |                |                |                |                |                |                |                |                |
+  +--------------------------------------------------------------------------------------------------------------------------------------------------------+
+  |                |                |                |                |                |                |                |                |                |
+  |      002C      | nMultpwrdwn<2> | nMultpwrdwn<1> | nMultpwrdwn<0> |       0        |       0        |       1        |       0        |       0        |
+  |                |                |                |                |                |                |                |                |                |
+  +----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+
+
+_____________________________________________________
+
+ Ref[7:0]:
+
+ Input reference divide value
+
+ 00 0000 0000 = Not Allowed
+ 00 0000 0001 = 1d (default)
+ ...
+ 11 1111 1111 = 1023d
+
+_____________________________________________________
+
+ Input type:
+
+ Selects either differential or single-ended input
+
+ 0 = Single-Ended Input
+ 1 = Differential Input (Default)
+
+_____________________________________________________
+
+ Reference Doubler Enable:
+
+ Enables the Input Reference Doubler
+
+ 0 = Input reference doubler disabled
+ 1 = Input reference doubler enabled (default)
+
+_____________________________________________________
+
+ MULT Enable
+
+ 0 = MULT Not Enabled
+ 1 = MULT Enabled
+
+_____________________________________________________
+
+ nMult_reset:
+
+ Resets the Reference multiplier block (MULT)
+
+ 0: Multiplier is reset (default)
+ 1: Multiplier is active
+
+_____________________________________________________
+
+ Mult[5:0]:
+
+ Multiplication ratio for the multiplier block
+
+ 000000 = Unused
+ 000001 = Unused
+ 000010 = x2
+ 000011 = x3
+ …
+ 111111 = x63
+
+_____________________________________________________
+
+ nMultpwrdwn[2:0]:
+
+ MULT power down
+
+ 000: MULT Powered Down
+ 001: Not Allowed
+ …
+ 110 = Not Allowed
+ 111 = MULT Powered Up
+
+_____________________________________________________
+
+*/
+
+	unsigned long inputTypeValue, refDoublerEnValue, multEnableValue, nMultResetValue, nMultPwrDownshift, nMultPwrDownResult, nMultPwrDownWord;
+
+
+	if(inputType){ inputTypeValue = BIT_3; }
+	else if(!inputType){ inputTypeValue = 0; }
+
+	if(refDoublerEn){ refDoublerEnValue = BIT_2; }
+	else if(!refDoublerEn){ refDoublerEnValue = 0; }
+
+	if(multEnable){ multEnableValue = BIT_7; }
+	else if(!multEnable){ multEnableValue = 0; }
+
+	if(nMultReset){ nMultResetValue = BIT_6; }
+	else if(!nMultReset){ nMultResetValue = 0; }
+
+
+	unsigned long refDividerBottom8Bits, refDividerTop2Bits, refDividerWord, refDividerResult, refDividerWord2;
+
+	refDividerBottom8Bits = refDivider & BOTTOM_8_32Bit;
+
+	refDividerTop2Bits = refDivider >> 8;
+
+	refDividerWord = Create24BitWord(refDividerBottom8Bits, REG_29h);
+	sendWord_24Bit(refDividerWord);
+
+	refDividerResult = refDividerTop2Bits | inputTypeValue | refDoublerEnValue;
+
+	refDividerWord2 = Create24BitWord(refDividerResult, REG_2Ah);
+	sendWord_24Bit(refDividerWord2);
+
+	unsigned long multResult, multResultWord;
+
+	multResult = multEnableValue | nMultResetValue | multRatio;
+
+	multResultWord = Create24BitWord(multResult, REG_2Bh);
+	sendWord_24Bit(multResultWord);
+
+	nMultPwrDownshift = nMultPwrDwn << 5;
+
+	nMultPwrDownResult = nMultPwrDownshift | 0x04;
+
+	nMultPwrDownWord = Create24BitWord(nMultPwrDownResult, REG_2Ch);
+	sendWord_24Bit(nMultPwrDownWord);
+
+
+
+}
+
+
 
 
 
@@ -1873,17 +2031,3 @@ void controlDSM(bool DSMtype, bool ShapeDitherEn, bool DitherEn, unsigned long D
 	sendWord_24Bit(DSMword);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
