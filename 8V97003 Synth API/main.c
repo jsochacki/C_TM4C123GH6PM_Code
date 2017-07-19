@@ -34,6 +34,8 @@
 #include "driverlib/pwm.h"
 #include "driverlib/ssi.h"
 
+
+
 // Macro that sets the input array size to get from user
 #define MAX_INPUT_LENGTH 100
 
@@ -58,6 +60,19 @@
 #define UPPER_MIDDLE_32Bit 0x00FF0000
 #define LOWER_MIDDLE_32Bit 0x0000FF00
 #define BOTTOM_8_32Bit 0x000000FF
+
+// Macros to define lowest 8-bits (general usage)
+#define BIT_0 0x01
+#define BIT_1 0x02
+#define BIT_2 0x04
+#define BIT_3 0x08
+#define BIT_4 0x10
+#define BIT_5 0x20
+#define BIT_6 0x40
+#define BIT_7 0x80
+#define BIT3_to_BIT0 0x0F
+#define BIT6_to_BIT0 0x7F
+
 
 
 /* Macros Specific to Register Programming */
@@ -160,7 +175,8 @@
 // flag that makes sure chip select is asserted the correct way
 int cs_config;
 
-
+// global array for a quick newline write
+char newline[] = "\n\r";
 
 /*
 
@@ -411,7 +427,7 @@ uint32_t readWord_24Bit(unsigned long word){
 /*           Clears out a given character array with null terminators for housekeeping                 */
 /*******************************************************************************************************/
 
-void ClearUserInput(char* input){
+void clearArray(char* input){
 
 	int i;
 
@@ -1610,43 +1626,134 @@ ____________________________________________________________________
 
 }
 
-unsigned long ReadWord_24Bit(unsigned long data_word){
 
 
 
-
-}
-
-
-
+/*******************************************************************************************************/
+/*     Takes in a status register keyword and send the status of that paramter back to the UART        */
+/*******************************************************************************************************/
 
 
+void ReadFromStatusRegisters(char* parameter){
 
+	char temp[MAX_INPUT_LENGTH];
+	char* temp_ptr = temp;
 
+	unsigned long DigLockWord, BandSelectWord, currentVCO_Word, currentDigitalBandWord, lossOfLockWord;
+	uint32_t DigLockValue, BandSelectValue, currentVCO_Value, currentDigitalBandValue, lossOfLockValue;
 
-uint8_t ReadFromStatusRegister(unsigned long parameter){
+	clearArray(temp);
 
+	// Copy character array into local workspace
+	while(*parameter != '\0'){
+		*temp_ptr = *parameter++;
+		 temp_ptr++;
+	}
 
+	// Begin testing for particular commands
+	if(!strncmp(temp, "DigLock", 7)){
 
-	// Need to use SSI_DataGet and read back the data in the Rx FIFO
+		printString(newline);
+		printString("Determining status of digital lock bit...");
+		printString(newline);
 
-	// Gonna need a 'ReadWord' Function Now
+		DigLockWord = Create24BitWord(0x00, REG_44h_READ);
+		DigLockValue = GetRegisterValue(DigLockWord);
 
+		// Isolate the Digital Lock bit
+		DigLockValue &= BIT_7;
 
-	// Should be able to write the R-only word to the appropriate register then read back what the slave sends
+		if(DigLockValue){
+			printString("PLL is locked.");
+			printString(newline);
+		}
+		else{
+			printString("PLL is NOT locked.");
+			printString(newline);
+		}
+	}
 
+	else if(!strncmp(temp, "BandSelectDone", 14)){
 
+			printString(newline);
+			printString("Determining if band selection has completed...");
+			printString(newline);
 
+			BandSelectWord = Create24BitWord(0x00, REG_44h_READ);
+			BandSelectValue = GetRegisterValue(BandSelectWord);
 
+			// Isolate the band selection done bit
+			BandSelectValue &= BIT_6;
 
+			if(BandSelectValue){
+				printString("Band selection has completed.");
+				printString(newline);
+			}
+			else{
+				printString("Band selection has NOT completed.");
+				printString(newline);
+			}
+	}
 
+	else if(!strncmp(temp, "currentVCO", 10)){
 
+			printString(newline);
+			printString("Determining which VCO is active...");
+			printString(newline);
 
+			currentVCO_Word = Create24BitWord(0x00, REG_44h_READ);
+			currentVCO_Value = GetRegisterValue(currentVCO_Word);
 
+			// Isolate the VCO value bits
+			currentVCO_Value &= BIT3_to_BIT0;
 
+			printString("Current active VCO: VCO #");
+			printInt(currentVCO_Value);
+			printString(newline);
+	}
 
+	else if(!strncmp(temp, "currentDigitalBand", 18)){
 
+			printString(newline);
+			printString("Determining which digital band is active...");
+			printString(newline);
 
+			currentDigitalBandWord = Create24BitWord(0x00, REG_45h_READ);
+			currentDigitalBandValue = GetRegisterValue(currentDigitalBandWord);
+
+			// Isolate the digital band value bits
+			currentDigitalBandValue &= BIT6_to_BIT0;
+
+			printString("Current active digital band: Band ");
+			printInt(currentDigitalBandValue);
+			printString(newline);
+	}
+
+	else if(!strncmp(temp, "lossOfLock", 10)){
+
+			printString(newline);
+			printString("Determining whether digital lock has been lost...");
+			printString(newline);
+
+			lossOfLockWord = Create24BitWord(0x00, REG_49h_READ);
+			lossOfLockValue = GetRegisterValue(lossOfLockWord);
+
+			// Isolate the loss of digital lock bit
+			lossOfLockValue &= BIT_2;
+
+			if(lossOfLockValue){
+				printString("Digital lock has been lost.");
+				printString(newline);
+
+				// Sticky bit; must write a '1' to clear
+				lossOfLockWord = Create24BitWord(BIT_2, REG_49h_WRITE);
+				sendWord_24Bit(lossOfLockWord);
+			}
+			else{
+				printString("Digital lock is still active.");
+				printString(newline);
+			}
+	}
 
 
 }

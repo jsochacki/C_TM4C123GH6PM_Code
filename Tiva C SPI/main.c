@@ -56,7 +56,7 @@ int cs_config;
 // Macro that sets the input array size to get from user
 #define MAX_INPUT_LENGTH 100
 
-
+char newline[] = "\n\r";
 
 void setupClock(void);
 void setupSPI_16Bit(void);
@@ -69,34 +69,163 @@ void printInt(int value);
 void printString(char *string1);
 void InitConsole(void);
 void getString(char* user_string);
-void ClearUserInput(char* input);
+void clearArray(char* input);
 uint32_t readWord_24Bit(unsigned long word);
 uint32_t GetRegisterValue(unsigned long address);
+void parseString(char* original, char* command, char* value);
+void ReadFromStatusRegisters(char* parameter);
 
 
 int main(void) {
 	
 	setupClock();
 	InitConsole();
-	setupChipSelect(CS_ACTIVE_LOW);
-	setupSPI_8Bit();
-	unsigned long address = 0x123456;
+//	setupChipSelect(CS_ACTIVE_LOW);
+//	setupSPI_8Bit();
+//	unsigned long address = 0x123456;
+//
+//	uint32_t registerValue;
+//
+//	registerValue = GetRegisterValue(address);
+//
+//	printString("Return Value: ");
+//	printInt(registerValue);
+//	printString("\n\r");
 
-	uint32_t registerValue;
+	char input[MAX_INPUT_LENGTH];
+	char command[MAX_INPUT_LENGTH];
+	char value[MAX_INPUT_LENGTH];
 
-	registerValue = GetRegisterValue(address);
+	while(1){
 
-	printString("Return Value: ");
-	printInt(registerValue);
-	printString("\n\r");
+		clearArray(input);
+		clearArray(command);
+		clearArray(value);
+
+		getString(input);
+
+		parseString(input, command, value);
 
 
-	while(1){ };
+		if(!strncmp(command, "setFrequency", 12)){
+			printString("\n\r\n");
+			printString("Frequency set to ");
+			printString(value);
+			printString("\n\r\n");
+			printString("Enter command: ");
+		}
+
+		else if(!strncmp(command, "initDevice", 10)){
+			printString("\n\r\n");
+			printString("Initializing device...");
+			printString("\n\r\n");
+			printString("Enter command: ");
+		}
+
+		else{
+			printString("\n\r\n");
+			printString("Command not recognized...");
+			printString("\n\r\n");
+			printString("Enter command: ");
+
+		}
+
+
+
+		ReadFromStatusRegisters(command);
+
+
+	}
+
+
+
+
+
 
 
 
 	return 0;
 }
+
+
+
+void ReadFromStatusRegisters(char* parameter){
+
+	char temp[MAX_INPUT_LENGTH];
+
+	char* temp_ptr = temp;
+
+	unsigned long DigLockWord;
+	uint32_t DigLockValue;
+
+	clearArray(temp);
+
+	while(*parameter != '\0'){
+		*temp_ptr = *parameter++;
+		 temp_ptr++;
+	}
+
+	if(!strncmp(temp, "DigLock", 7)){
+
+		printString(newline);
+		printString("Determining status of digital lock bit...");
+		printString(newline);
+
+//		DigLockWord = Create24BitWord(0x00, REG_44h_READ);
+//		DigLockValue = GetRegisterValue(DigLockWord);
+//
+//		// Isolate the Digital Lock bit
+//		DigLockValue &= BIT_8;
+//
+//		if(DigLockValue){
+//			printString("PLL is locked.")
+//			printString(newline);
+//		}
+//		else{
+//			printString("PLL is NOT locked.")
+//			printString(newline);
+//		}
+	}
+
+
+
+
+}
+
+
+
+
+
+void parseString(char* original, char* command, char* value){
+
+	int flag = 0;
+
+	while(*original != '\0'){
+
+		while(*original != ' ' && flag == 0){
+
+			if(*original == '\0'){ break; }
+
+			*command = *original++;
+			 command++;
+		}
+
+		if(*original == ' '){
+			flag = 1;
+			original++;
+		}
+
+		if(*original == '\0'){ break; }
+
+		*value = *original++;
+		value++;
+
+	}
+
+}
+
+
+
 
 
 uint32_t GetRegisterValue(unsigned long address){
@@ -152,7 +281,7 @@ uint32_t readWord_24Bit(unsigned long word){
 
 
 
-void ClearUserInput(char* input){
+void clearArray(char* input){
 
 	int i;
 
