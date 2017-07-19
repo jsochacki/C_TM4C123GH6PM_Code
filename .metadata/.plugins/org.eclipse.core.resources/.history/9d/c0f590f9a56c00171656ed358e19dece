@@ -1870,8 +1870,6 @@ void controlDSM(bool DSMtype, bool ShapeDitherEn, bool DitherEn, unsigned long D
 
 	DSMword = Create24BitWord(DSMresult, REG_1Eh);
 
-	sendWord_24Bit(DSMword);
-
 }
 
 

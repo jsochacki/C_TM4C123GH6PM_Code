@@ -1833,44 +1833,17 @@ void setVcoResolution(unsigned long bias_value){
 
 
 
-void controlDSM(bool DSMtype, bool ShapeDitherEn, bool DitherEn, unsigned long DSMorder, unsigned long DitherGain){
-
-/*
-
-                                                              DSM Control Register Map
-  +---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-  |               |               |               |               |               |               |               |               |               |
-  |     ADDR      |      D7       |      D6       |      D5       |      D4       |      D3       |      D2       |      D1       |      D0       |
-  |               |               |               |               |               |               |               |               |               |
-  +-----------------------------------------------------------------------------------------------------------------------------------------------+
-  |               |               |               |               |               |               |               |               |               |
-  |     001E      |    DSMType    |  DSMOrder<2>  |  DSMOrder<1>  |  DSMOrder<0>  |  DitherG<1>   |  DitherG<0>   | ShapeDitherEn |   DitherEn    |
-  |               |               |               |               |               |               |               |               |               |
-  +---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
-
-*/
+void controlDSM(unsigned long parameters){
 
 
-	unsigned long DSMvalue, ShapeDitherEnValue, DitherEnValue, DSMshift, DitherGainshift, DSMresult, DSMword;
 
-	if(DSMtype){ DSMvalue = BIT_7; }
-	else if(!DSMtype){ DSMvalue = 0; }
 
-	if(ShapeDitherEn){ ShapeDitherEnValue = BIT_1; }
-	else if(!ShapeDitherEn){ ShapeDitherEnValue = 0; }
 
-	if(DitherEn){ DitherEnValue = BIT_0; }
-	else if(!DitherEn){ DitherEnValue = 0; }
 
-	DSMshift = DSMorder << 4;
 
-	DitherGainshift = DitherGain << 2;
 
-	DSMresult = DSMvalue | ShapeDitherEnValue | DitherEnValue | DSMshift | DitherGainshift;
 
-	DSMword = Create24BitWord(DSMresult, REG_1Eh);
 
-	sendWord_24Bit(DSMword);
 
 }
 
