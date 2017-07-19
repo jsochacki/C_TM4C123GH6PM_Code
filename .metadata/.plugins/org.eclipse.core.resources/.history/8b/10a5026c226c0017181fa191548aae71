@@ -1798,18 +1798,6 @@ void setVcoResolution(unsigned long bias_value){
 
 /*
 
-                                         VCO Resolution Control Register Map
-  +------+------------+------------+------------+------------+------------+------------+------------+------------+
-  |      |            |            |            |            |            |            |            |            |
-  | ADDR |     D7     |     D6     |     D5     |     D4     |     D3     |     D2     |     D1     |     D0     |
-  |      |            |            |            |            |            |            |            |            |
-  +--------------------------------------------------------------------------------------------------------------+
-  |      |            |            |            |            |            |            |            |            |
-  | 0030 | vco_dac<7> | vco_dac<6> | vco_dac<5> | vco_dac<4> | vco_dac<3> | vco_dac<2> | vco_dac<1> | vco_dac<0> |
-  |      |            |            |            |            |            |            |            |            |
-  +------+------------+------------+------------+------------+------------+------------+------------+------------+
-
-
  VCO Bias DAC Setting (Resolution = 6.18mV / step)
 
  0000 0000 = 489 mV
@@ -1823,11 +1811,12 @@ void setVcoResolution(unsigned long bias_value){
 */
 
 
-	unsigned long VcoResolutionWord;
 
-	VcoResolutionWord = Create24BitWord(bias_value, REG_30h);
 
-	sendWord_24Bit(VcoResolutionWord);
+
+
+
+
 
 }
 
