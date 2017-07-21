@@ -1,0 +1,167 @@
+/*
+ * Synth_API_Control_Registers.c
+ *
+ *  Author: Mason Edgar
+ */
+
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include "inc/tm4c123gh6pm.h"
+#include "inc/hw_adc.h"
+#include "inc/hw_ints.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_sysctl.h"
+#include "inc/hw_gpio.h"
+#include "inc/hw_types.h"
+#include "inc/hw_ssi.h"
+#include "driverlib/gpio.h"
+#include "driverlib/interrupt.h"
+#include "driverlib/timer.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/uart.h"
+#include "driverlib/debug.h"
+#include "driverlib/adc.h"
+#include "driverlib/rom.h"
+#include "driverlib/rom_map.h"
+#include "driverlib/pwm.h"
+#include "driverlib/ssi.h"
+#include "Synth_API_Macro_Definitions.h"
+#include "Synth_API_SPI_Setup.h"
+
+
+
+
+
+/***************************************************************************************************************************************/
+/*                             Feedback Control Divider Registers
+ *
+ * The feedback divider N supports fractional division capability in the PLL feedback path. It consists
+ * of an integer N divider of 16-bits, and a Fractional divider of 32-bits (FRAC) over 32-bits (MOD).
+ * The 16 INT bits (Nint[15:0] in the Feedback Divider Control Registers) set the integer part of the
+ * feedback division ratio. The 32 FRAC bits (Bit Nfrac[31:0] in the Feedback Divider Control Registers)
+ * set the numerator of the fraction that goes into the Sigma Delta modulator. The 32 MOD bits
+ * (Nmod[31:0] in the Feedback Divider Control Registers) set the denominator of the fraction that goes
+ * into the Sigma Delta modulator.
+ *
+ *
+ * FB Divider Integer Portion: Minimum divide ratio is 7d. Default is 31d
+ *
+ * FB Divider Fractional Portion: Nfrac is the numerator value of the fractional divide ratio. It is programmable from 0 to (Nmod - 1).
+ *
+ * FB divider Modulus Portion: Range is 2d - 4,294,967,295d. Default is 4,294,966,784d
+ *
+ */
+/***************************************************************************************************************************************/
+
+
+
+void SetFeedbackControlValues(unsigned short Nint, unsigned long Nfrac, unsigned long Nmod){
+
+/*
+
+	 Since the chip has 8-bit registers, the values for Nint, Nfrac, and Nmod are spread out across
+	 multiple (consecutive) registers. The code below breaks each argument down into single-byte
+	 pieces and sends them to their appropriate register.
+
+
+                               Feedback Control Register Map (ADDR is in hex)
+
+  +------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+  |            |           |           |           |           |           |           |           |           |
+  |    ADDR    |    D7     |    D6     |    D5     |    D4     |    D3     |    D2     |    D1     |    D0     |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0010    |  Nint<7>  |  Nint<6>  |  Nint<5>  |  Nint<4>  |  Nint<3>  |  Nint<2>  |  Nint<1>  |  Nint<0>  |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0011    |  Nint<15> |  Nint<14> |  Nint<13> |  Nint<12> |  Nint<11> |  Nint<10> |  Nint<9>  |  Nint<8>  |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0012    |  Nfrac<7> |  Nfrac<6> |  Nfrac<5> |  Nfrac<4> |  Nfrac<3> |  Nfrac<2> |  Nfrac<1> |  Nfrac<0> |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0013    | Nfrac<15> | Nfrac<14> | Nfrac<13> | Nfrac<12> | Nfrac<11> | Nfrac<10> | Nfrac<9>  | Nfrac<8>  |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0014    | Nfrac<23> | Nfrac<22> | Nfrac<21> | Nfrac<20> | Nfrac<19> | Nfrac<18> | Nfrac<17> | Nfrac<16> |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0015    | Nfrac<31> | Nfrac<30> | Nfrac<29> | Nfrac<28> | Nfrac<27> | Nfrac<26> | Nfrac<25> | Nfrac<24> |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0016    |  Nmod<7>  |  Nmod<6>  |  Nmod<5>  |  Nmod<4>  |  Nmod<3>  |  Nmod<2>  |  Nmod<1>  |  Nmod<0>  |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0017    |  Nmod<15> |  Nmod<14> |  Nmod<13> |  Nmod<12> |  Nmod<11> |  Nmod<10> |  Nmod<9>  |  Nmod<8>  |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0018    |  Nmod<23> |  Nmod<22> |  Nmod<21> |  Nmod<20> |  Nmod<19> |  Nmod<18> |  Nmod<17> |  Nmod<16> |
+  |            |           |           |           |           |           |           |           |           |
+  +------------------------------------------------------------------------------------------------------------+
+  |            |           |           |           |           |           |           |           |           |
+  |    0019    |  Nmod<31> |  Nmod<30> |  Nmod<29> |  Nmod<28> |  Nmod<27> |  Nmod<26> |  Nmod<25> |  Nmod<24> |
+  |            |           |           |           |           |           |           |           |           |
+  +------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+
+*/
+
+
+	// Integer Portion
+	unsigned long Nint_top, Nint_bottom, Nint_bottom_word, Nint_top_word;
+
+	SplitNumber_16Bit(Nint, &Nint_top, &Nint_bottom);
+
+	Nint_bottom_word = Create24BitWord(Nint_bottom, REG_10h);
+	Nint_top_word = Create24BitWord(Nint_top, REG_11h);
+
+	sendWord_24Bit(Nint_bottom_word);
+	sendWord_24Bit(Nint_top_word);
+
+	// Fractional Portion
+	unsigned long Nfrac_top, Nfrac_upper_middle, Nfrac_lower_middle, Nfrac_bottom;
+	unsigned long Nfrac_top_word, Nfrac_uppermiddle_word, Nfrac_lowermiddle_word, Nfrac_bottom_word;
+
+	SplitNumber_32Bit(Nfrac, &Nfrac_top, &Nfrac_upper_middle, &Nfrac_lower_middle, &Nfrac_bottom);
+
+	Nfrac_bottom_word = Create24BitWord(Nfrac_bottom, REG_12h);
+	Nfrac_lowermiddle_word = Create24BitWord(Nfrac_lower_middle, REG_13h);
+	Nfrac_uppermiddle_word = Create24BitWord(Nfrac_upper_middle, REG_14h);
+	Nfrac_top_word = Create24BitWord(Nfrac_top, REG_15h);
+
+	sendWord_24Bit(Nfrac_bottom_word);
+	sendWord_24Bit(Nfrac_lowermiddle_word);
+	sendWord_24Bit(Nfrac_uppermiddle_word);
+	sendWord_24Bit(Nfrac_top_word);
+
+	// Modulus Portion
+	unsigned long Nmod_top, Nmod_upper_middle, Nmod_lower_middle, Nmod_bottom;
+	unsigned long Nmod_top_word, Nmod_uppermiddle_word, Nmod_lowermiddle_word, Nmod_bottom_word;
+
+	SplitNumber_32Bit(Nmod, &Nmod_top, &Nmod_upper_middle, &Nmod_lower_middle, &Nmod_bottom);
+
+	Nmod_bottom_word = Create24BitWord(Nmod_bottom, REG_16h);
+	Nmod_lowermiddle_word = Create24BitWord(Nmod_lower_middle, REG_17h);
+	Nmod_uppermiddle_word = Create24BitWord(Nmod_upper_middle, REG_18h);
+	Nmod_top_word = Create24BitWord(Nmod_top, REG_19h);
+
+	sendWord_24Bit(Nmod_bottom_word);
+	sendWord_24Bit(Nmod_lowermiddle_word);
+	sendWord_24Bit(Nmod_uppermiddle_word);
+	sendWord_24Bit(Nmod_top_word);
+
+}
+
+

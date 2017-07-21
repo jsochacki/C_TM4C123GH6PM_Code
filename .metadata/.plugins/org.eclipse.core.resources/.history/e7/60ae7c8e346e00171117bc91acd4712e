@@ -1,0 +1,18 @@
+/*
+ * Synth_API_Console_Functions.h
+ *
+ * Author: Mason Edgar
+ *
+ */
+
+#ifndef SYNTH_API_CONSOLE_FUNCTIONS_H_
+#define SYNTH_API_CONSOLE_FUNCTIONS_H_
+
+void InitConsole(void);
+void clearArray(char* input);
+void getString(char* user_string);
+void parseString(char* original, char* command, char* value);
+void printString(char *string);
+
+
+#endif /* SYNTH_API_CONSOLE_FUNCTIONS_H_ */

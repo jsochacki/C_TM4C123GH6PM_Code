@@ -27,6 +27,7 @@ main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom_map.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/pwm.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ssi.h
+main.obj: ../Synth_API_Macro_Definitions.h
 
 ../main.c: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdint.h: 
@@ -55,3 +56,4 @@ C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom.h:
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom_map.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/pwm.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ssi.h: 
+../Synth_API_Macro_Definitions.h: 

@@ -1,1 +1,1 @@
-"./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./uartstdio.obj" "C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib" "../tm4c123gh6pm.cmd" -llibc.a 
+"./Synth_API_Console_Functions.obj" "./Synth_API_Control_Registers.obj" "./Synth_API_Preface_Registers.obj" "./Synth_API_SPI_Setup.obj" "./Synth_API_Status_Registers.obj" "./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./uartstdio.obj" "C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib" "../tm4c123gh6pm.cmd" -llibc.a 
