@@ -456,6 +456,39 @@ void getString(char* user_string){
 
 
 /*******************************************************************************************************/
+/*               Parses the user input and separates the command from the value                        */
+/*******************************************************************************************************/
+
+void parseString(char* original, char* command, char* value){
+
+	int flag = 0;
+
+	while(*original != '\0'){
+
+		while(*original != ' ' && flag == 0){
+
+			if(*original == '\0'){ break; }
+
+			*command = *original++;
+			 command++;
+		}
+
+		if(*original == ' '){
+			flag = 1;
+			original++;
+		}
+
+		if(*original == '\0'){ break; }
+
+		*value = *original++;
+		 value++;
+
+	}
+
+}
+
+
+/*******************************************************************************************************/
 /*                           Prints a given string to the UART console                                 */
 /*******************************************************************************************************/
 
@@ -550,8 +583,8 @@ void InitConsole(void){
 	MAP_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 	MAP_UARTConfigSetExpClk(UART0_BASE, MAP_SysCtlClockGet(), 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
 
-    printString("Welcome to the 8V97003 API Console\n\r");
-    printString("\nEnter a command: ");
+	printString("Welcome to the 8V97003 API Console\n\r");
+	printString("\nEnter a command: ");
 
 
 }
@@ -656,120 +689,120 @@ void InitPrefaceRegister(void){
 
 /*
 
-             Register 0h
+               Register 0h
 
-   Bits 3-0 must mirror bits 7-4
-+--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
-|  | |  | |  | |  | |  | |  | |  | |  |
-|D7| |D6| |D5| |D4| |D3| |D2| |D1| |D0|
-|  | |  | |  | |  | |  | |  | |  | |  |
-+--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
- S    L    A    S     S    A    L    S
- O    S    D    D     D    D    S    O
- F    B    D    O     O    D    B    F
- T         R               R         T
-      F    E    A     A    E    F
- R    I    S    C     C    S    I    R
- E    R    S    T     T    S    R    E
- S    S         I     I         S    S
- E    T    A    V     V    A    T    E
- T         S    E     E    S         T
-           C               C
-           E               E
-           N               N
-           D               D
+     Bits 3-0 must mirror bits 7-4
+  +--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
+  |  | |  | |  | |  | |  | |  | |  | |  |
+  |D7| |D6| |D5| |D4| |D3| |D2| |D1| |D0|
+  |  | |  | |  | |  | |  | |  | |  | |  |
+  +--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
+   S    L    A    S     S    A    L    S
+   O    S    D    D     D    D    S    O
+   F    B    D    O     O    D    B    F
+   T         R               R         T
+        F    E    A     A    E    F
+   R    I    S    C     C    S    I    R
+   E    R    S    T     T    S    R    E
+   S    S         I     I         S    S
+   E    T    A    V     V    A    T    E
+   T         S    E     E    S         T
+             C               C
+             E               E
+             N               N
+             D               D
 
 
 ___________________________________________________________________________________
 
-Soft Reset Function:
+ Soft Reset Function:
 
-0 = Normal operation
-1 = Register reset. The device loads the default values into the registers 0002 -
-00FF.
-The content of the registers addresses 0000 an 0001 and the SPI engine are
-not reset.
-Soft reset bit D7 is mirrored with <Softreset> in bit position D0. Register reset
-requires setting both SoftReset and <SoftReset> bits.
-
-___________________________________________________________________________________
-
-Least Significant Bit Position:
-
-Defines the bit transmitted first in SPI transfers between slave and master.
-0 = The most significant bit (D7) first
-1 = The least significant bit (D0) first
-LSBFirst bit D6 is mirrored with <LSBFirst> in bit position D1. Changing
-LSBFirst to most significant bit requires setting both LSBFirst and <LSBFirst>
-bits.
+ 0 = Normal operation
+ 1 = Register reset. The device loads the default values into the registers 0002 -
+ 00FF.
+ The content of the registers addresses 0000 an 0001 and the SPI engine are
+ not reset.
+ Soft reset bit D7 is mirrored with <Softreset> in bit position D0. Register reset
+ requires setting both SoftReset and <SoftReset> bits.
 
 ___________________________________________________________________________________
 
-Address Ascend On:
+ Least Significant Bit Position:
 
-0 = Address Ascend is off (Addresses auto-decrement in streaming SPI mode)
-1 = Address Ascend is on (Addresses auto-increment in streaming SPI mode)
-The AddressAscend bit specifies whether addresses are incremented or
-decremented in streaming SPI transfers.
-AddressAscend bit D5 is mirrored with <AddressAscend> in bit position D2.
-Changing AddressAscend to “ON” requires to set both AddressAscend and
-<AddressAscend> bits
-
-___________________________________________________________________________________
-
-SPI 3/4-Wire Mode:
-
-Selects the unidirectional or bidirectional data transfer mode for the SDIO pin.
-
-0 = SPI 3-wire mode:
-- SDIO is the SPI bidirectional data I/O pin
-- SDO pin is not used and is in high-impedance
-
-1 = SPI 4-wire mode
-- SDIO is the SPI data input pin
-- SDO is the SPI data output pin
-
-SDOActive bit D4 is mirrored with <SDOActive> in bit position D3. Changing
-SDOActive to SPI 4-wire mode requires setting both SDOActive and
-<SDOActive> bits.
+ Defines the bit transmitted first in SPI transfers between slave and master.
+ 0 = The most significant bit (D7) first
+ 1 = The least significant bit (D0) first
+ LSBFirst bit D6 is mirrored with <LSBFirst> in bit position D1. Changing
+ LSBFirst to most significant bit requires setting both LSBFirst and <LSBFirst>
+ bits.
 
 ___________________________________________________________________________________
 
+ Address Ascend On:
 
-
-
-            Register 1h
-
-+--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
-|  | |  | |  | |  | |  | |  | |  | |  |
-|D7| |D6| |D5| |D4| |D3| |D2| |D1| |D0|
-|  | |  | |  | |  | |  | |  | |  | |  |
-+--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
- U    U    B    U    U    U    U    U
- N    N    U    N    N    N    N    N
- U    U    F    U    U    U    U    U
- S    S    F    S    S    S    S    S
- E    E    E    E    E    E    E    E
- D    D    R    D    D    D    D    D
-
-           R
-           E
-           A
-           D
-
-           M
-           O
-           D
-           E
+ 0 = Address Ascend is off (Addresses auto-decrement in streaming SPI mode)
+ 1 = Address Ascend is on (Addresses auto-increment in streaming SPI mode)
+ The AddressAscend bit specifies whether addresses are incremented or
+ decremented in streaming SPI transfers.
+ AddressAscend bit D5 is mirrored with <AddressAscend> in bit position D2.
+ Changing AddressAscend to “ON” requires to set both AddressAscend and
+ <AddressAscend> bits
 
 ___________________________________________________________________________________
 
-Read Back Mode of the Buffer Registers:
+ SPI 3/4-Wire Mode:
 
-0 = Read from active registers
-1 = Read from the Buffer Register (case of Doubled Buffer Registers); If the
-register being read is not doubled buffered, a 1 value will read from the active
-register
+ Selects the unidirectional or bidirectional data transfer mode for the SDIO pin.
+
+ 0 = SPI 3-wire mode:
+ - SDIO is the SPI bidirectional data I/O pin
+ - SDO pin is not used and is in high-impedance
+
+ 1 = SPI 4-wire mode
+ - SDIO is the SPI data input pin
+ - SDO is the SPI data output pin
+
+ SDOActive bit D4 is mirrored with <SDOActive> in bit position D3. Changing
+ SDOActive to SPI 4-wire mode requires setting both SDOActive and
+ <SDOActive> bits.
+
+___________________________________________________________________________________
+
+
+
+
+              Register 1h
+
+  +--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
+  |  | |  | |  | |  | |  | |  | |  | |  |
+  |D7| |D6| |D5| |D4| |D3| |D2| |D1| |D0|
+  |  | |  | |  | |  | |  | |  | |  | |  |
+  +--+ +--+ +--+ +--+ +--+ +--+ +--+ +--+
+   U    U    B    U    U    U    U    U
+   N    N    U    N    N    N    N    N
+   U    U    F    U    U    U    U    U
+   S    S    F    S    S    S    S    S
+   E    E    E    E    E    E    E    E
+   D    D    R    D    D    D    D    D
+
+             R
+             E
+             A
+             D
+
+             M
+             O
+             D
+             E
+
+___________________________________________________________________________________
+
+ Read Back Mode of the Buffer Registers:
+
+ 0 = Read from active registers
+ 1 = Read from the Buffer Register (case of Doubled Buffer Registers); If the
+ register being read is not doubled buffered, a 1 value will read from the active
+ register
 
 ___________________________________________________________________________________
 
@@ -1995,7 +2028,7 @@ void controlDSM(bool DSMtype, bool ShapeDitherEn, bool DitherEn, unsigned long D
 
 /*
 
-                                                              DSM Control Register Map
+                                                       DSM Control Register Map (Delta Sigma Modulator)
   +---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
   |               |               |               |               |               |               |               |               |               |
   |     ADDR      |      D7       |      D6       |      D5       |      D4       |      D3       |      D2       |      D1       |      D0       |
@@ -2005,6 +2038,15 @@ void controlDSM(bool DSMtype, bool ShapeDitherEn, bool DitherEn, unsigned long D
   |     001E      |    DSMType    |  DSMOrder<2>  |  DSMOrder<1>  |  DSMOrder<0>  |  DitherG<1>   |  DitherG<0>   | ShapeDitherEn |   DitherEn    |
   |               |               |               |               |               |               |               |               |               |
   +---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+
+
+ In order to reduce the spurs, the user can enable the dither function to increase the repeat length of the code sequence in the Sigma Delta Modulator (DSM).
+ The increased repeat length is 2^32 - 1 cycles so that the resulting quantization error is spread to appear like broadband noise. As a result, the
+ in-band phase noise may be degraded when using the dither function. When the application requires the lowest possible phase noise and when the loop
+ bandwidth is low enough to filter most of the undesirable spurs, or if the spurs won’t affect the system performance, it is recommended to use the low
+ noise mode with dither disabled.
+
+
 
 */
 

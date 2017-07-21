@@ -74,65 +74,79 @@ uint32_t readWord_24Bit(unsigned long word);
 uint32_t GetRegisterValue(unsigned long address);
 void parseString(char* original, char* command, char* value);
 void ReadFromStatusRegisters(char* parameter);
-
+void printFloat(float value);
+float ConvertStringToFloat(char* string);
 
 int main(void) {
 	
+
+//	char input[MAX_INPUT_LENGTH];
+//	char command[MAX_INPUT_LENGTH];
+//	char value[MAX_INPUT_LENGTH];
+
+	char outputFreq[100], refFreq[100];
+	float output, reference, result;
+
 	setupClock();
 	InitConsole();
-//	setupChipSelect(CS_ACTIVE_LOW);
-//	setupSPI_8Bit();
-//	unsigned long address = 0x123456;
-//
-//	uint32_t registerValue;
-//
-//	registerValue = GetRegisterValue(address);
-//
-//	printString("Return Value: ");
-//	printInt(registerValue);
-//	printString("\n\r");
-
-	char input[MAX_INPUT_LENGTH];
-	char command[MAX_INPUT_LENGTH];
-	char value[MAX_INPUT_LENGTH];
+	setupChipSelect(CS_ACTIVE_LOW);
+	setupSPI_8Bit();
 
 	while(1){
 
-		clearArray(input);
-		clearArray(command);
-		clearArray(value);
+		clearArray(outputFreq);
+		clearArray(refFreq);
+//		clearArray(value);
 
-		getString(input);
+		printString("\n\r\nEnter desired output frequency: ");
+		getString(outputFreq);
+		printString(newline);
+		printString("Enter the reference frequency: ");
+		getString(refFreq);
 
-		parseString(input, command, value);
+		output = ConvertStringToFloat(outputFreq);
+		reference = ConvertStringToFloat(refFreq);
 
+		result = output / reference;
 
-		if(!strncmp(command, "setFrequency", 12)){
-			printString("\n\r\n");
-			printString("Frequency set to ");
-			printString(value);
-			printString("\n\r\n");
-			printString("Enter command: ");
-		}
-
-		else if(!strncmp(command, "initDevice", 10)){
-			printString("\n\r\n");
-			printString("Initializing device...");
-			printString("\n\r\n");
-			printString("Enter command: ");
-		}
-
-		else{
-			printString("\n\r\n");
-			printString("Command not recognized...");
-			printString("\n\r\n");
-			printString("Enter command: ");
-
-		}
+		printString(newline);
+		printString(newline);
+		printFloat(result);
+		printString(newline);
+		printString(newline);
 
 
 
-		ReadFromStatusRegisters(command);
+
+
+
+//		parseString(input, command, value);
+//
+//
+//		if(!strncmp(command, "setFrequency", 12)){
+//			printString("\n\r\n");
+//			printString("Frequency set to ");
+//			printString(value);
+//			printString("\n\r\n");
+//			printString("Enter command: ");
+//		}
+//
+//		else if(!strncmp(command, "initDevice", 10)){
+//			printString("\n\r\n");
+//			printString("Initializing device...");
+//			printString("\n\r\n");
+//			printString("Enter command: ");
+//		}
+//
+//		else{
+//			printString("\n\r\n");
+//			printString("Command not recognized...");
+//			printString("\n\r\n");
+//			printString("Enter command: ");
+//
+//		}
+
+
 
 
 	}
@@ -146,6 +160,186 @@ int main(void) {
 
 	return 0;
 }
+
+
+
+void DetermineFeedbackValues(float output_freq, float reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long nMOD){
+
+	float freq_ratio = output_freq / reference_freq;
+
+	*nINT = (unsigned short)freq_ratio;
+
+	float decimal_portion = freq_ratio - (unsigned short)freq_ratio;
+
+	*nFRAC = decimal_portion * nMOD;
+
+}
+
+
+unsigned long ConvertStringToNumber(char* string) {
+
+	// This function properly converts all legal values for an >>unsigned<< long integer: 0d - 4,294,967,295d
+
+	// Number string MUST be in decimal format, this function isn't designed to accept hex values
+
+	int i, digit, current_power = -1;
+	unsigned long value = 0;
+	char* temp_ptr;
+
+	temp_ptr = string;
+
+	while (*temp_ptr++ != '\0') { current_power++; }
+
+	while (*string != '\0') {
+
+		unsigned long multiplier = 1;
+
+		for(i = current_power--; i > 0; i--) { multiplier *= 10; }
+
+		switch (*string++) {
+
+		case '0':
+			digit = 0;
+			break;
+		case '1':
+			digit = 1;
+			break;
+		case '2':
+			digit = 2;
+			break;
+		case '3':
+			digit = 3;
+			break;
+		case '4':
+			digit = 4;
+			break;
+		case '5':
+			digit = 5;
+			break;
+		case '6':
+			digit = 6;
+			break;
+		case '7':
+			digit = 7;
+			break;
+		case '8':
+			digit = 8;
+			break;
+		case '9':
+			digit = 9;
+			break;
+		}
+
+		value += digit * multiplier;
+	}
+
+	return value;
+}
+
+
+
+
+float ConvertStringToFloat(char* string) {
+
+	// Converts a character arrary into a floating point number
+	// This function can handle numbers with or without a decimal
+
+	char integerPart[21], decimalPart[21];
+	char* int_ptr = integerPart;
+	char* dec_ptr = decimalPart;
+	char* decimal_check = string;
+	int i, flag = 0, decimal_flag = 0;
+	unsigned long integer_portion, decimal_portion;
+	float mult = 0, divider = 1, result;
+	float intPart, decPart;
+
+	// Clear out arrays
+	for (i = 0; i < 20; i++) {
+
+		integerPart[i] = '\0';
+		decimalPart[i] = '\0';
+	}
+
+	// Check for a decimal
+	while (*decimal_check != '\0') {
+
+		if (*decimal_check++ == '.') { decimal_flag = 1; }
+	}
+
+	if (decimal_flag) {
+
+		// Copy integer portion into workspace
+		while (*string != '.') {
+			*int_ptr = *string++;
+			int_ptr++;
+		}
+
+		// Copy decimal portion into workspace
+		while (*string != ENTER) {
+
+			if (flag == 0) {
+				string++;
+				flag = 1;
+			}
+			else {
+				*dec_ptr = *string++;
+				 dec_ptr++;
+				 mult++;
+			}
+		}
+
+		integer_portion = ConvertStringToNumber(integerPart);
+		decimal_portion = ConvertStringToNumber(decimalPart);
+
+		intPart = (float)integer_portion;
+		decPart = (float)decimal_portion;
+
+		for (i = 0; i < mult; i++) { divider *= 10; }
+
+		decPart /= divider;
+
+		result = intPart + decPart;
+	}
+
+	else {
+
+		// Copy integer portion (no decimal place)
+		while (*string != ENTER) {
+			*int_ptr = *string++;
+			 int_ptr++;
+		}
+
+		integer_portion = ConvertStringToNumber(integerPart);
+		intPart = (float)integer_portion;
+
+		result = intPart;
+	}
+
+	return result;
+}
+
+
+
+
+
+void printFloat(float value){
+
+    printInt(value);
+
+    int subtract = value;
+
+    // 1 decimal place per zero
+    value = (value - subtract) * 100000000;
+    MAP_UARTCharPut(UART0_BASE, '.');
+
+    if(value < 0)
+        value = -value;
+
+    printInt(value);
+
+}
+
+
 
 
 
@@ -192,7 +386,15 @@ void ReadFromStatusRegisters(char* parameter){
 
 }
 
+unsigned long determineDividerValues(unsigned long reference_frequency, unsigned long* INT, unsigned long* FRAC, unsigned long* MOD, bool IntegerMode){
 
+
+
+
+
+
+
+}
 
 
 
@@ -218,7 +420,7 @@ void parseString(char* original, char* command, char* value){
 		if(*original == '\0'){ break; }
 
 		*value = *original++;
-		value++;
+		 value++;
 
 	}
 
@@ -296,7 +498,7 @@ void getString(char* user_string){
 
 	int count = 0;
 
-	while( (*user_string = MAP_UARTCharGet(UART0_BASE)) != ENTER ){
+	while( (*user_string = MAP_UARTCharGet(UART0_BASE)) != '\r'){
 
 		MAP_UARTCharPut(UART0_BASE, *user_string++);
 		if(++count == MAX_INPUT_LENGTH){ break; }
@@ -306,65 +508,7 @@ void getString(char* user_string){
 }
 
 
-unsigned long ConvertStringToNumber(char* string) {
 
-	// This function properly converts all legal values for an >>unsigned<< long integer: 0d - 4,294,967,295d
-
-	// Number string MUST be in decimal format, this function isn't designed to accept hex values
-
-	int i, digit, current_power = -1;
-	unsigned long value = 0;
-	char* temp_ptr;
-
-	temp_ptr = string;
-
-	while (*temp_ptr++ != '\0') { current_power++; }
-
-	while (*string != '\0') {
-
-		unsigned long multiplier = 1;
-
-		for(i = current_power--; i > 0; i--) { multiplier *= 10; }
-
-		switch (*string++) {
-
-		case '0':
-			digit = 0;
-			break;
-		case '1':
-			digit = 1;
-			break;
-		case '2':
-			digit = 2;
-			break;
-		case '3':
-			digit = 3;
-			break;
-		case '4':
-			digit = 4;
-			break;
-		case '5':
-			digit = 5;
-			break;
-		case '6':
-			digit = 6;
-			break;
-		case '7':
-			digit = 7;
-			break;
-		case '8':
-			digit = 8;
-			break;
-		case '9':
-			digit = 9;
-			break;
-		}
-
-		value += digit * multiplier;
-	}
-
-	return value;
-}
 
 
 void printString(char *string){
