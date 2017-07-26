@@ -9,7 +9,7 @@
 #define SYNTH_API_CONSOLE_FUNCTIONS_H_
 
 extern void InitConsole(void);
-extern void clearArray(char* input);
+extern void clearArray(char* input, int sizeOfArray);
 extern void getString(char* user_string);
 extern void parseString(char* original, char* command, char* value);
 extern void printString(char *string);

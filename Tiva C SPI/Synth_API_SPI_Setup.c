@@ -145,6 +145,69 @@ void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsig
 }
 
 
+/*******************************************************************************************************/
+/*     Determines the MOD and FRAC values by maximizing the MOD value (for use by Feedback Control)    */
+/*******************************************************************************************************/
+
+void MaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+
+	double modulus_max = 4294967295;
+
+	double frac = ratio * modulus_max;
+
+	while ((frac - (unsigned long)frac) != 0) {
+		modulus_max = modulus_max - 1;
+		frac = ratio * modulus_max;
+	}
+
+	*nFRAC = (unsigned long)frac;
+	*nMOD = (unsigned long)modulus_max;
+}
+
+
+/*******************************************************************************************************/
+/*     Determines the MOD and FRAC values by minimizing the MOD value (for use by Feedback Control)    */
+/*******************************************************************************************************/
+
+void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+
+	double modulus_min = 2;
+
+	double frac = ratio * modulus_min;
+
+	while ((frac - (unsigned long)frac) != 0) {
+		modulus_min = modulus_min + 1;
+		frac = ratio * modulus_min;
+	}
+
+	*nFRAC = (unsigned long)frac;
+	*nMOD = (unsigned long)modulus_min;
+
+}
+
+
+/****************************************************************************************************************************************/
+/*                           Converts desired frequency & reference frequency into programmable values                                  */
+/****************************************************************************************************************************************/
+
+void DetermineFeedbackValues(double output_freq, double reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD){
+
+	double freq_ratio = output_freq / reference_freq;
+	unsigned long frac, mod;
+
+	*nINT = (unsigned short)freq_ratio;
+
+	double decimal_portion = freq_ratio - (unsigned short)freq_ratio;
+
+	MaximizeMOD(decimal_portion, &frac, &mod); // Choose whether you want to maximize the modulus or minimize it
+
+//	MinimizeMOD(decimal_portion, &frac, &mod);
+
+	*nFRAC = frac;
+	*nMOD = mod;
+
+}
+
 
 /*******************************************************************************************************/
 /*            Creates properly formatted data word to program a particular register                    */

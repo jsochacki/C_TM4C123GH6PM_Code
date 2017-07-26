@@ -60,11 +60,11 @@ void InitConsole(void){
 /*           Clears out a given character array with null terminators for housekeeping                 */
 /*******************************************************************************************************/
 
-void clearArray(char* input){
+void clearArray(char* input, int sizeOfArray){
 
 	int i;
 
-	for(i = 0; i < MAX_INPUT_LENGTH; i++){ *input++ = '\0'; }
+	for(i = 0; i < sizeOfArray; i++){ *input++ = '\0'; }
 
 }
 

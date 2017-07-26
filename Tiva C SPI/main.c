@@ -36,84 +36,61 @@ Master Code For TivaC PLL Control
 #include "Synth_API_Macro_Definitions.h"
 #include "Synth_API_SPI_Setup.h"
 #include "Synth_API_Console_Functions.h"
+#include "Synth_API_Preface_Registers.h"
 #include "Synth_API_Control_Registers.h"
 #include "Synth_API_Status_Registers.h"
 
 
 char new_line[] = "\n\r";
 
-void DetermineFeedbackValues(float output_freq, float reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long nMOD);
 
 int main(void) {
 	
 
-	char outputFreq[100], refFreq[100];
-	float output, reference, result;
+	char user_input[MAX_INPUT_LENGTH], command[50], value[20];
 
 	setupClock();
 	InitConsole();
-	setupChipSelect(CS_ACTIVE_LOW);
-	setupSPI_8Bit();
-
-
+//	setupChipSelect(CS_ACTIVE_LOW);
+//	setupSPI_8Bit();
+//	InitPrefaceRegisters();
 
 	while(1){
 
-		clearArray(outputFreq);
-		clearArray(refFreq);
-		printString("\n\r\nEnter desired output frequency: ");
-		getString(outputFreq);
-		printString(new_line);
-		printString("Enter the reference frequency: ");
-		getString(refFreq);
+		clearArray(user_input, 100);
+		clearArray(command, 50);
+		clearArray(value, 20);
 
-		// Testing out my string to float conversion function
-		output = ConvertStringToFloat(outputFreq);
-		reference = ConvertStringToFloat(refFreq);
-
-		result = output / reference;
-
-		printString(new_line);
-		printString(new_line);
-		printFloat(result);
-		printString(new_line);
-		printString(new_line);
+		getString(user_input);
+		parseString(user_input, command, value);
 
 
-		/* Currently working on the command interface that parses user input and converts it to function arguments for register programming */
+		if(!strncmp(command, "setFrequency", 12)){
+			printString(new_line);
+			printString("Frequency set to ");
+			printString(value);
+			printString(new_line);
+			printString("Enter command: ");
+		}
 
+		else if(!strncmp(command, "initDevice", 10)){
+			printString("\n\r\n");
+			printString("Initializing device...");
+			printString("\n\r\n");
+			printString("Enter command: ");
+		}
 
-
-//		parseString(input, command, value);
-//
-//
-//		if(!strncmp(command, "setFrequency", 12)){
-//			printString("\n\r\n");
-//			printString("Frequency set to ");
-//			printString(value);
-//			printString("\n\r\n");
-//			printString("Enter command: ");
-//		}
-//
-//		else if(!strncmp(command, "initDevice", 10)){
-//			printString("\n\r\n");
-//			printString("Initializing device...");
-//			printString("\n\r\n");
-//			printString("Enter command: ");
-//		}
-//
-//		else{
-//			printString("\n\r\n");
-//			printString("Command not recognized...");
-//			printString("\n\r\n");
-//			printString("Enter command: ");
-//
-//		}
+		else{
+			printString(new_line);
+			printString("Command not recognized...");
+			printString(new_line);
+			printString("Enter command: ");
+		}
 
 
 
 
-	}
+	} // End while loop
 
 
 
@@ -121,16 +98,3 @@ int main(void) {
 }
 
 
-// Part of command interface
-
-void DetermineFeedbackValues(float output_freq, float reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long nMOD){
-
-	float freq_ratio = output_freq / reference_freq;
-
-	*nINT = (unsigned short)freq_ratio;
-
-	float decimal_portion = freq_ratio - (unsigned short)freq_ratio;
-
-	*nFRAC = decimal_portion * nMOD;
-
-}

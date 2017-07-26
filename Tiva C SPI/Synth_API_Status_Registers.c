@@ -87,7 +87,7 @@ void ReadFromStatusRegisters(char* parameter){
 	unsigned long DigLockWord, BandSelectWord, currentVCO_Word, currentDigitalBandWord, lossOfLockWord;
 	uint32_t DigLockValue, BandSelectValue, currentVCO_Value, currentDigitalBandValue, lossOfLockValue;
 
-	clearArray(temp);
+	clearArray(temp, MAX_INPUT_LENGTH);
 
 	// Copy character array into local workspace
 	while(*parameter != '\0'){

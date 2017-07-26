@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-
+#include <float.h>
 
 
 
@@ -11,47 +11,109 @@
 //void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigned long* bottom_half);
 //unsigned long Create24BitWord(unsigned long data, unsigned long reg);
 //void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsigned long* upper_middle_portion, unsigned long* lower_middle_portion, unsigned long* bottom_portion);
+
 unsigned long ConvertStringToNumber(char* string);
 float ConvertStringToFloat(char* string);
+void MaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
+void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
+void DetermineFeedbackValues(double output_freq, double reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD);
 
 int main(void)
 {
-	//#define N_DECIMAL_POINTS_PRECISION (1000000) // n = 3. Three decimal points.
+	unsigned short integerPart;
+	unsigned long fractionalPart, modPart;
 
-	//float num = 120.5894;
+	DetermineFeedbackValues(2000000, 4000000, &integerPart, &fractionalPart, &modPart);
 
-	//int integerPart = (int)num;
-	//int decimalPart =  (int)(num * N_DECIMAL_POINTS_PRECISION) % N_DECIMAL_POINTS_PRECISION;
-
-	//printf("integer part: %d\tdecimal part: %d\n\n", integerPart, decimalPart);
-
-	char outputFreq[50], refFreq[50];
-	float output, reference, result;
-	int i;
-
-	for (i = 0; i < 50; i++) { 
-		outputFreq[i] = '\0'; 
-		refFreq[i] = '\0';
-	}
-	
-	printf("Enter the desired output frequency [MHz]: ");
-	fgets(outputFreq, sizeof(outputFreq), stdin);
-	printf("\nEnter the supplied reference frequency [MHz]: ");
-	fgets(refFreq, sizeof(refFreq), stdin);
-
-	output = ConvertStringToFloat(outputFreq);
-	reference = ConvertStringToFloat(refFreq);
-
-	result = output / reference; 
-
-	printf("\n\noutput: %f / %f = %f\n", output, reference, result);
-
-
-	
-
+	printf("nINT: %u\n", integerPart);
+	printf("nFrac: %u\n", fractionalPart);
+	printf("nMOD:  %u\n\n", modPart);
 
 	return 0;
 }
+
+
+void MaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+
+	double modulus_max = 4294967295;
+
+	double frac = ratio * modulus_max;
+
+	while ((frac - (unsigned long)frac) != 0) {
+		modulus_max = modulus_max - 1;
+		frac = ratio * modulus_max;
+	}
+
+	printf("frac: %f\n", frac);
+
+	*nFRAC = (unsigned long)frac;
+	*nMOD = (unsigned long)modulus_max;
+} 
+
+
+
+void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+
+	double modulus_min = 2;
+
+	double frac = ratio * modulus_min;
+
+	while ((frac - (unsigned long)frac) != 0) {
+		modulus_min = modulus_min + 1;
+		frac = ratio * modulus_min;
+	}
+
+	printf("frac: %f\n", frac);
+
+	*nFRAC = (unsigned long)frac;
+	*nMOD = (unsigned long)modulus_min;
+
+}
+
+
+
+void DetermineFeedbackValues(double output_freq, double reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD) {
+
+	double freq_ratio = output_freq / reference_freq;
+	unsigned long frac, mod;
+
+	*nINT = (unsigned short)freq_ratio;
+
+	double decimal_portion = freq_ratio - (unsigned short)freq_ratio;
+
+	MaximizeMOD(decimal_portion, &frac, &mod);
+
+	//	MinimizeMOD(decimal_portion, &frac, &mod);
+
+	*nFRAC = frac;
+	*nMOD = mod;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 float ConvertStringToFloat(char* string) { 
 
