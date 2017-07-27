@@ -66,9 +66,29 @@ int main(void) {
 
 
 		if(!strncmp(command, "setFrequency", 12)){
+			char ref[20];
+			int out_factor, ref_factor;
+			double output_freq, reference_freq, result;
+			unsigned short nINT;
+			unsigned long nFRAC, nMOD;
+
+			clearArray(ref, 20);
+			printString(new_line);
+			printString(new_line);
+			printString("Enter the reference frequency with unit (no space & case sensitive): ");
+			getString(ref);
+
+			reference_freq = ConvertStringToFrequency(ref, &ref_factor);
+			output_freq = ConvertStringToFrequency(value, &out_factor);
+			result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
+			DetermineFeedbackValues(result, &nINT, &nFRAC, &nMOD);
+			//SetFeedbackControlValues(nINT, nFRAC, nMOD);
+
+			printString(new_line);
 			printString(new_line);
 			printString("Frequency set to ");
 			printString(value);
+			printString(new_line);
 			printString(new_line);
 			printString("Enter command: ");
 		}

@@ -190,9 +190,8 @@ void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 /*                           Converts desired frequency & reference frequency into programmable values                                  */
 /****************************************************************************************************************************************/
 
-void DetermineFeedbackValues(double output_freq, double reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD){
+void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD){
 
-	double freq_ratio = output_freq / reference_freq;
 	unsigned long frac, mod;
 
 	*nINT = (unsigned short)freq_ratio;

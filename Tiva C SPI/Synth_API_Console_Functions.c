@@ -136,11 +136,180 @@ void printString(char *string){
 }
 
 
+/**********************************************************************************************************************************/
+/*                                         Converts a string into a frequency value                                               */
+/**********************************************************************************************************************************/
+
+double ConvertStringToFrequency(char* string, int* factor) {
+
+	// The frequency range will typically be GHz, so I wanted to avoid using large numbers since they are prone to rounding errors
+
+	char value[20], unit[20];
+	char* value_ptr = value;
+	char* unit_ptr = unit;
+	int i;
+
+	for (i = 0; i < 20; i++) {
+		value[i] = '\0';
+		unit[i] = '\0';
+	}
+
+	// Copy number portion into separate array (58 is the limit of the numbers inside the ASCII table)
+	while (*string < 58) {
+		*value_ptr = *string++;
+		value_ptr++;
+	}
+
+	while (*string != ENTER) {
+		*unit_ptr = *string++;
+		unit_ptr++;
+	}
+
+	double value_flt = ConvertStringToFloat(value);
+
+	if (!strncmp(unit, "GHz", 3)) {
+		*factor = 9; // 10^9 power
+	}
+	else if (!strncmp(unit, "MHz", 3)) {
+		*factor = 6; // 10^6 power
+	}
+	else if (!strncmp(unit, "kHz", 3)) {
+		*factor = 3; // 10^3 power
+	}
+	else if (!strncmp(unit, "Hz", 3)) {
+		*factor = 0; // 10^0 power
+	}
+
+	return value_flt;
+}
+
+
+/**********************************************************************************************************/
+/*                   Generates the proper frequency ratio for feedback divider control                    */
+/**********************************************************************************************************/
+
+double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor) {
+
+	double ratio;
+	int i;
+
+	int result_factor = out_factor - ref_factor; // Determine what the difference in order of magnitude is between the output and reference
+
+	// If the reference is larger, switch it up
+	if (result_factor < 0) {
+
+		result_factor = ref_factor - out_factor;
+
+		double multiplier = 1;
+
+		for (i = 0; i < result_factor; i++) { multiplier *= 10; }
+
+		output_freq /= multiplier;
+
+		ratio = output_freq / reference_freq;
+	}
+
+	else {
+
+		double multiplier = 1;
+
+		for (i = 0; i < result_factor; i++) { multiplier *= 10; }
+
+		output_freq *= multiplier;
+
+		ratio = output_freq / reference_freq;
+	}
+
+	return ratio;
+}
+
+
+/*******************************************************************************************************/
+/*                    Converts a character array into a floating point value                           */
+/*******************************************************************************************************/
+
+double ConvertStringToFloat(char* string) {
+
+	// The difference between this function and the one below it is how this function determines the end of the character arrays
+
+	char integerPart[20], decimalPart[21];
+	char* int_ptr = integerPart;
+	char* dec_ptr = decimalPart;
+	char* decimal_check = string;
+	char* no_decimal = string;
+	int i, flag = 0, decimal_flag = 0;
+	unsigned long integer_portion, decimal_portion;
+	double mult = 0, divider = 1, result;
+	double intPart, decPart;
+
+	// Clear out arrays
+	for (i = 0; i < 20; i++) { integerPart[i] = '\0'; }
+	for (i = 0; i < 21; i++) { decimalPart[i] = '\0'; }
+
+	// Check for a decimal
+	while (*decimal_check != '\0') {
+
+		if (*decimal_check++ == '.') { decimal_flag = 1; }
+	}
+
+	if (decimal_flag) {
+
+		// Copy integer portion into workspace
+		while (*string != '.') {
+			*int_ptr = *string++;
+			int_ptr++;
+		}
+
+		// Copy decimal portion into workspace
+		while (*string != '\0') {
+
+			if (flag == 0) {
+				string++;
+				flag = 1;
+			}
+			else {
+				*dec_ptr = *string++;
+				dec_ptr++;
+				mult++;
+			}
+		}
+
+		integer_portion = ConvertStringToNumber(integerPart);
+		decimal_portion = ConvertStringToNumber(decimalPart);
+
+		intPart = (double)integer_portion;
+		decPart = (double)decimal_portion;
+
+		for (i = 0; i < mult; i++) { divider *= 10; }
+
+		decPart /= divider;
+
+		result = intPart + decPart;
+	}
+
+	else {
+
+		// Copy integer portion (no decimal place)
+		while (*string != '\0') {
+			*int_ptr = *string++;
+			int_ptr++;
+		}
+
+		integer_portion = ConvertStringToNumber(integerPart);
+		intPart = (double)integer_portion;
+
+		result = intPart;
+	}
+
+	return result;
+}
+
+
 /*******************************************************************************************************/
 /*                    Converts a user input string into a floating point value                         */
 /*******************************************************************************************************/
 
-float ConvertStringToFloat(char* string) {
+double ConvertUserStringToFloat(char* string) {
 
 	// Converts a character array into a floating point number
 	// This function can handle numbers with or without a decimal
@@ -151,8 +320,8 @@ float ConvertStringToFloat(char* string) {
 	char* decimal_check = string;
 	int i, flag = 0, decimal_flag = 0;
 	unsigned long integer_portion, decimal_portion;
-	float mult = 0, divider = 1, result;
-	float intPart, decPart;
+	double mult = 0, divider = 1, result;
+	double intPart, decPart;
 
 	// Clear out arrays
 	for (i = 0; i < 20; i++) {
@@ -192,8 +361,8 @@ float ConvertStringToFloat(char* string) {
 		integer_portion = ConvertStringToNumber(integerPart);
 		decimal_portion = ConvertStringToNumber(decimalPart);
 
-		intPart = (float)integer_portion;
-		decPart = (float)decimal_portion;
+		intPart = (double)integer_portion;
+		decPart = (double)decimal_portion;
 
 		for (i = 0; i < mult; i++) { divider *= 10; }
 
@@ -211,7 +380,7 @@ float ConvertStringToFloat(char* string) {
 		}
 
 		integer_portion = ConvertStringToNumber(integerPart);
-		intPart = (float)integer_portion;
+		intPart = (double)integer_portion;
 
 		result = intPart;
 	}
