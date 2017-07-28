@@ -227,7 +227,7 @@ void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned l
 
 	FixedPointMaximizeMOD(decimal_portion, &frac, &mod); // Choose whether you want to maximize the modulus or minimize it
 
-//	FixedPointMinimizeMOD(decimal_portion, &frac, &mod);
+//	MinimizeMOD(decimal_portion, &frac, &mod);
 
 	*nFRAC = frac;
 	*nMOD = mod;
