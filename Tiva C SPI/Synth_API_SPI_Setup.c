@@ -39,6 +39,19 @@
 int cs_config;
 
 
+// Fixed-point arithmetic
+
+#define SHIFT_AMOUNT 16 // 2^16 = 65536
+
+const int fractionMask = 0xFFFFFFFFFFFFFFFF >> (64 - SHIFT_AMOUNT);
+
+#define DoubleToFixed(x) ((x) * (double)((uint64_t)1 << SHIFT_AMOUNT))
+#define FixedToDouble(x) ((double)(x) / (double)((uint64_t)1 << SHIFT_AMOUNT))
+#define FractionPart(x) ((x) & fractionMask)
+#define FixedMultiply(x,y) (((x) * (y)) >> SHIFT_AMOUNT)
+#define FixedDivide(x,y) (((x) << SHIFT_AMOUNT) / (y))
+
+
 /*******************************************************************************************************/
 /*                                 Initial clock setup routine                                         */
 /*******************************************************************************************************/
@@ -146,43 +159,57 @@ void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsig
 
 
 /*******************************************************************************************************/
-/*     Determines the MOD and FRAC values by maximizing the MOD value (for use by Feedback Control)    */
+/*     Determines the MOD and FRAC values by minimizing the MOD value (for use by Feedback Control)    */
 /*******************************************************************************************************/
 
-void MaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 
-	double modulus_max = 4294967295;
+	double modulus_min = 2;
 
-	double frac = ratio * modulus_max;
+	uint64_t fixed_mod_min = DoubleToFixed(modulus_min);
+	uint64_t fixed_ratio = DoubleToFixed(ratio);
+	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
 
-	while ((frac - (unsigned long)frac) != 0) {
-		modulus_max = modulus_max - 1;
-		frac = ratio * modulus_max;
+	double real_frac = FixedToDouble(fixed_frac);
+
+	while ((real_frac - (unsigned long)real_frac) != 0) {
+		fixed_mod_min = fixed_mod_min + 1;
+		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
+		real_frac = FixedToDouble(fixed_frac);
 	}
 
-	*nFRAC = (unsigned long)frac;
-	*nMOD = (unsigned long)modulus_max;
+	double real_mod_min = FixedToDouble(fixed_mod_min);
+
+	*nFRAC = (unsigned long)real_frac;
+	*nMOD = (unsigned long)real_mod_min;
+
 }
 
 
 /*******************************************************************************************************/
-/*     Determines the MOD and FRAC values by minimizing the MOD value (for use by Feedback Control)    */
+/*     Determines the MOD and FRAC values by maximizing the MOD value (for use by Feedback Control)    */
 /*******************************************************************************************************/
 
-void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 
-	double modulus_min = 2;
+	double modulus_max = 4294967295;
 
-	double frac = ratio * modulus_min;
+	uint64_t fixed_mod_max = DoubleToFixed(modulus_max);
+	uint64_t fixed_ratio = DoubleToFixed(ratio);
+	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
 
-	while ((frac - (unsigned long)frac) != 0) {
-		modulus_min = modulus_min + 1;
-		frac = ratio * modulus_min;
+	double real_frac = FixedToDouble(fixed_frac);
+
+	while ((real_frac - (unsigned long)real_frac) != 0) {
+		fixed_mod_max = fixed_mod_max - 1;
+		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
+		real_frac = FixedToDouble(fixed_frac);
 	}
 
-	*nFRAC = (unsigned long)frac;
-	*nMOD = (unsigned long)modulus_min;
+	double real_mod_max = FixedToDouble(fixed_mod_max);
 
+	*nFRAC = (unsigned long)real_frac;
+	*nMOD = (unsigned long)real_mod_max;
 }
 
 
@@ -198,7 +225,7 @@ void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned l
 
 	double decimal_portion = freq_ratio - (unsigned short)freq_ratio;
 
-	MaximizeMOD(decimal_portion, &frac, &mod); // Choose whether you want to maximize the modulus or minimize it
+	FixedPointMaximizeMOD(decimal_portion, &frac, &mod); // Choose whether you want to maximize the modulus or minimize it
 
 //	MinimizeMOD(decimal_portion, &frac, &mod);
 

@@ -3,6 +3,9 @@
 #include <math.h>
 #include <string.h>
 #include <float.h>
+#include <stdint.h>
+
+
 
 
 
@@ -16,15 +19,29 @@ unsigned long ConvertStringToNumber(char* string);
 double ConvertStringToFloat(char* string);
 void MaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
 void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
-void DetermineFeedbackValues(double output_freq, double reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD);
+void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD);
 double ConvertStringToFrequency(char* string, int* factor);
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor);
+
+
+#define SHIFT_AMOUNT 16 // 2^16 = 65536
+
+const int fractionMask = 0xFFFFFFFFFFFFFFFF >> (64 - SHIFT_AMOUNT);
+
+#define DoubleToFixed(x) ((x) * (double)((uint64_t)1 << SHIFT_AMOUNT))
+#define FixedToDouble(x) ((double)(x) / (double)((uint64_t)1 << SHIFT_AMOUNT))
+#define FractionPart(x) ((x) & fractionMask)
+#define FixedMultiply(x,y) (((x) * (y)) >> SHIFT_AMOUNT)
+#define FixedDivide(x,y) (((x) << SHIFT_AMOUNT) / (y))
+
 
 int main(void)
 {
 	
 	char out[20], ref[20];
 	int out_factor, ref_factor;
+	unsigned short nINT;
+	unsigned long nFRAC, nMOD;
 
 	printf("Enter desired output frequency: ");
 	fgets(out, sizeof(out), stdin);
@@ -36,11 +53,45 @@ int main(void)
 
 	double result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
 
-	printf("%f\n", result);
+	DetermineFeedbackValues(result, &nINT, &nFRAC, &nMOD);
+
+	printf("ratio: %f\nnINT: %u\nnFrac: %u\nnMOD: %u\n\n", result, nINT, nFRAC, nMOD);
+
+	
+
+	//uint64_t c;
+
+	//uint64_t a = DoubleToFixed(1);
+	//uint64_t b = DoubleToFixed(2);
+	
+	//c = a + b;
+	
+	//printf("%f\n", FixedToDouble(c));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
 	return 0;
 }
+
+
+
+
+
 
 
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor) {
@@ -116,8 +167,62 @@ double ConvertStringToFrequency(char* string, int* factor) {
 	return value_flt;
 }
 
+void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+
+	double modulus_min = 2;
+
+	uint64_t fixed_mod_min = DoubleToFixed(modulus_min);
+	uint64_t fixed_ratio = DoubleToFixed(ratio);
+	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
+
+	double real_frac = FixedToDouble(fixed_frac);
+
+	while ((real_frac - (unsigned long)real_frac) != 0) {
+		fixed_mod_min = fixed_mod_min + 1;
+		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
+		real_frac = FixedToDouble(fixed_frac);
+	}
+
+	double real_mod_min = FixedToDouble(fixed_mod_min);
+
+	*nFRAC = (unsigned long)real_frac;
+	*nMOD = (unsigned long)real_mod_min;
+
+}
 
 
+
+
+
+
+
+
+
+
+
+
+
+void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
+
+	double modulus_max = 4294967295;
+
+	uint64_t fixed_mod_max = DoubleToFixed(modulus_max);
+	uint64_t fixed_ratio = DoubleToFixed(ratio);
+	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
+
+	double real_frac = FixedToDouble(fixed_frac);
+
+	while ((real_frac - (unsigned long)real_frac) != 0) {
+		fixed_mod_max = fixed_mod_max - 1;
+		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
+		real_frac = FixedToDouble(fixed_frac);
+	}
+
+	double real_mod_max = FixedToDouble(fixed_mod_max);
+
+	*nFRAC = (unsigned long)real_frac;
+	*nMOD = (unsigned long)real_mod_max;
+}
 
 
 
@@ -168,18 +273,15 @@ void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 
 
 
-void DetermineFeedbackValues(double output_freq, double reference_freq, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD) {
+void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD) {
 
-	double freq_ratio = output_freq / reference_freq;
 	unsigned long frac, mod;
 
 	*nINT = (unsigned short)freq_ratio;
 
 	double decimal_portion = freq_ratio - (unsigned short)freq_ratio;
 
-	MaximizeMOD(decimal_portion, &frac, &mod);
-
-	//	MinimizeMOD(decimal_portion, &frac, &mod);
+	FixedPointMaximizeMOD(decimal_portion, &frac, &mod); // Choose whether you want to maximize the modulus or minimize it
 
 	*nFRAC = frac;
 	*nMOD = mod;

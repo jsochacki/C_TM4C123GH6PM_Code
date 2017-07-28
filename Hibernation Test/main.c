@@ -30,22 +30,30 @@ int main(void) {
 	
 
 
-	SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
+//	SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
+//
+//	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+//	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
+//	GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, 0x08);
+//
+//
+//	SysCtlPeripheralEnable(SYSCTL_PERIPH_HIBERNATE);
+//	HibernateEnableExpClk(SysCtlClockGet());
+//	HibernateGPIORetentionEnable();
+//	SysCtlDelay(10000000);
+//	HibernateWakeSet(HIBERNATE_WAKE_PIN);
+//	GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_3, 0x00);
+//
+//	HibernateRequest();
+//	while(1){ }
 
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
-	GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, 0x08);
 
 
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_HIBERNATE);
-	HibernateEnableExpClk(SysCtlClockGet());
-	HibernateGPIORetentionEnable();
-	SysCtlDelay(10000000);
-	HibernateWakeSet(HIBERNATE_WAKE_PIN);
-	GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_3, 0x00);
+	uint64_t var = 1;
 
-	HibernateRequest();
-	while(1){ }
+
+
+
 
 
 

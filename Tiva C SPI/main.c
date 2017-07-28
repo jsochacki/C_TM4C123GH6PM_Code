@@ -75,7 +75,7 @@ int main(void) {
 			clearArray(ref, 20);
 			printString(new_line);
 			printString(new_line);
-			printString("Enter the reference frequency with unit (no space & case sensitive): ");
+			printString("Enter the reference frequency: ");
 			getString(ref);
 
 			reference_freq = ConvertStringToFrequency(ref, &ref_factor);
