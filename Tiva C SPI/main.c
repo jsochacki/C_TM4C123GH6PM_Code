@@ -51,11 +51,14 @@ int main(void) {
 
 	setupClock();
 	InitConsole();
-//	setupChipSelect(CS_ACTIVE_LOW);
-//	setupSPI_8Bit();
+	setupChipSelect(CS_ACTIVE_LOW);
+	setupSPI_8Bit();
 //	InitPrefaceRegisters();
 
+
+
 	while(1){
+
 
 		clearArray(user_input, 100);
 		clearArray(command, 50);

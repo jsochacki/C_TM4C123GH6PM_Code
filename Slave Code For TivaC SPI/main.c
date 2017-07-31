@@ -74,7 +74,7 @@ int main(void) {
 	else{
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3, 0);
 		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 , 2);
-		SSIDataPut(SSI0_BASE, 3);
+		SSIDataPut(SSI0_BASE, 121);
 
 	}
 
