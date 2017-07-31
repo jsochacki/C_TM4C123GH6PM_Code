@@ -22,6 +22,7 @@ void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
 void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD);
 double ConvertStringToFrequency(char* string, int* factor);
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor);
+int StringToBool(char* string);
 
 
 #define SHIFT_AMOUNT 16 // 2^16 = 65536
@@ -43,19 +44,19 @@ int main(void)
 	unsigned short nINT;
 	unsigned long nFRAC, nMOD;
 
-	printf("Enter desired output frequency: ");
-	fgets(out, sizeof(out), stdin);
-	printf("\nEnter reference frequency: ");
-	fgets(ref, sizeof(ref), stdin);
+	//printf("Enter desired output frequency: ");
+	//fgets(out, sizeof(out), stdin);
+	//printf("\nEnter reference frequency: ");
+	//fgets(ref, sizeof(ref), stdin);
 
-	double output_freq = ConvertStringToFrequency(out, &out_factor);
-	double reference_freq = ConvertStringToFrequency(ref, &ref_factor);
+	//double output_freq = ConvertStringToFrequency(out, &out_factor);
+	//double reference_freq = ConvertStringToFrequency(ref, &ref_factor);
 
-	double result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
+	//double result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
 
-	DetermineFeedbackValues(result, &nINT, &nFRAC, &nMOD);
+	//DetermineFeedbackValues(result, &nINT, &nFRAC, &nMOD);
 
-	printf("ratio: %f\nnINT: %u\nnFrac: %u\nnMOD: %u\n\n", result, nINT, nFRAC, nMOD);
+	//printf("ratio: %f\nnINT: %u\nnFrac: %u\nnMOD: %u\n\n", result, nINT, nFRAC, nMOD);
 
 	
 
@@ -68,8 +69,15 @@ int main(void)
 	
 	//printf("%f\n", FixedToDouble(c));
 
+	char response[3];
+
+	printf("yes or no?: ");
+	fgets(response, sizeof(response), stdin);
 
 
+	int returnVal = StringToBool(response);
+
+	printf("Bool: %d\n\n", returnVal);
 
 
 
@@ -91,7 +99,16 @@ int main(void)
 
 
 
+int StringToBool(char* string) {
+	
+	if (!strncmp(string, "y", 1)) {
+		return 1;
+	}
+	else if (!strncmp(string, "n", 1)) {
+		return 0;
+	}
 
+}
 
 
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor) {

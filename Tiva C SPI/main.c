@@ -39,6 +39,7 @@ Master Code For TivaC PLL Control
 #include "Synth_API_Preface_Registers.h"
 #include "Synth_API_Control_Registers.h"
 #include "Synth_API_Status_Registers.h"
+#include "Synth_API_Hibernation_Setup.h"
 
 
 char new_line[] = "\n\r";
@@ -50,7 +51,8 @@ int main(void) {
 	char user_input[MAX_INPUT_LENGTH], command[50], value[20];
 
 	setupClock();
-	InitConsole();
+	initConsole();
+	initHibernationModule();
 	setupChipSelect(CS_ACTIVE_LOW);
 	setupSPI_8Bit();
 //	InitPrefaceRegisters();
@@ -69,22 +71,28 @@ int main(void) {
 
 
 		if(!strncmp(command, "setFrequency", 12)){
-			char ref[20];
-			int out_factor, ref_factor;
+			char ref[20], intMode[3];
+			int out_factor, ref_factor, intModeDecision;
 			double output_freq, reference_freq, result;
 			unsigned short nINT;
 			unsigned long nFRAC, nMOD;
 
 			clearArray(ref, 20);
+			clearArray(intMode, 3);
+			printString(new_line);
+			printString(new_line);
+			printString("Integer mode? (\"y\" for integer, \"n\" for fractional): ");
+			getString(intMode);
 			printString(new_line);
 			printString(new_line);
 			printString("Enter the reference frequency: ");
 			getString(ref);
 
+			intModeDecision = ConvertStringToBool(intMode);
 			reference_freq = ConvertStringToFrequency(ref, &ref_factor);
 			output_freq = ConvertStringToFrequency(value, &out_factor);
 			result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
-			DetermineFeedbackValues(result, &nINT, &nFRAC, &nMOD);
+			DetermineFeedbackValues(result, intModeDecision, &nINT, &nFRAC, &nMOD);
 			//SetFeedbackControlValues(nINT, nFRAC, nMOD);
 
 			printString(new_line);
@@ -97,15 +105,31 @@ int main(void) {
 		}
 
 		else if(!strncmp(command, "initDevice", 10)){
-			printString("\n\r\n");
+			printString(new_line);
+			printString(new_line);
 			printString("Initializing device...");
-			printString("\n\r\n");
+			printString(new_line);
+			printString(new_line);
 			printString("Enter command: ");
+		}
+
+		else if(!strncmp(command, "sleep", 5)){
+			printString(new_line);
+			printString(new_line);
+			printString("Going to sleep...");
+			printString(new_line);
+			printString(new_line);
+			MAP_SysCtlDelay(100000);
+			MAP_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, 0x00);
+			MAP_HibernateRequest();
+			while(1){ };
 		}
 
 		else{
 			printString(new_line);
+			printString(new_line);
 			printString("Command not recognized...");
+			printString(new_line);
 			printString(new_line);
 			printString("Enter command: ");
 		}

@@ -33,6 +33,7 @@ main.obj: ../Synth_API_Console_Functions.h
 main.obj: ../Synth_API_Preface_Registers.h
 main.obj: ../Synth_API_Control_Registers.h
 main.obj: ../Synth_API_Status_Registers.h
+main.obj: ../Synth_API_Hibernation_Setup.h
 
 ../main.c: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdint.h: 
@@ -67,3 +68,4 @@ C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ssi.h:
 ../Synth_API_Preface_Registers.h: 
 ../Synth_API_Control_Registers.h: 
 ../Synth_API_Status_Registers.h: 
+../Synth_API_Hibernation_Setup.h: 

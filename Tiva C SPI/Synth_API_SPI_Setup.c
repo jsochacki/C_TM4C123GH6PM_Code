@@ -217,20 +217,30 @@ void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nM
 /*                           Converts desired frequency & reference frequency into programmable values                                  */
 /****************************************************************************************************************************************/
 
-void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD){
+void DetermineFeedbackValues(double freq_ratio, bool integer_mode, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD){
 
 	unsigned long frac, mod;
 
 	*nINT = (unsigned short)freq_ratio;
 
-	double decimal_portion = freq_ratio - (unsigned short)freq_ratio;
+	if(integer_mode){
 
-	FixedPointMaximizeMOD(decimal_portion, &frac, &mod); // Choose whether you want to maximize the modulus or minimize it
+		*nFRAC = 0;
+		*nMOD = 2;
+	}
 
-//	FixedPointMinimizeMOD(decimal_portion, &frac, &mod);
+	else{
 
-	*nFRAC = frac;
-	*nMOD = mod;
+		double decimal_portion = freq_ratio - (unsigned short)freq_ratio;
+
+		FixedPointMaximizeMOD(decimal_portion, &frac, &mod); // Choose whether you want to maximize the modulus or minimize it
+
+	//	FixedPointMinimizeMOD(decimal_portion, &frac, &mod);
+
+		*nFRAC = frac;
+		*nMOD = mod;
+	}
+
 
 }
 

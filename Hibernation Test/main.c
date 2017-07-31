@@ -30,31 +30,12 @@ int main(void) {
 	
 
 
-//	SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
-//
-//	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-//	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
-//	GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, 0x08);
-//
-//
-//	SysCtlPeripheralEnable(SYSCTL_PERIPH_HIBERNATE);
-//	HibernateEnableExpClk(SysCtlClockGet());
-//	HibernateGPIORetentionEnable();
-//	SysCtlDelay(10000000);
-//	HibernateWakeSet(HIBERNATE_WAKE_PIN);
-//	GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_3, 0x00);
-//
-//	HibernateRequest();
-//	while(1){ }
+	SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
 
 
 
-	uint64_t var = 1;
-
-
-
-
-
+	HibernateRequest();
+	while(1){ }
 
 
 
@@ -62,3 +43,21 @@ int main(void) {
 
 	return 0;
 }
+
+
+void initHibernationModule(void){
+
+	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+	MAP_GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
+	MAP_GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, 0x08);
+
+
+	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_HIBERNATE);
+	MAP_HibernateEnableExpClk(MAP_SysCtlClockGet());
+	MAP_HibernateGPIORetentionEnable();
+	MAP_HibernateWakeSet(HIBERNATE_WAKE_PIN);
+	MAP_GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_3, 0x00);
+
+}
+
+

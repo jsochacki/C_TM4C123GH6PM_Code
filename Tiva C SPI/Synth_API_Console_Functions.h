@@ -8,13 +8,14 @@
 #ifndef SYNTH_API_CONSOLE_FUNCTIONS_H_
 #define SYNTH_API_CONSOLE_FUNCTIONS_H_
 
-extern void InitConsole(void);
+extern void initConsole(void);
 extern void clearArray(char* input, int sizeOfArray);
 extern void getString(char* user_string);
 extern void parseString(char* original, char* command, char* value);
 extern void printString(char *string);
 extern double ConvertStringToFrequency(char* string, int* factor);
 extern double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor);
+extern int ConvertStringToBool(char* string);
 extern double ConvertStringToFloat(char* string);
 extern double ConvertUserStringToFloat(char* string);
 extern unsigned long ConvertStringToNumber(char* string);

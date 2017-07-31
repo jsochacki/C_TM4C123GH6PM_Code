@@ -40,7 +40,7 @@
 /*                           Initializes the console using the UART0 module                            */
 /*******************************************************************************************************/
 
-void InitConsole(void){
+void initConsole(void){
 
 	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
@@ -223,6 +223,21 @@ double GenerateFrequencyRatio(double output_freq, int out_factor, double referen
 	return ratio;
 }
 
+
+/*******************************************************************************************************/
+/*                       Converts a character array into a boolean value                               */
+/*******************************************************************************************************/
+
+int ConvertStringToBool(char* string) {
+
+	if (!strncmp(string, "y", 1)) {
+		return 1;
+	}
+	else if (!strncmp(string, "n", 1)) {
+		return 0;
+	}
+
+}
 
 /*******************************************************************************************************/
 /*                    Converts a character array into a floating point value                           */
