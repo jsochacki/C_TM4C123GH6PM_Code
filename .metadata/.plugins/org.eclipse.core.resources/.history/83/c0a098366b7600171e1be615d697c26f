@@ -1035,22 +1035,17 @@ ________________________________________________________________________________
 	if(OutDoublerEnable){ OutDoublerEnValue = BIT_7; }
 	else if(!OutDoublerEnable){ OutDoublerEnValue = 0; }
 
-	unsigned long Reg34hValue, Reg34hWord, Reg36hValue, Reg36hWord, Reg3BhValue, Reg3BhWord;
+
+	unsigned long Reg34hValue, Reg34hWord;
 
 	Reg34hValue = MuteUntilLDValue | QA_enableValue | BIT_3;
 
 	Reg34hWord = Create24BitWord(Reg34hValue, REG_34h);
 	sendWord_24Bit(Reg34hWord);
 
-	Reg36hValue = QB_enableValue | BIT_3;
 
-	Reg36hWord = Create24BitWord(Reg36hValue, REG_36h);
-	sendWord_24Bit(Reg36hWord);
 
-	Reg3BhValue = OutDoublerEnValue | OutDivider;
 
-	Reg3BhWord = Create24BitWord(Reg3BhValue, REG_3Bh);
-	sendWord_24Bit(Reg3BhWord);
 
 
 }

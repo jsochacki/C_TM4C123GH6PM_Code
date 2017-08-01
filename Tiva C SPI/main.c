@@ -61,7 +61,6 @@ int main(void) {
 
 	while(1){
 
-
 		clearArray(user_input, 100);
 		clearArray(command, 50);
 		clearArray(value, 20);

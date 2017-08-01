@@ -572,7 +572,7 @@ void SetupInputControlRegisters(bool inputType, bool refDoublerEn, bool multEnab
 
 _____________________________________________________
 
- Ref[9:0]:
+ Ref[7:0]:
 
  Input reference divide value
 
@@ -1015,43 +1015,78 @@ ________________________________________________________________________________
 
 */
 
-	unsigned long QA_power_word, QA_enableValue, QB_power_word, QB_enableValue, MuteUntilLDValue, OutDoublerEnValue;
 
-	QA_power_word = Create24BitWord(QA_power, REG_33h);
-	sendWord_24Bit(QA_power_word);
+	if(QA_enable){
 
-	QB_power_word = Create24BitWord(QB_power, REG_35h);
-	sendWord_24Bit(QB_power_word);
+		unsigned long QA_power_word, QA_enable_word;
 
-	if(QA_enable){ QA_enableValue = BIT_4; }
-	else if(!QA_enable){ QA_enableValue = 0; }
+		QA_power_word = Create24BitWord(QA_power, REG_33h);
 
-	if(MuteUntil_LockDetect){ MuteUntilLDValue = BIT_5; }
-	else if(!MuteUntil_LockDetect){ MuteUntilLDValue = 0; }
+		sendWord_24Bit(QA_power_word);
 
-	if(QB_enable){ QB_enableValue = BIT_4; }
-	else if(!QB_enable){ QB_enableValue = 0; }
+		if(MuteUntil_LockDetect){ QA_enable_word = Create24BitWord(QA_ENABLE_MUTE_UNTIL_LOCK_DETECT, REG_34h); }
 
-	if(OutDoublerEnable){ OutDoublerEnValue = BIT_7; }
-	else if(!OutDoublerEnable){ OutDoublerEnValue = 0; }
+		else{ QA_enable_word = Create24BitWord(QA_ENABLE_NO_MUTE, REG_34h); }
 
-	unsigned long Reg34hValue, Reg34hWord, Reg36hValue, Reg36hWord, Reg3BhValue, Reg3BhWord;
+		sendWord_24Bit(QA_enable_word);
 
-	Reg34hValue = MuteUntilLDValue | QA_enableValue | BIT_3;
+	}
 
-	Reg34hWord = Create24BitWord(Reg34hValue, REG_34h);
-	sendWord_24Bit(Reg34hWord);
+	if(QB_enable){
 
-	Reg36hValue = QB_enableValue | BIT_3;
+		unsigned long QB_power_word, QB_enable_word, Enable_MuteUntilLockDetect_WithoutQA_word, Disable_MuteUntilLockDetect_WithoutQA_word;
 
-	Reg36hWord = Create24BitWord(Reg36hValue, REG_36h);
-	sendWord_24Bit(Reg36hWord);
+		QB_power_word = Create24BitWord(QB_power, REG_35h);
 
-	Reg3BhValue = OutDoublerEnValue | OutDivider;
+		sendWord_24Bit(QB_power_word);
 
-	Reg3BhWord = Create24BitWord(Reg3BhValue, REG_3Bh);
-	sendWord_24Bit(Reg3BhWord);
+		if(QA_enable){
 
+			// QA already set the MuteUntilLockDetect bit to the appropriate value, so we only need to enable the QB_enable bit
+			QB_enable_word = Create24BitWord(QB_ENABLE, REG_36h);
+			sendWord_24Bit(QB_enable_word);
+
+		}
+
+		else if(MuteUntil_LockDetect){
+
+			// Set the MuteUntilLockDetect Bit inside register 34h since QA didn't set it already
+			Enable_MuteUntilLockDetect_WithoutQA_word = Create24BitWord(MUTE_UNTIL_LOCK_DETECT_WITHOUT_QA_ENABLED, REG_34h);
+			sendWord_24Bit(Enable_MuteUntilLockDetect_WithoutQA_word);
+
+			// Set the QB_enable pin
+			QB_enable_word = Create24BitWord(QB_ENABLE, REG_36h);
+			sendWord_24Bit(QB_enable_word);
+
+		}
+
+		else if(!MuteUntil_LockDetect){
+
+			// Clear the MuteUntilLockDetect Bit inside register 34h since QA didn't do it already
+			Disable_MuteUntilLockDetect_WithoutQA_word = Create24BitWord(DISABLE_MUTE_WITHOUT_QA_ENABLED, REG_34h);
+			sendWord_24Bit(Disable_MuteUntilLockDetect_WithoutQA_word);
+
+			// Set the QB_enable pin
+			QB_enable_word = Create24BitWord(QB_ENABLE, REG_36h);
+			sendWord_24Bit(QB_enable_word);
+
+		}
+
+	}
+
+	unsigned long output_divider_word, output_divider_value;
+
+	if(OutDoublerEnable){
+
+		output_divider_value = OutDivider | OutputDoublerEnable;
+		output_divider_word = Create24BitWord(output_divider_value, REG_3Bh);
+		sendWord_24Bit(output_divider_word);
+	}
+
+	else{
+		output_divider_word = Create24BitWord(OutDivider, REG_3Bh);
+		sendWord_24Bit(output_divider_word);
+	}
 
 }
 
