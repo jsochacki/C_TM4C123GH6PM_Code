@@ -9,7 +9,7 @@
 #define SYNTH_API_PREFACE_REGISTERS_H_
 
 
-extern void InitPrefaceRegisters(void);
+extern void initPrefaceRegisters(void);
 
 
 #endif /* SYNTH_API_PREFACE_REGISTERS_H_ */

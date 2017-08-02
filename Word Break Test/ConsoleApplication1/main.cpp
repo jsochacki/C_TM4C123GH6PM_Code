@@ -23,6 +23,7 @@ void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned l
 double ConvertStringToFrequency(char* string, int* factor);
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor);
 int StringToBool(char* string);
+unsigned long ConvertStringToPowerSetting(char* string);
 
 
 #define SHIFT_AMOUNT 16 // 2^16 = 65536
@@ -39,10 +40,10 @@ const int fractionMask = 0xFFFFFFFFFFFFFFFF >> (64 - SHIFT_AMOUNT);
 int main(void)
 {
 	
-	char out[20], ref[20];
-	int out_factor, ref_factor;
-	unsigned short nINT;
-	unsigned long nFRAC, nMOD;
+	//char out[20], ref[20];
+	//int out_factor, ref_factor;
+	//unsigned short nINT;
+	//unsigned long nFRAC, nMOD;
 
 	//printf("Enter desired output frequency: ");
 	//fgets(out, sizeof(out), stdin);
@@ -69,15 +70,15 @@ int main(void)
 	
 	//printf("%f\n", FixedToDouble(c));
 
-	char response[3];
+	char response[8];
 
-	printf("yes or no?: ");
+	//printf("yes or no?: ");
 	fgets(response, sizeof(response), stdin);
 
 
-	int returnVal = StringToBool(response);
+	//int returnVal = StringToBool(response);
 
-	printf("Bool: %d\n\n", returnVal);
+	printf("\n%d\n\n", ConvertStringToPowerSetting(response));
 
 
 
@@ -96,8 +97,19 @@ int main(void)
 	return 0;
 }
 
+unsigned long ConvertStringToPowerSetting(char* string) {
 
+	if (!strncmp(string, "-2dBm", 5)) { return 1; }
+	else if (!strncmp(string, "0dBm", 4)) { return 3; }
+	else if (!strncmp(string, "+0dBm", 5)) { return 3; }
+	else if (!strncmp(string, "+2dBm", 5)) { return 7; }
+	else if (!strncmp(string, "+4dBm", 5)) { return 15; }
+	else if (!strncmp(string, "+6dBm", 5)) { return 31; }
+	else if (!strncmp(string, "+8dBm", 5)) { return 63; }
+	else if (!strncmp(string, "+10dBm", 6)) { return 127; }
+	else if (!strncmp(string, "+12dBm", 6)) { return 255; }
 
+}
 
 int StringToBool(char* string) {
 	

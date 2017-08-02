@@ -72,7 +72,7 @@
 
 
 
-void InitPrefaceRegisters(void){
+void initPrefaceRegisters(void){
 
 	sendWord_24Bit(SOFT_RESET_and_SPI_4WIRE); // Register 0h
 

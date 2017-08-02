@@ -13,6 +13,7 @@ extern void clearArray(char* input, int sizeOfArray);
 extern void getString(char* user_string);
 extern void parseString(char* original, char* command, char* value);
 extern void printString(char *string);
+extern unsigned long ConvertStringToPowerSetting(char* string);
 extern double ConvertStringToFrequency(char* string, int* factor);
 extern double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor);
 extern int ConvertStringToBool(char* string);

@@ -137,6 +137,25 @@ void printString(char *string){
 
 
 /**********************************************************************************************************************************/
+/*                    Maps a power setting to it's binary representation (for use by output control)                              */
+/**********************************************************************************************************************************/
+
+unsigned long ConvertStringToPowerSetting(char* string) {
+
+	if (!strncmp(string, "-2dBm", 5)) { return 1; }
+	else if (!strncmp(string, "0dBm", 4)) { return 3; }
+	else if (!strncmp(string, "+0dBm", 5)) { return 3; }
+	else if (!strncmp(string, "+2dBm", 5)) { return 7; }
+	else if (!strncmp(string, "+4dBm", 5)) { return 15; }
+	else if (!strncmp(string, "+6dBm", 5)) { return 31; }
+	else if (!strncmp(string, "+8dBm", 5)) { return 63; }
+	else if (!strncmp(string, "+10dBm", 6)) { return 127; }
+	else if (!strncmp(string, "+12dBm", 6)) { return 255; }
+
+}
+
+
+/**********************************************************************************************************************************/
 /*                                         Converts a string into a frequency value                                               */
 /**********************************************************************************************************************************/
 

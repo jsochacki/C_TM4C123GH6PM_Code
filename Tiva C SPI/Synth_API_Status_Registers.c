@@ -99,7 +99,9 @@ void ReadFromStatusRegisters(char* parameter){
 	if(!strncmp(temp, "DigLock", 7)){
 
 		printString(newline);
+		printString(newline);
 		printString("Determining status of digital lock bit...");
+		printString(newline);
 		printString(newline);
 
 		DigLockWord = Create24BitWord(0x00, REG_44h_READ);
@@ -111,9 +113,11 @@ void ReadFromStatusRegisters(char* parameter){
 		if(DigLockValue){
 			printString("PLL is locked.");
 			printString(newline);
+			printString(newline);
 		}
 		else{
 			printString("PLL is NOT locked.");
+			printString(newline);
 			printString(newline);
 		}
 	}
@@ -121,7 +125,9 @@ void ReadFromStatusRegisters(char* parameter){
 	else if(!strncmp(temp, "BandSelectDone", 14)){
 
 			printString(newline);
+			printString(newline);
 			printString("Determining if band selection has completed...");
+			printString(newline);
 			printString(newline);
 
 			BandSelectWord = Create24BitWord(0x00, REG_44h_READ);
@@ -133,9 +139,11 @@ void ReadFromStatusRegisters(char* parameter){
 			if(BandSelectValue){
 				printString("Band selection has completed.");
 				printString(newline);
+				printString(newline);
 			}
 			else{
 				printString("Band selection has NOT completed.");
+				printString(newline);
 				printString(newline);
 			}
 	}
@@ -143,7 +151,9 @@ void ReadFromStatusRegisters(char* parameter){
 	else if(!strncmp(temp, "currentVCO", 10)){
 
 			printString(newline);
+			printString(newline);
 			printString("Determining which VCO is active...");
+			printString(newline);
 			printString(newline);
 
 			currentVCO_Word = Create24BitWord(0x00, REG_44h_READ);
@@ -155,12 +165,15 @@ void ReadFromStatusRegisters(char* parameter){
 			printString("Current active VCO: VCO #");
 			printInt(currentVCO_Value);
 			printString(newline);
+			printString(newline);
 	}
 
 	else if(!strncmp(temp, "currentDigitalBand", 18)){
 
 			printString(newline);
+			printString(newline);
 			printString("Determining which digital band is active...");
+			printString(newline);
 			printString(newline);
 
 			currentDigitalBandWord = Create24BitWord(0x00, REG_45h_READ);
@@ -172,12 +185,15 @@ void ReadFromStatusRegisters(char* parameter){
 			printString("Current active digital band: Band ");
 			printInt(currentDigitalBandValue);
 			printString(newline);
+			printString(newline);
 	}
 
 	else if(!strncmp(temp, "lossOfLock", 10)){
 
 			printString(newline);
+			printString(newline);
 			printString("Determining whether digital lock has been lost...");
+			printString(newline);
 			printString(newline);
 
 			lossOfLockWord = Create24BitWord(0x00, REG_49h_READ);
@@ -189,6 +205,7 @@ void ReadFromStatusRegisters(char* parameter){
 			if(lossOfLockValue){
 				printString("Digital lock has been lost.");
 				printString(newline);
+				printString(newline);
 
 				// Sticky bit; must write a '1' to clear
 				lossOfLockWord = Create24BitWord(BIT_2, REG_49h_WRITE);
@@ -196,6 +213,7 @@ void ReadFromStatusRegisters(char* parameter){
 			}
 			else{
 				printString("Digital lock is still active.");
+				printString(newline);
 				printString(newline);
 			}
 	}
