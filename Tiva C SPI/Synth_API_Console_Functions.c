@@ -79,7 +79,10 @@ void getString(char* user_string){
 
 	while( (*user_string = MAP_UARTCharGet(UART0_BASE)) != ENTER ){
 
-		MAP_UARTCharPut(UART0_BASE, *user_string++);
+		if(*user_string == BACKSPACE){ MAP_UARTCharPut(UART0_BASE, *user_string--); }
+
+		else{ MAP_UARTCharPut(UART0_BASE, *user_string++); }
+
 		if(++count == MAX_INPUT_LENGTH){ break; }
 
 	}
@@ -204,7 +207,7 @@ double ConvertStringToFrequency(char* string, int* factor) {
 
 
 /**********************************************************************************************************/
-/*                   Generates the proper frequency ratio for feedback divider control                    */
+/*               Generates the proper frequency ratio for feedback divider control                        */
 /**********************************************************************************************************/
 
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor) {
@@ -270,7 +273,6 @@ double ConvertStringToFloat(char* string) {
 	char* int_ptr = integerPart;
 	char* dec_ptr = decimalPart;
 	char* decimal_check = string;
-	char* no_decimal = string;
 	int i, flag = 0, decimal_flag = 0;
 	unsigned long integer_portion, decimal_portion;
 	double mult = 0, divider = 1, result;

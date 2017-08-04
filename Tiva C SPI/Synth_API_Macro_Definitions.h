@@ -14,6 +14,7 @@
 
 // Macro for GetString function - this is the hex value for the enter key in ASCII
 #define ENTER 0x0D
+#define BACKSPACE 0x7F
 
 // Macros for selecting the chip-select polarity. The numbers here are arbitrary, the macro is for readability
 #define CS_ACTIVE_HIGH 0
