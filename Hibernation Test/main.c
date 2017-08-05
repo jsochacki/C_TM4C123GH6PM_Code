@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 #include "inc/tm4c123gh6pm.h"
 #include "inc/hw_adc.h"
 #include "inc/hw_ints.h"
@@ -34,8 +35,15 @@ int main(void) {
 
 
 
-	HibernateRequest();
-	while(1){ }
+
+
+//	HibernateRequest();
+//	while(1){ }
+
+
+	double var = 1.599;
+
+	var = round(var);
 
 
 

@@ -13,6 +13,7 @@ Master Code For TivaC PLL Control
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 #include "inc/tm4c123gh6pm.h"
 #include "inc/hw_adc.h"
 #include "inc/hw_ints.h"
@@ -154,6 +155,45 @@ int main(void) {
 
 			ReadFromStatusRegisters("DigLock");
 			printString("Enter command: ");
+		}
+
+		else if(!strncmp(command, "setupChargePump", 15)){
+
+			char charge_current[10], delta[10], bleeder_current[10], CP_HiZ[5];
+			unsigned long NMOS_Current = 0, PMOS_Current = 0, bleederValue = 0;
+			int ChargePumpHiZ;
+
+			printString("Put charge pump into high impedance mode? (y/n)");
+			getString(CP_HiZ);
+			ChargePumpHiZ = ConvertStringToBool(CP_HiZ);
+
+			if(ChargePumpHiZ){ SetupChargePump(PMOS_Current, NMOS_Current, ChargePumpHiZ, bleederValue); }
+
+			else{
+				printString("Available charge pump currents: 166.66uA to 10.66mA in 166.66uA increments");
+				printString(new_line);
+				printString(new_line);
+				printString("Set desired charge pump current [mA]: ");
+				getString(charge_current);
+				printString(new_line);
+				printString(new_line);
+				printString("Set the desired difference between PMOS and NMOS currents (166.66uA increment) [mA]: ");
+				getString(delta);
+				PMOS_Current = ConvertStringToChargePumpCurrent(charge_current, false, "");
+				NMOS_Current = ConvertStringToChargePumpCurrent(charge_current, true, delta);
+				printString(new_line);
+				printString(new_line);
+				printString("Available bleeder currents: 0uA to 166uA in 5.33uA increments");
+				printString(new_line);
+				printString(new_line);
+				printString("Set the desired bleeder current [uA]: ");
+				getString(bleeder_current);
+				printString(new_line);
+				printString(new_line);
+				bleederValue = ConvertStringToBleederCurrent(bleeder_current);
+				SetupChargePump(PMOS_Current, NMOS_Current, ChargePumpHiZ, bleederValue);
+			}
+
 		}
 
 		else if(!strncmp(command, "sleep", 5)){

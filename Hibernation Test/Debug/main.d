@@ -7,6 +7,8 @@ main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/linkage.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdarg.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdbool.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/string.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/math.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/_defs.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/tm4c123gh6pm.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_adc.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_ints.h
@@ -36,6 +38,8 @@ C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/linkage.h:
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdarg.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdbool.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/string.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/math.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/_defs.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/inc/tm4c123gh6pm.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_adc.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_ints.h: 

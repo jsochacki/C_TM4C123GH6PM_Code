@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 #include "inc/tm4c123gh6pm.h"
 #include "inc/hw_adc.h"
 #include "inc/hw_ints.h"
@@ -77,13 +78,22 @@ void getString(char* user_string){
 
 	int count = 0;
 
-	while( (*user_string = MAP_UARTCharGet(UART0_BASE)) != ENTER ){
+	while((*user_string = MAP_UARTCharGet(UART0_BASE)) != ENTER){
 
-		if(*user_string == BACKSPACE){ MAP_UARTCharPut(UART0_BASE, *user_string--); }
+		if(*user_string == BACKSPACE){
 
-		else{ MAP_UARTCharPut(UART0_BASE, *user_string++); }
+			MAP_UARTCharPut(UART0_BASE, *user_string--);
+			count--;
+			if(count < 0){ count = 0; }
+		}
 
-		if(++count == MAX_INPUT_LENGTH){ break; }
+		else{
+
+			MAP_UARTCharPut(UART0_BASE, *user_string++);
+			count++;
+		}
+
+		if(count == MAX_INPUT_LENGTH){ break; }
 
 	}
 
@@ -138,6 +148,44 @@ void printString(char *string){
     }
 }
 
+/**********************************************************************************************************************************/
+/*                                Maps a bleeder current setting to it's binary representation                                    */
+/**********************************************************************************************************************************/
+
+unsigned long ConvertStringToBleederCurrent(char* string) {
+
+	double current_uA = ConvertUserStringToFloat(string);
+
+	double value = (current_uA / 5.33);
+
+	value = round(value);
+
+	return (unsigned long)value;
+}
+
+
+/**********************************************************************************************************************************/
+/*                            Maps a charge pump current setting to it's binary representation                                    */
+/**********************************************************************************************************************************/
+
+unsigned long ConvertStringToChargePumpCurrent(char* charge_current, bool NMOS_Current, char* delta) {
+
+	double delta_value;
+
+	double current_mA = ConvertUserStringToFloat(charge_current);
+
+	if (NMOS_Current) { delta_value = ConvertUserStringToFloat(delta); }
+	else { delta_value = 0; }
+
+	current_mA -= delta_value;
+
+	double value = (current_mA / (166.66E-6 * 1000)) - 1;
+
+	value = round(value);
+
+	return (unsigned long)value;
+}
+
 
 /**********************************************************************************************************************************/
 /*                    Maps a power setting to it's binary representation (for use by output control)                              */
@@ -148,11 +196,17 @@ unsigned long ConvertStringToPowerSetting(char* string) {
 	if (!strncmp(string, "-2dBm", 5)) { return 1; }
 	else if (!strncmp(string, "0dBm", 4)) { return 3; }
 	else if (!strncmp(string, "+0dBm", 5)) { return 3; }
+	else if (!strncmp(string, "2dBm", 4)) { return 7; }
 	else if (!strncmp(string, "+2dBm", 5)) { return 7; }
+	else if (!strncmp(string, "4dBm", 4)) { return 15; }
 	else if (!strncmp(string, "+4dBm", 5)) { return 15; }
+	else if (!strncmp(string, "6dBm", 4)) { return 31; }
 	else if (!strncmp(string, "+6dBm", 5)) { return 31; }
+	else if (!strncmp(string, "8dBm", 4)) { return 63; }
 	else if (!strncmp(string, "+8dBm", 5)) { return 63; }
+	else if (!strncmp(string, "10dBm", 5)) { return 127; }
 	else if (!strncmp(string, "+10dBm", 6)) { return 127; }
+	else if (!strncmp(string, "12dBm", 5)) { return 255; }
 	else if (!strncmp(string, "+12dBm", 6)) { return 255; }
 
 }

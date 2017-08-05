@@ -4,6 +4,7 @@
 #include <string.h>
 #include <float.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 
 
@@ -17,6 +18,7 @@
 
 unsigned long ConvertStringToNumber(char* string);
 double ConvertStringToFloat(char* string);
+float ConvertUserStringToFloat(char* string);
 void MaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
 void MinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
 void DetermineFeedbackValues(double freq_ratio, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD);
@@ -24,6 +26,8 @@ double ConvertStringToFrequency(char* string, int* factor);
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor);
 int StringToBool(char* string);
 unsigned long ConvertStringToPowerSetting(char* string);
+unsigned long ConvertStringToChargePumpCurrent(char* string, char* delta);
+unsigned long ConvertStringToBleederCurrent(char* string);
 
 
 #define SHIFT_AMOUNT 16 // 2^16 = 65536
@@ -39,56 +43,23 @@ const int fractionMask = 0xFFFFFFFFFFFFFFFF >> (64 - SHIFT_AMOUNT);
 
 int main(void)
 {
-	
-	//char out[20], ref[20];
-	//int out_factor, ref_factor;
-	//unsigned short nINT;
-	//unsigned long nFRAC, nMOD;
-
-	//printf("Enter desired output frequency: ");
-	//fgets(out, sizeof(out), stdin);
-	//printf("\nEnter reference frequency: ");
-	//fgets(ref, sizeof(ref), stdin);
-
-	//double output_freq = ConvertStringToFrequency(out, &out_factor);
-	//double reference_freq = ConvertStringToFrequency(ref, &ref_factor);
-
-	//double result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
-
-	//DetermineFeedbackValues(result, &nINT, &nFRAC, &nMOD);
-
-	//printf("ratio: %f\nnINT: %u\nnFrac: %u\nnMOD: %u\n\n", result, nINT, nFRAC, nMOD);
-
-	
-
-	//uint64_t c;
-
-	//uint64_t a = DoubleToFixed(1);
-	//uint64_t b = DoubleToFixed(2);
-	
-	//c = a + b;
-	
-	//printf("%f\n", FixedToDouble(c));
-
-	char response[8];
-
-	//printf("yes or no?: ");
-	fgets(response, sizeof(response), stdin);
+	char user_input[20], delta[20];
 
 
-	//int returnVal = StringToBool(response);
+	//printf("166.66uA to 10.66mA in 166.66uA increments\n\n");
+	//printf("0uA to 166uA in 5.33uA increments\n\n");
+	printf("Enter desired ICP current in mA: ");
+	fgets(user_input, sizeof(user_input), stdin);
+	printf("\n\nEnter delta value in mA: ");
+	fgets(delta, sizeof(delta), stdin);
 
-	printf("\n%d\n\n", ConvertStringToPowerSetting(response));
+	//double value = ConvertUserStringToFloat(user_input);
 
+	//printf("Value: %f\n", value);
 
+	unsigned long mappedValue = ConvertStringToChargePumpCurrent(user_input, delta);
 
-
-
-
-
-
-
-
+	printf("\nMapped Value: %u\n\n", mappedValue);
 
 
 
@@ -96,6 +67,38 @@ int main(void)
 	
 	return 0;
 }
+
+
+unsigned long ConvertStringToBleederCurrent(char* string) {
+
+	double current_uA = ConvertUserStringToFloat(string);
+
+	double value = (current_uA / 5.33);
+
+	value = round(value);
+
+	return (unsigned long)value;
+}
+
+
+unsigned long ConvertStringToChargePumpCurrent(char* string, bool NMOS_Current, char* delta) {
+
+	double delta_value; 
+
+	double current_mA = ConvertUserStringToFloat(string);
+
+	if (NMOS_Current) { delta_value = ConvertUserStringToFloat(delta); }
+	else { delta_value = 0; }
+
+	current_mA -= delta_value;
+
+	double value = (current_mA / (166.66E-6 * 1000)) - 1;
+
+	value = round(value);
+
+	return (unsigned long)value;
+}
+
 
 unsigned long ConvertStringToPowerSetting(char* string) {
 
