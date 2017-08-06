@@ -34,6 +34,7 @@ Master Code For TivaC PLL Control
 #include "driverlib/rom.h"
 #include "driverlib/rom_map.h"
 #include "driverlib/ssi.h"
+#include "driverlib/fpu.h"
 #include "Synth_API_Macro_Definitions.h"
 #include "Synth_API_SPI_Setup.h"
 #include "Synth_API_Console_Functions.h"
@@ -45,11 +46,16 @@ Master Code For TivaC PLL Control
 
 char new_line[] = "\n\r";
 
+// Making F_pfd values global so they can be automatically sent to the output control
+
+int internalRefFactor;
+double InternalReferenceValue;
+
 
 int main(void) {
 	
 
-	char user_input[MAX_INPUT_LENGTH], command[50], value[20];
+	char user_input[MAX_INPUT_LENGTH];
 
 	setupClock();
 	initConsole();
@@ -62,23 +68,23 @@ int main(void) {
 	while(1){
 
 		clearArray(user_input, 100);
-		clearArray(command, 50);
-		clearArray(value, 20);
-
 		getString(user_input);
-		parseString(user_input, command, value);
 
+		if(!strncmp(user_input, "setFrequency", 12)){
 
-		if(!strncmp(command, "setFrequency", 12)){
-
-			char ref[20], intMode[3];
+			char out[20], ref[20], intMode[3];
 			int out_factor, ref_factor, intModeDecision;
 			double output_freq, reference_freq, result;
 			unsigned short nINT;
 			unsigned long nFRAC, nMOD;
 
+			clearArray(out, 20);
 			clearArray(ref, 20);
 			clearArray(intMode, 3);
+			printString(new_line);
+			printString(new_line);
+			printString("Enter the desired output frequency: ");
+			getString(out);
 			printString(new_line);
 			printString(new_line);
 			printString("Integer mode? (\"y\" for integer, \"n\" for fractional): ");
@@ -89,20 +95,82 @@ int main(void) {
 			getString(ref);
 			intModeDecision = ConvertStringToBool(intMode);
 			reference_freq = ConvertStringToFrequency(ref, &ref_factor);
-			output_freq = ConvertStringToFrequency(value, &out_factor);
+			output_freq = ConvertStringToFrequency(out, &out_factor);
 			result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
 			DetermineFeedbackValues(result, intModeDecision, &nINT, &nFRAC, &nMOD);
 			SetFeedbackControlValues(nINT, nFRAC, nMOD);
 			printString(new_line);
 			printString(new_line);
-			printString("Frequency set to ");
-			printString(value);
+			printString("Frequency has been set.");
 			printString(new_line);
 			printString(new_line);
 			printString("Enter command: ");
 		}
 
-		else if(!strncmp(command, "setOutputPower", 14)){
+		else if(!strncmp(user_input, "setReference", 12)){
+
+			char internalReference[20], externalReference[20], refDivider[20], refDoubler[5], multEnable[5], multiplier[20], AutoTune[5];
+			double ExternalReferenceValue, RefFreqRatio;
+			int externalRefFactor, AutoTuneSelected, refDoublerEnabled, multEnabled, multActive, MultPwr;
+			unsigned long MultValue, R_Divider;
+
+			printString("What is the desired PFD frequency?: ");
+			getString(internalReference);
+			InternalReferenceValue = ConvertStringToFrequency(internalReference, &internalRefFactor);
+			printString(new_line);
+			printString(new_line);
+			printString("What is the externally applied REF_IN? ");
+			getString(externalReference);
+			ExternalReferenceValue = ConvertStringToFrequency(externalReference, &externalRefFactor);
+			RefFreqRatio = GenerateFrequencyRatio(InternalReferenceValue, internalRefFactor, ExternalReferenceValue, externalRefFactor);
+			printString(new_line);
+			printString(new_line);
+			printString("Automatically optimize for phase noise performance? (y/n) [\"n\" for custom tuning]: ");
+			getString(AutoTune);
+			AutoTuneSelected = ConvertStringToBool(AutoTune);
+
+			if(AutoTuneSelected){
+				OptimizeReferenceForPhaseNoise(RefFreqRatio, &MultValue, &R_Divider);
+				SetupInputControlRegisters(SINGLE_ENDED_INPUT, REF_DOUBLER_ENABLE, MULT_ENABLE, MULT_ACTIVE, R_Divider, MultValue, MULT_PWRD_UP);
+			}
+
+			else{
+				printString(new_line);
+				printString(new_line);
+				printString("Enable the reference doubler? (y/n): ");
+				getString(refDoubler);
+				printString(new_line);
+				printString(new_line);
+				printString("Enable the multiplier block? This will be multiplied with the REF doubler. (y/n): ");
+				getString(multEnable);
+				refDoublerEnabled = ConvertStringToBool(refDoubler);
+				multEnabled = ConvertStringToBool(multEnable);
+
+				if(multEnabled){
+					printString(new_line);
+					printString(new_line);
+					printString("Enter the desired multiplier value (2'd - 63'd): ");
+					getString(multiplier);
+					MultValue = ConvertStringToNumber(multiplier);
+					MultPwr = MULT_PWRD_UP;
+				}
+				else {
+					MultValue = 1;
+					MultPwr = MULT_PWRD_DWN;
+				}
+
+				multActive = multEnabled;
+				printString(new_line);
+				printString(new_line);
+				printString("Enter the desired reference divider value (1'd - 1023'd): ");
+				getString(refDivider);
+				R_Divider = ConverStringToNumber(refDivider);
+				SetupInputControlRegisters(SINGLE_ENDED_INPUT, refDoublerEnabled, multEnabled, multActive, R_Divider, MultValue, MultPwr);
+			}
+
+		}
+
+		else if(!strncmp(user_input, "setOutputPower", 14)){
 
 			char RF_OUTB[3], outDoubler[3], outDivider[5], MuteUntilLD[3], QA_pwr[10], QB_pwr[10];
 			int RF_OUTB_Result, outDoublerResult, MuteUntilLDResult;
@@ -151,13 +219,13 @@ int main(void) {
 			printString("Enter command: ");
 		}
 
-		else if(!strncmp(command, "lockStatus", 10)){
+		else if(!strncmp(user_input, "lockStatus", 10)){
 
 			ReadFromStatusRegisters("DigLock");
 			printString("Enter command: ");
 		}
 
-		else if(!strncmp(command, "setupChargePump", 15)){
+		else if(!strncmp(user_input, "setupChargePump", 15)){
 
 			char charge_current[10], delta[10], bleeder_current[10], CP_HiZ[5];
 			unsigned long NMOS_Current = 0, PMOS_Current = 0, bleederValue = 0;
@@ -196,7 +264,7 @@ int main(void) {
 
 		}
 
-		else if(!strncmp(command, "sleep", 5)){
+		else if(!strncmp(user_input, "sleep", 5)){
 
 			printString(new_line);
 			printString(new_line);

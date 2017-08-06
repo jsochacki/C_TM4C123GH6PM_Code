@@ -7,9 +7,6 @@
 #include <stdbool.h>
 
 
-
-
-
 //void foo(unsigned long word);
 //void AddNum(int a, int b, int* c);
 //void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigned long* bottom_half);
@@ -26,8 +23,9 @@ double ConvertStringToFrequency(char* string, int* factor);
 double GenerateFrequencyRatio(double output_freq, int out_factor, double reference_freq, int ref_factor);
 int StringToBool(char* string);
 unsigned long ConvertStringToPowerSetting(char* string);
-unsigned long ConvertStringToChargePumpCurrent(char* string, char* delta);
+unsigned long ConvertStringToChargePumpCurrent(char* string, bool NMOS_Current, char* delta);
 unsigned long ConvertStringToBleederCurrent(char* string);
+void OptimizeReferenceForPhaseNoise(double freqRatio, unsigned long* Mult, unsigned long* R_divider);
 
 
 #define SHIFT_AMOUNT 16 // 2^16 = 65536
@@ -43,30 +41,61 @@ const int fractionMask = 0xFFFFFFFFFFFFFFFF >> (64 - SHIFT_AMOUNT);
 
 int main(void)
 {
-	char user_input[20], delta[20];
+	char pfd[20], ref[20];
+	int pfdFactor, refFactor;
+	unsigned long MultValue, R_Divider;
 
+	printf("Enter desired PFD frequency [MHz]: ");
+	fgets(pfd, sizeof(pfd), stdin);
+	printf("\nEnter external reference frequency [MHz]: ");
+	fgets(ref, sizeof(ref), stdin);
 
-	//printf("166.66uA to 10.66mA in 166.66uA increments\n\n");
-	//printf("0uA to 166uA in 5.33uA increments\n\n");
-	printf("Enter desired ICP current in mA: ");
-	fgets(user_input, sizeof(user_input), stdin);
-	printf("\n\nEnter delta value in mA: ");
-	fgets(delta, sizeof(delta), stdin);
+	double PFDFreq = ConvertStringToFrequency(pfd, &pfdFactor);
+	double refFreq = ConvertStringToFrequency(ref, &refFactor);
+	
+	double result = GenerateFrequencyRatio(PFDFreq, pfdFactor, refFreq, refFactor);
 
-	//double value = ConvertUserStringToFloat(user_input);
+	printf("\nResult: %f\n", result);
 
-	//printf("Value: %f\n", value);
+	OptimizeReferenceForPhaseNoise(result, &MultValue, &R_Divider);
 
-	unsigned long mappedValue = ConvertStringToChargePumpCurrent(user_input, delta);
-
-	printf("\nMapped Value: %u\n\n", mappedValue);
-
-
-
-
+	printf("Multiplier Value: %u\n\nR Divider Value: %u\n\n", MultValue, R_Divider);
 	
 	return 0;
 }
+
+void OptimizeReferenceForPhaseNoise(double freqRatio, unsigned long* Mult, unsigned long* R_divider) {
+
+	double MultValue = 2, RefDoubler = 2, increment = 1;
+	double realRDividerValue;
+
+	uint64_t freqRatioFixed = DoubleToFixed(freqRatio);
+	uint64_t MultValueFixed = DoubleToFixed(MultValue);
+	uint64_t RefDoublerFixed = DoubleToFixed(RefDoubler);
+	uint64_t IncFixed = DoubleToFixed(increment);
+
+	uint64_t RDividerFixed = FixedDivide(FixedMultiply(RefDoublerFixed, MultValueFixed), freqRatioFixed);
+
+	realRDividerValue = FixedToDouble(RDividerFixed);
+	
+	while (realRDividerValue - (unsigned long)realRDividerValue != 0) {
+		MultValueFixed = MultValueFixed + IncFixed;
+		RDividerFixed = FixedDivide(FixedMultiply(RefDoublerFixed, MultValueFixed), freqRatioFixed);
+		realRDividerValue = FixedToDouble(RDividerFixed);
+	 }
+
+	MultValue = FixedToDouble(MultValueFixed);
+
+	*Mult = (unsigned long)MultValue;
+	*R_divider = (unsigned long)realRDividerValue;
+
+}
+
+
+
+
+
+
 
 
 unsigned long ConvertStringToBleederCurrent(char* string) {
@@ -201,8 +230,9 @@ double ConvertStringToFrequency(char* string, int* factor) {
 
 void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 
-	double modulus_min = 2;
+	double modulus_min = 2, increment = 1;
 
+	uint64_t IncFixed = DoubleToFixed(increment);
 	uint64_t fixed_mod_min = DoubleToFixed(modulus_min);
 	uint64_t fixed_ratio = DoubleToFixed(ratio);
 	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
@@ -210,7 +240,7 @@ void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nM
 	double real_frac = FixedToDouble(fixed_frac);
 
 	while ((real_frac - (unsigned long)real_frac) != 0) {
-		fixed_mod_min = fixed_mod_min + 1;
+		fixed_mod_min = fixed_mod_min + IncFixed;
 		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
 		real_frac = FixedToDouble(fixed_frac);
 	}
@@ -236,8 +266,9 @@ void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nM
 
 void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 
-	double modulus_max = 4294967295;
+	double modulus_max = 4294967295, increment = 1;
 
+	uint64_t IncFixed = DoubleToFixed(increment);
 	uint64_t fixed_mod_max = DoubleToFixed(modulus_max);
 	uint64_t fixed_ratio = DoubleToFixed(ratio);
 	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
@@ -245,7 +276,7 @@ void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nM
 	double real_frac = FixedToDouble(fixed_frac);
 
 	while ((real_frac - (unsigned long)real_frac) != 0) {
-		fixed_mod_max = fixed_mod_max - 1;
+		fixed_mod_max = fixed_mod_max - IncFixed;
 		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
 		real_frac = FixedToDouble(fixed_frac);
 	}

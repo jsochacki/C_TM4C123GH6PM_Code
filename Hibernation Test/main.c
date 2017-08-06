@@ -24,48 +24,74 @@
 #include "driverlib/rom_map.h"
 #include "driverlib/ssi.h"
 #include "driverlib/hibernate.h"
+#include "Synth_API_Macro_Definitions.h"
+#include "Synth_API_SPI_Setup.h"
+#include "Synth_API_Console_Functions.h"
+#include "Synth_API_Preface_Registers.h"
+#include "Synth_API_Control_Registers.h"
+#include "Synth_API_Status_Registers.h"
+#include "Synth_API_Hibernation_Setup.h"
 
 
+char new_line[] = "\n\r";
 
 int main(void) {
 	
+	setupClock();
+	initConsole();
 
+	char user_input[MAX_INPUT_LENGTH], command[50], value[20];
+	char out[20], ref[20];
+	int outFactor, refFactor;
+	unsigned short INT;
+	unsigned long FRAC, MOD;
 
-	SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
+	while(1){
 
+		clearArray(out, 20);
+		clearArray(ref, 20);
 
+//		clearArray(user_input, 100);
+//		clearArray(command, 50);
+//		clearArray(value, 20);
+//
+//		getString(user_input);
+//		parseString(user_input, command, value);
 
+		getString(out);
+		printString(new_line);
+		printString(new_line);
+		getString(ref);
 
+		double outFreq = ConvertStringToFrequency(out, &outFactor);
+//		double outFreq = ConvertStringToFrequency(value, &outFactor);
+		double refFreq = ConvertStringToFrequency(ref, &refFactor);
 
-//	HibernateRequest();
-//	while(1){ }
+//		printString(new_line);
+//		printString(new_line);
+//		printFloat(outFreq);
 
+		double result = GenerateFrequencyRatio(outFreq, outFactor, refFreq, refFactor);
 
-	double var = 1.599;
+		DetermineFeedbackValues(result, false, &INT, &FRAC, &MOD);
 
-	var = round(var);
+		printString(new_line);
+		printString(new_line);
+		printFloat(outFreq);
+		printString(new_line);
+		printString(new_line);
+		printFloat(refFreq);
+		printString(new_line);
+		printString(new_line);
+		printString("Enter: ");
 
-
-
+	}
 
 
 	return 0;
 }
 
 
-void initHibernationModule(void){
 
-	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-	MAP_GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
-	MAP_GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, 0x08);
-
-
-	MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_HIBERNATE);
-	MAP_HibernateEnableExpClk(MAP_SysCtlClockGet());
-	MAP_HibernateGPIORetentionEnable();
-	MAP_HibernateWakeSet(HIBERNATE_WAKE_PIN);
-	MAP_GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_3, 0x00);
-
-}
 
 

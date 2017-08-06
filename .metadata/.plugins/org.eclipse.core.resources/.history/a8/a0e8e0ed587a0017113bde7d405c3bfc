@@ -1,0 +1,153 @@
+/*
+ * Synth_API_Macro_Definitions.h
+ *
+ * Author: Mason Edgar
+ *
+ */
+
+#ifndef SYNTH_API_MACRO_DEFINITIONS_H_
+#define SYNTH_API_MACRO_DEFINITIONS_H_
+
+// Macro that sets the input array size to get from user
+#define MAX_INPUT_LENGTH 100
+
+
+// Macro for GetString function - this is the hex value for the enter key in ASCII
+#define ENTER 0x0D
+#define BACKSPACE 0x7F
+
+// Macros for selecting the chip-select polarity. The numbers here are arbitrary, the macro is for readability
+#define CS_ACTIVE_HIGH 0
+#define CS_ACTIVE_LOW  1
+
+// Masks to isolate bytes in the 24-bit words
+#define LOWER_8_BITS 0x000000FF
+#define MIDDLE_8_BITS 0x0000FF00
+#define UPPER_8_BITS 0x00FF0000
+
+// Masks to isolate bytes in 16-bit words
+#define TOP_HALF_16_BIT 0xFF00
+#define BOTTOM_HALF_16_BIT 0x00FF
+
+// Masks to isolate bytes in 32-bit words
+#define TOP_8_32Bit 0xFF000000
+#define UPPER_MIDDLE_32Bit 0x00FF0000
+#define LOWER_MIDDLE_32Bit 0x0000FF00
+#define BOTTOM_8_32Bit 0x000000FF
+
+// Macros to define lowest 8-bits (general usage)
+#define BIT_0 0x01
+#define BIT_1 0x02
+#define BIT_2 0x04
+#define BIT_3 0x08
+#define BIT_4 0x10
+#define BIT_5 0x20
+#define BIT_6 0x40
+#define BIT_7 0x80
+#define BIT3_to_BIT0 0x0F
+#define BIT6_to_BIT0 0x7F
+
+
+/*
+
+                                  Macros Specific to Register Programming
+
+ These define the address for each register so that it can be combined with a data byte to form the full 24-bit frame.
+ All of the below register macros include the '0' MSB which indicates a write operation.
+
+
+*/
+
+
+#define REG_10h 0x1000
+#define REG_11h 0x1100
+#define REG_12h 0x1200
+#define REG_13h 0x1300
+#define REG_14h 0x1400
+#define REG_15h 0x1500
+#define REG_16h 0x1600
+#define REG_17h 0x1700
+#define REG_18h 0x1800
+#define REG_19h 0x1900
+#define REG_1Ah 0x1A00
+#define REG_1Bh 0x1B00
+#define REG_1Ch 0x1C00
+#define REG_1Dh 0x1D00
+#define REG_1Eh 0x1E00
+#define REG_1Fh 0x1F00
+#define REG_20h 0x2000
+#define REG_21h 0x2100
+#define REG_22h 0x2200
+#define REG_23h 0x2300
+#define REG_24h 0x2400
+#define REG_25h 0x2500
+#define REG_26h 0x2600
+#define REG_27h 0x2700
+#define REG_28h 0x2800
+#define REG_29h 0x2900
+#define REG_2Ah 0x2A00
+#define REG_2Bh 0x2B00
+#define REG_2Ch 0x2C00
+#define REG_2Dh 0x2D00
+#define REG_2Eh 0x2E00
+#define REG_2Fh 0x2F00
+#define REG_30h 0x3000
+#define REG_31h 0x3100
+#define REG_32h 0x3200
+#define REG_33h 0x3300
+#define REG_34h 0x3400
+#define REG_35h 0x3500
+#define REG_36h 0x3600
+#define REG_37h 0x3700
+#define REG_38h 0x3800
+#define REG_39h 0x3900
+#define REG_3Ah 0x3A00
+#define REG_3Bh 0x3B00
+#define REG_3Ch 0x3C00
+#define REG_3Dh 0x3D00
+#define REG_3Eh 0x3E00
+#define REG_3Fh 0x3F00
+#define REG_40h 0x4000
+#define REG_41h 0x4100
+#define REG_42h 0x4200
+#define REG_43h 0x4300
+
+// Read-Only Registers
+#define REG_44h_READ 0x804400
+#define REG_45h_READ 0x804500
+#define REG_46h_READ 0x804600
+#define REG_47h_READ 0x804700
+#define REG_48h_READ 0x804800
+
+// R/W Capability
+#define REG_49h_READ 0x804900
+#define REG_49h_WRITE 0x4900
+
+
+// Sets the Soft Reset and SDO active pins in Register 0h. Further explained in the InitPrefaceRegister function comments
+#define SOFT_RESET_and_SPI_4WIRE 0x99
+
+// Sets the Read From Active Registers pin inside Register 1h. Further explained in the InitPrefaceRegister function comments
+#define READ_FROM_ACTIVE_REGISTERS 0x100
+
+// Charge Pump Register: High Impedance Macro
+#define CP_HIGH_Z 0x00000020
+
+// Output Control Register Macros
+#define QA_ENABLE_MUTE_UNTIL_LOCK_DETECT 0x38
+#define QA_ENABLE_NO_MUTE 0x18
+#define QB_ENABLE 0x18
+#define MUTE_UNTIL_LOCK_DETECT_WITHOUT_QA_ENABLED 0x28
+#define DISABLE_MUTE_WITHOUT_QA_ENABLED 0x08
+#define OutputDoublerEnable 0x80
+
+// Lock Detection Control Register Macros
+#define UNLOCK_DETECTION 0x08
+#define NO_UNLOCK_DETECTION 0x00
+
+// Input Control Registers
+#define MULT_PWRD_UP 7
+#define MULT_PWRD_DN 0
+
+
+#endif /* SYNTH_API_MACRO_DEFINITIONS_H_ */

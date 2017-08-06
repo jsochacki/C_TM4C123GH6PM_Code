@@ -158,14 +158,47 @@ void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsig
 }
 
 
+/***********************************************************************************************************************************/
+/*  Uses the Reference Doubler (for phase noise performance) and computes necessary MULT and R values for the reference frequency  */
+/***********************************************************************************************************************************/
+
+void OptimizeReferenceForPhaseNoise(double freqRatio, unsigned long* Mult, unsigned long* R_divider) {
+
+	double MultValue = 2, RefDoubler = 2, increment = 1;
+	double realRDividerValue;
+
+	uint64_t freqRatioFixed = DoubleToFixed(freqRatio);
+	uint64_t MultValueFixed = DoubleToFixed(MultValue);
+	uint64_t RefDoublerFixed = DoubleToFixed(RefDoubler);
+	uint64_t IncFixed = DoubleToFixed(increment);
+
+	uint64_t RDividerFixed = FixedDivide(FixedMultiply(RefDoublerFixed, MultValueFixed), freqRatioFixed);
+
+	realRDividerValue = FixedToDouble(RDividerFixed);
+
+	while (realRDividerValue - (unsigned long)realRDividerValue != 0) {
+		MultValueFixed = MultValueFixed + IncFixed;
+		RDividerFixed = FixedDivide(FixedMultiply(RefDoublerFixed, MultValueFixed), freqRatioFixed);
+		realRDividerValue = FixedToDouble(RDividerFixed);
+	 }
+
+	MultValue = FixedToDouble(MultValueFixed);
+
+	*Mult = (unsigned long)MultValue;
+	*R_divider = (unsigned long)realRDividerValue;
+
+}
+
+
 /*******************************************************************************************************/
 /*     Determines the MOD and FRAC values by minimizing the MOD value (for use by Feedback Control)    */
 /*******************************************************************************************************/
 
 void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 
-	double modulus_min = 2;
+	double modulus_min = 2, increment = 1;
 
+	uint64_t IncFixed = DoubleToFixed(increment);
 	uint64_t fixed_mod_min = DoubleToFixed(modulus_min);
 	uint64_t fixed_ratio = DoubleToFixed(ratio);
 	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
@@ -173,7 +206,7 @@ void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nM
 	double real_frac = FixedToDouble(fixed_frac);
 
 	while ((real_frac - (unsigned long)real_frac) != 0) {
-		fixed_mod_min = fixed_mod_min + 1;
+		fixed_mod_min = fixed_mod_min + IncFixed;
 		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_min);
 		real_frac = FixedToDouble(fixed_frac);
 	}
@@ -192,8 +225,9 @@ void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nM
 
 void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD) {
 
-	double modulus_max = 4294967295;
+	double modulus_max = 4294967295, increment = 1;
 
+	uint64_t IncFixed = DoubleToFixed(increment);
 	uint64_t fixed_mod_max = DoubleToFixed(modulus_max);
 	uint64_t fixed_ratio = DoubleToFixed(ratio);
 	uint64_t fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
@@ -201,7 +235,7 @@ void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nM
 	double real_frac = FixedToDouble(fixed_frac);
 
 	while ((real_frac - (unsigned long)real_frac) != 0) {
-		fixed_mod_max = fixed_mod_max - 1;
+		fixed_mod_max = fixed_mod_max - IncFixed;
 		fixed_frac = FixedMultiply(fixed_ratio, fixed_mod_max);
 		real_frac = FixedToDouble(fixed_frac);
 	}

@@ -13,6 +13,7 @@ extern void setupChipSelect(int mode);
 extern void setupSPI_8Bit(void);
 extern void SplitNumber_16Bit(unsigned short original, unsigned long* top_half, unsigned long* bottom_half);
 extern void SplitNumber_32Bit(unsigned long original, unsigned long* top_portion, unsigned long* upper_middle_portion, unsigned long* lower_middle_portion, unsigned long* bottom_portion);
+extern void OptimizeReferenceForPhaseNoise(double freqRatio, unsigned long* Mult, unsigned long* R_divider);
 extern void FixedPointMaximizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
 extern void FixedPointMinimizeMOD(double ratio, unsigned long* nFRAC, unsigned long* nMOD);
 extern void DetermineFeedbackValues(double freq_ratio, bool integer_mode, unsigned short* nINT, unsigned long* nFRAC, unsigned long* nMOD);

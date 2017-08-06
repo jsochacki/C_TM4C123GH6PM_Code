@@ -31,10 +31,19 @@
 #include "driverlib/rom_map.h"
 #include "driverlib/pwm.h"
 #include "driverlib/ssi.h"
+#include "driverlib/fpu.h"
 #include "Synth_API_Macro_Definitions.h"
 #include "Synth_API_Console_Functions.h"
 
+#define SHIFT_AMOUNT 16 // 2^16 = 65536
 
+const int console_fractionMask = 0xFFFFFFFFFFFFFFFF >> (64 - SHIFT_AMOUNT);
+
+#define consoleDoubleToFixed(x) ((x) * (double)((uint64_t)1 << SHIFT_AMOUNT))
+#define consoleFixedToDouble(x) ((double)(x) / (double)((uint64_t)1 << SHIFT_AMOUNT))
+#define consoleFractionPart(x) ((x) & console_fractionMask)
+#define consoleFixedMultiply(x,y) (((x) * (y)) >> SHIFT_AMOUNT)
+#define consoleFixedDivide(x,y) (((x) << SHIFT_AMOUNT) / (y))
 
 
 /*******************************************************************************************************/
@@ -236,6 +245,7 @@ double ConvertStringToFrequency(char* string, int* factor) {
 		value_ptr++;
 	}
 
+
 	while (*string != ENTER) {
 		*unit_ptr = *string++;
 		unit_ptr++;
@@ -321,20 +331,17 @@ int ConvertStringToBool(char* string) {
 
 double ConvertStringToFloat(char* string) {
 
-	// The difference between this function and the one below it is how this function determines the end of the character arrays
-
-	char integerPart[20], decimalPart[21];
+	char integerPart[20], decimalPart[20];
 	char* int_ptr = integerPart;
 	char* dec_ptr = decimalPart;
 	char* decimal_check = string;
-	int i, flag = 0, decimal_flag = 0;
+	int i, flag = 0, decimal_flag = 0, mult = 0;
 	unsigned long integer_portion, decimal_portion;
-	double mult = 0, divider = 1, result;
+	double divider = 1, result;
 	double intPart, decPart;
 
-	// Clear out arrays
-	for (i = 0; i < 20; i++) { integerPart[i] = '\0'; }
-	for (i = 0; i < 21; i++) { decimalPart[i] = '\0'; }
+	clearArray(integerPart, 20);
+	clearArray(decimalPart, 20);
 
 	// Check for a decimal
 	while (*decimal_check != '\0') {

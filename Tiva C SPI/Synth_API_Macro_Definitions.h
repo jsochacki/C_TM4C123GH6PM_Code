@@ -145,6 +145,19 @@
 #define UNLOCK_DETECTION 0x08
 #define NO_UNLOCK_DETECTION 0x00
 
+// Input Control Registers
+#define MULT_PWRD_UP 7
+#define MULT_PWRD_DWN 0
+#define SINGLE_ENDED_INPUT 0
+#define DIFFERENTIAL_ENDED_INPUT 1
+#define REF_DOUBLER_ENABLE 1
+#define REF_DOUBLER_DISABLE 0
+#define MULT_ENABLE 1
+#define MULT_DISABLE 0
+#define MULT_RESET 0
+#define MULT_ACTIVE 1
+
+
 
 
 #endif /* SYNTH_API_MACRO_DEFINITIONS_H_ */

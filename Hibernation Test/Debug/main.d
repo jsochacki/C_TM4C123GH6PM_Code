@@ -30,6 +30,13 @@ main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom_map.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ssi.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/hibernate.h
+main.obj: ../Synth_API_Macro_Definitions.h
+main.obj: ../Synth_API_SPI_Setup.h
+main.obj: ../Synth_API_Console_Functions.h
+main.obj: ../Synth_API_Preface_Registers.h
+main.obj: ../Synth_API_Control_Registers.h
+main.obj: ../Synth_API_Status_Registers.h
+main.obj: ../Synth_API_Hibernation_Setup.h
 
 ../main.c: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.5.LTS/include/stdint.h: 
@@ -61,3 +68,10 @@ C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom.h:
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/rom_map.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ssi.h: 
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/hibernate.h: 
+../Synth_API_Macro_Definitions.h: 
+../Synth_API_SPI_Setup.h: 
+../Synth_API_Console_Functions.h: 
+../Synth_API_Preface_Registers.h: 
+../Synth_API_Control_Registers.h: 
+../Synth_API_Status_Registers.h: 
+../Synth_API_Hibernation_Setup.h: 
