@@ -72,14 +72,13 @@ int main(void) {
 
 		if(!strncmp(user_input, "setFrequency", 12)){
 
-			char out[20], ref[20], intMode[3];
-			int out_factor, ref_factor, intModeDecision;
-			double output_freq, reference_freq, result;
+			char out[20], intMode[3];
+			int out_factor, intModeDecision;
+			double output_freq, result;
 			unsigned short nINT;
 			unsigned long nFRAC, nMOD;
 
 			clearArray(out, 20);
-			clearArray(ref, 20);
 			clearArray(intMode, 3);
 			printString(new_line);
 			printString(new_line);
@@ -89,14 +88,9 @@ int main(void) {
 			printString(new_line);
 			printString("Integer mode? (\"y\" for integer, \"n\" for fractional): ");
 			getString(intMode);
-			printString(new_line);
-			printString(new_line);
-			printString("Enter the reference frequency: ");
-			getString(ref);
 			intModeDecision = ConvertStringToBool(intMode);
-			reference_freq = ConvertStringToFrequency(ref, &ref_factor);
 			output_freq = ConvertStringToFrequency(out, &out_factor);
-			result = GenerateFrequencyRatio(output_freq, out_factor, reference_freq, ref_factor);
+			result = GenerateFrequencyRatio(output_freq, out_factor, InternalReferenceValue, internalRefFactor);
 			DetermineFeedbackValues(result, intModeDecision, &nINT, &nFRAC, &nMOD);
 			SetFeedbackControlValues(nINT, nFRAC, nMOD);
 			printString(new_line);
@@ -167,7 +161,7 @@ int main(void) {
 				printString(new_line);
 				printString("Enter the desired reference divider value (1'd - 1023'd): ");
 				getString(refDivider);
-				R_Divider = ConverStringToNumber(refDivider);
+				R_Divider = ConvertStringToNumber(refDivider);
 				SetupInputControlRegisters(SINGLE_ENDED_INPUT, refDoublerEnabled, multEnabled, multActive, R_Divider, MultValue, MultPwr);
 				printString(new_line);
 				printString(new_line);
@@ -284,10 +278,32 @@ int main(void) {
 		}
 
 		else{
-
 			printString(new_line);
 			printString(new_line);
 			printString("Command not recognized...");
+			printString(new_line);
+			printString(new_line);
+			printString(new_line);
+			printString("Available commands:");
+			printString(new_line);
+			printString(new_line);
+			printString("\tsetReference");
+			printString(new_line);
+			printString(new_line);
+			printString("\tsetFrequency");
+			printString(new_line);
+			printString(new_line);
+			printString("\tsetOutputPower");
+			printString(new_line);
+			printString(new_line);
+			printString("\tlockStatus");
+			printString(new_line);
+			printString(new_line);
+			printString("\tsetupChargePump");
+			printString(new_line);
+			printString(new_line);
+			printString("\tsleep");
+			printString(new_line);
 			printString(new_line);
 			printString(new_line);
 			printString("Enter command: ");

@@ -35,15 +35,6 @@
 #include "Synth_API_Macro_Definitions.h"
 #include "Synth_API_Console_Functions.h"
 
-#define SHIFT_AMOUNT 16 // 2^16 = 65536
-
-const int console_fractionMask = 0xFFFFFFFFFFFFFFFF >> (64 - SHIFT_AMOUNT);
-
-#define consoleDoubleToFixed(x) ((x) * (double)((uint64_t)1 << SHIFT_AMOUNT))
-#define consoleFixedToDouble(x) ((double)(x) / (double)((uint64_t)1 << SHIFT_AMOUNT))
-#define consoleFractionPart(x) ((x) & console_fractionMask)
-#define consoleFixedMultiply(x,y) (((x) * (y)) >> SHIFT_AMOUNT)
-#define consoleFixedDivide(x,y) (((x) << SHIFT_AMOUNT) / (y))
 
 
 /*******************************************************************************************************/
