@@ -132,9 +132,6 @@ int main(void) {
 			if(AutoTuneSelected){
 				OptimizeReferenceForPhaseNoise(RefFreqRatio, &MultValue, &R_Divider);
 				SetupInputControlRegisters(SINGLE_ENDED_INPUT, REF_DOUBLER_ENABLE, MULT_ENABLE, MULT_ACTIVE, R_Divider, MultValue, MULT_PWRD_UP);
-				printString(new_line);
-				printString(new_line);
-				printString("Enter command: ");
 			}
 
 			else{
@@ -169,9 +166,6 @@ int main(void) {
 				getString(refDivider);
 				R_Divider = ConverStringToNumber(refDivider);
 				SetupInputControlRegisters(SINGLE_ENDED_INPUT, refDoublerEnabled, multEnabled, multActive, R_Divider, MultValue, MultPwr);
-				printString(new_line);
-				printString(new_line);
-				printString("Enter command: ");
 			}
 
 		}
