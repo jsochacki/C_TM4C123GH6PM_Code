@@ -14,4 +14,5 @@
 	<templateProperties value="id=com.ti.common.project.core.emptyProjectWithMainTemplate,"/>
 	<filesToOpen value="main.c,"/>
 	<origin value="C:/Users/medgar/Documents/C Projects/Tiva C Workspace/Tiva C SPI"/>
+	<isTargetManual value="false"/>
 </projectOptions>

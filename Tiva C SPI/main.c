@@ -55,7 +55,7 @@ double InternalReferenceValue;
 int main(void) {
 	
 
-	char user_input[MAX_INPUT_LENGTH];
+	char user_input[MAX_INPUT_LENGTH], command[50], value[20];
 
 	setupClock();
 	initConsole();
@@ -68,7 +68,12 @@ int main(void) {
 	while(1){
 
 		clearArray(user_input, 100);
+		clearArray(command, 50);
+		clearArray(value, 20);
+
 		getString(user_input);
+		parseString(user_input, command, value);
+
 
 		if(!strncmp(user_input, "setFrequency", 12)){
 
@@ -82,20 +87,17 @@ int main(void) {
 			clearArray(intMode, 3);
 			printString(new_line);
 			printString(new_line);
-			printString("Enter the desired output frequency: ");
-			getString(out);
-			printString(new_line);
-			printString(new_line);
 			printString("Integer mode? (\"y\" for integer, \"n\" for fractional): ");
 			getString(intMode);
 			intModeDecision = ConvertStringToBool(intMode);
-			output_freq = ConvertStringToFrequency(out, &out_factor);
+			output_freq = ConvertStringToFrequency(value, &out_factor);
 			result = GenerateFrequencyRatio(output_freq, out_factor, InternalReferenceValue, internalRefFactor);
 			DetermineFeedbackValues(result, intModeDecision, &nINT, &nFRAC, &nMOD);
 			SetFeedbackControlValues(nINT, nFRAC, nMOD);
 			printString(new_line);
 			printString(new_line);
-			printString("Frequency has been set.");
+			printString("Frequency set to ");
+			printString(value);
 			printString(new_line);
 			printString(new_line);
 			printString("Enter command: ");
@@ -103,14 +105,12 @@ int main(void) {
 
 		else if(!strncmp(user_input, "setReference", 12)){
 
-			char internalReference[20], externalReference[20], refDivider[20], refDoubler[5], multEnable[5], multiplier[20], AutoTune[5];
+			char externalReference[20], refDivider[20], refDoubler[5], multEnable[5], multiplier[20], AutoTune[5];
 			double ExternalReferenceValue, RefFreqRatio;
 			int externalRefFactor, AutoTuneSelected, refDoublerEnabled, multEnabled, multActive, MultPwr;
 			unsigned long MultValue, R_Divider;
 
-			printString("What is the desired PFD frequency?: ");
-			getString(internalReference);
-			InternalReferenceValue = ConvertStringToFrequency(internalReference, &internalRefFactor);
+			InternalReferenceValue = ConvertStringToFrequency(value, &internalRefFactor);
 			printString(new_line);
 			printString(new_line);
 			printString("What is the externally applied REF_IN? ");
@@ -126,6 +126,10 @@ int main(void) {
 			if(AutoTuneSelected){
 				OptimizeReferenceForPhaseNoise(RefFreqRatio, &MultValue, &R_Divider);
 				SetupInputControlRegisters(SINGLE_ENDED_INPUT, REF_DOUBLER_ENABLE, MULT_ENABLE, MULT_ACTIVE, R_Divider, MultValue, MULT_PWRD_UP);
+				printString(new_line);
+				printString(new_line);
+				printString("Internal reference set to ");
+				printString(value);
 				printString(new_line);
 				printString(new_line);
 				printString("Enter command: ");
@@ -231,13 +235,25 @@ int main(void) {
 			unsigned long NMOS_Current = 0, PMOS_Current = 0, bleederValue = 0;
 			int ChargePumpHiZ;
 
-			printString("Put charge pump into high impedance mode? (y/n)");
+			printString(new_line);
+			printString(new_line);
+			printString("Put charge pump into high impedance mode? (y/n): ");
 			getString(CP_HiZ);
 			ChargePumpHiZ = ConvertStringToBool(CP_HiZ);
 
-			if(ChargePumpHiZ){ SetupChargePump(PMOS_Current, NMOS_Current, ChargePumpHiZ, bleederValue); }
+			if(ChargePumpHiZ){
+				SetupChargePump(PMOS_Current, NMOS_Current, ChargePumpHiZ, bleederValue);
+				printString(new_line);
+				printString(new_line);
+				printString("Charge pump set to high impedance.");
+				printString(new_line);
+				printString(new_line);
+				printString("Enter command: ");
+			}
 
 			else{
+				printString(new_line);
+				printString(new_line);
 				printString("Available charge pump currents: 166.66uA to 10.66mA in 166.66uA increments");
 				printString(new_line);
 				printString(new_line);
@@ -245,7 +261,7 @@ int main(void) {
 				getString(charge_current);
 				printString(new_line);
 				printString(new_line);
-				printString("Set the desired difference between PMOS and NMOS currents (166.66uA increment) [mA]: ");
+				printString("Set the desired difference between PMOS and NMOS currents (.167mA increment) [mA]: ");
 				getString(delta);
 				PMOS_Current = ConvertStringToChargePumpCurrent(charge_current, false, "");
 				NMOS_Current = ConvertStringToChargePumpCurrent(charge_current, true, delta);
@@ -260,6 +276,7 @@ int main(void) {
 				printString(new_line);
 				bleederValue = ConvertStringToBleederCurrent(bleeder_current);
 				SetupChargePump(PMOS_Current, NMOS_Current, ChargePumpHiZ, bleederValue);
+				printString("Enter command: ");
 			}
 
 		}

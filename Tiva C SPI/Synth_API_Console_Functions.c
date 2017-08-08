@@ -322,7 +322,7 @@ int ConvertStringToBool(char* string) {
 
 double ConvertStringToFloat(char* string) {
 
-	char integerPart[20], decimalPart[20];
+	char integerPart[20], decimalPart[21];
 	char* int_ptr = integerPart;
 	char* dec_ptr = decimalPart;
 	char* decimal_check = string;
@@ -331,8 +331,9 @@ double ConvertStringToFloat(char* string) {
 	double divider = 1, result;
 	double intPart, decPart;
 
-	clearArray(integerPart, 20);
-	clearArray(decimalPart, 20);
+	// Clear out arrays
+	for (i = 0; i < 20; i++) { integerPart[i] = '\0'; }
+	for (i = 0; i < 21; i++) { decimalPart[i] = '\0'; }
 
 	// Check for a decimal
 	while (*decimal_check != '\0') {

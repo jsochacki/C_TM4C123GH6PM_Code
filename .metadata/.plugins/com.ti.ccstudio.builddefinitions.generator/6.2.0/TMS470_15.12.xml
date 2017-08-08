@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 
-<!-- Auto-generated from: C:\Users\medgar\Documents\GitHub\C_TM4C123GH6PM_Code\.metadata\.plugins\com.ti.ccstudio.builddefinitions.generator\native\TMS470_15.12.5.LTS.xml -->
+<!-- Auto-generated from: C:\Users\medgar\Documents\GitHub\C_TM4C123GH6PM_Code\.metadata\.plugins\com.ti.ccstudio.builddefinitions.generator\native\TMS470_15.12.6.LTS.xml -->
 
 <plugin>
 
@@ -314,6 +314,8 @@
 				name="Specify floating point support (--float_support)"
 				tip="Aliases: --float_support&lt;BODY&gt;Specify floating point support"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PROCESSOR"
+				applicabilityCalculator="com.ti.ccstudio.project.core.internal.options.DeprecatedOptionApplicabilityCalculator"
+				valueHandler="com.ti.ccstudio.project.core.internal.options.DeprecatedEnumOptionValueHandler"
 				command="--float_support"
 				valueType="enumerated">
 				<enumeratedOptionValue
@@ -338,7 +340,7 @@
 					command="--float_support=vfplib"/>
 				<enumeratedOptionValue
 					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FLOAT_SUPPORT.fpalib"
-					name="fpalib"
+					name="fpalib [deprecated]"
 					command="--float_support=fpalib"/>
 				<enumeratedOptionValue
 					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FLOAT_SUPPORT.FPv4SPD16"
@@ -483,6 +485,62 @@ Level 0 includes register optimizations.  Level 1 adds local optimizations. Leve
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.INCLUDES"
 				name="Include Options"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED"
+				name="Set severity of MISRA 'required' rule class (--misra_required)"
+				tip="Aliases: --misra_required&lt;BODY&gt;Set the diagnostic severity level for the MISRA required class of rules.  See the --check_misra option for further information."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MISRABASIC"
+				command="--misra_required"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.error"
+					name="error"
+					command="--misra_required=error"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.warning"
+					name="warning"
+					command="--misra_required=warning"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.remark"
+					name="remark"
+					command="--misra_required=remark"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.suppress"
+					name="suppress"
+					command="--misra_required=suppress"/>
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY"
+				name="Set severity of MISRA 'advisory' rule class (--misra_advisory)"
+				tip="Aliases: --misra_advisory&lt;BODY&gt;Set diagnostic severity level for the MISRA advisory class of rules.  See the --check_misra option for further information."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MISRABASIC"
+				command="--misra_advisory"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.error"
+					name="error"
+					command="--misra_advisory=error"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.warning"
+					name="warning"
+					command="--misra_advisory=warning"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.remark"
+					name="remark"
+					command="--misra_advisory=remark"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.suppress"
+					name="suppress"
+					command="--misra_advisory=suppress"/>
+			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CHECK_MISRA"
 				name="Enable checking of MISRA-C:2004 rules (--check_misra)"
@@ -668,62 +726,6 @@ Level 0 includes register optimizations.  Level 1 adds local optimizations. Leve
             &lt;/body&gt;"
 				command="--check_misra="
 				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED"
-				name="Set severity of MISRA 'required' rule class (--misra_required)"
-				tip="Aliases: --misra_required&lt;BODY&gt;Set the diagnostic severity level for the MISRA required class of rules.  See the --check_misra option for further information."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MISRABASIC"
-				command="--misra_required"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.error"
-					name="error"
-					command="--misra_required=error"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.warning"
-					name="warning"
-					command="--misra_required=warning"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.remark"
-					name="remark"
-					command="--misra_required=remark"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_REQUIRED.suppress"
-					name="suppress"
-					command="--misra_required=suppress"/>
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY"
-				name="Set severity of MISRA 'advisory' rule class (--misra_advisory)"
-				tip="Aliases: --misra_advisory&lt;BODY&gt;Set diagnostic severity level for the MISRA advisory class of rules.  See the --check_misra option for further information."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MISRABASIC"
-				command="--misra_advisory"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.error"
-					name="error"
-					command="--misra_advisory=error"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.warning"
-					name="warning"
-					command="--misra_advisory=warning"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.remark"
-					name="remark"
-					command="--misra_advisory=remark"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MISRA_ADVISORY.suppress"
-					name="suppress"
-					command="--misra_advisory=suppress"/>
-			</option>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MISRABASIC"
 				name="MISRA-C:2004"
@@ -965,114 +967,6 @@ You will still be able to set breakpoints and profile on function-level boundari
 					command="--strict_ansi"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CREATE_PCH"
-				name="Create a precompiled header file as named (--create_pch)"
-				tip="Aliases: --create_pch&lt;BODY&gt;Create a precompiled header file with the name specified. This option specifies the filename for the precompiled header file. If this option is not used, the precompiled header file will use the primary source file name as its filename with .pch as suffix."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				command="--create_pch="
-				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
-				browseType="file"
-				browseFilterPath="${PROJECT_ROOT}"
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GCC"
-				name="Enable support for GCC extensions (DEPRECATED) (--gcc)"
-				tip="Aliases: --gcc&lt;BODY&gt;This option enables the support for GCC extensions.  This feature is incompatible with strict ANSI mode."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--gcc"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PCH_VERBOSE"
-				name="Info on considered &amp; unused precompiled headers (--pch_verbose)"
-				tip="Aliases: --pch_verbose&lt;BODY&gt;This option displays a message for each precompiled header file that is considered but can not be used. It also gives the reason why it can not be used."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--pch_verbose"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NO_INLINING"
-				name="Ignore inline keyword (--no_inlining, -pi)"
-				tip="Aliases: --no_inlining, -pi&lt;BODY&gt;Ignore the inline keyword while parsing."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--no_inlining"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NO_INTRINSICS"
-				name="Disable intrinsic functions (--no_intrinsics, -pn)"
-				tip="Aliases: --no_intrinsics, -pn&lt;BODY&gt;Disable intrinsic functions in the parser."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--no_intrinsics"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PCH_DIR"
-				name="Specify precompiled header path (--pch_dir)"
-				tip="Aliases: --pch_dir&lt;BODY&gt;Specify path where precompiled header file will reside. This option will direct the parser to put the generated precompiled header file in the specified directory. If this option is not used, the precompiled header file will be put into the same directory as the primary source file"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				command="--pch_dir="
-				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
-				browseType="directory"
-				browseFilterPath="${PROJECT_ROOT}"
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CPP_DEFAULT"
-				name="Treat C files as C++ files (--cpp_default, -fg)"
-				tip="Aliases: --cpp_default, -fg&lt;BODY&gt;Treat C files as C++ files"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--cpp_default"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.RTTI"
-				name="Support C++ run-time type information (--rtti, -rtti)"
-				tip="Aliases: --rtti, -rtti&lt;BODY&gt;Support C++ run-time type information"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--rtti"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.STATIC_TEMPLATE_INSTANTIATION"
-				name="Do static early template instantiation (--static_template_instantiation)"
-				tip="Aliases: --static_template_instantiation&lt;BODY&gt;All template entities are instantiated as needed in the file.  The instantiations are given internal (static) linkage."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--static_template_instantiation"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PENDING_INSTANTIATIONS"
-				name="limit pending template instantiations (--pending_instantiations)"
-				tip="Aliases: --pending_instantiations&lt;BODY&gt;The number of template instantiations that may be in progress at any given time. Use 0 to specify an unlimited number."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				command="--pending_instantiations="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_ACP_XREF"
-				name="Output xref listing to .crl file (--gen_acp_xref, -px)"
-				tip="Aliases: --gen_acp_xref, -px&lt;BODY&gt;Output xref listing to .crl file"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--gen_acp_xref"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MULTIBYTE_CHARS"
-				name="Multibyte character support (--multibyte_chars, -pc)"
-				tip="Aliases: --multibyte_chars, -pc&lt;BODY&gt;Enable parser support for multibyte character sequences in comments, string literals, and character constants."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				defaultValue="false"
-				command="--multibyte_chars"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EXTERN_C_CAN_THROW"
-				name="Allow extern C functions to propagate exceptions (--extern_c_can_throw)"
-				tip="Aliases: --extern_c_can_throw&lt;BODY&gt;This option is only supported under EABI for table-driven exception handling (TDEH). This option is valid only when `--exceptions` is also present. This option allows a function defined in C++ with extern `C` linkage to propagate exceptions."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				applicabilityCalculator="com.ti.common.project.core.internal.options.VirtualOptionApplicability"
-				defaultValue="false"
-				command="--extern_c_can_throw"
-				valueType="boolean"/>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FLOAT_OPERATIONS_ALLOWED"
 				name="Floating point precision accepted by compiler (--float_operations_allowed)"
 				tip="Aliases: --float_operations_allowed&lt;BODY&gt;Control the acceptable precision of floating point operations. The default is all."
@@ -1101,20 +995,20 @@ You will still be able to set breakpoints and profile on function-level boundari
 					command="--float_operations_allowed=none"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.KEEP_UNNEEDED_STATICS"
-				name="Do not delete unreferenced static variables (--keep_unneeded_statics)"
-				tip="Aliases: --keep_unneeded_statics&lt;BODY&gt;The parser, by default, will remark about and then remove any unreferenced static variables.  This option will keep the parser from deleting unreferenced static variables and any static functions that are, in turn referenced by these variables."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NO_INLINING"
+				name="Ignore inline keyword (--no_inlining, -pi)"
+				tip="Aliases: --no_inlining, -pi&lt;BODY&gt;Ignore the inline keyword while parsing."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
 				defaultValue="false"
-				command="--keep_unneeded_statics"
+				command="--no_inlining"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_ACP_RAW"
-				name="Output raw listing to .rl file (--gen_acp_raw, -pl)"
-				tip="Aliases: --gen_acp_raw, -pl&lt;BODY&gt;Output raw listing to .rl file"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MULTIBYTE_CHARS"
+				name="Multibyte character support (--multibyte_chars, -pc)"
+				tip="Aliases: --multibyte_chars, -pc&lt;BODY&gt;Enable parser support for multibyte character sequences in comments, string literals, and character constants."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
 				defaultValue="false"
-				command="--gen_acp_raw"
+				command="--multibyte_chars"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EXCEPTIONS"
@@ -1126,6 +1020,81 @@ You will still be able to set breakpoints and profile on function-level boundari
 				command="--exceptions"
 				valueType="boolean"/>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.RTTI"
+				name="Support C++ run-time type information (--rtti, -rtti)"
+				tip="Aliases: --rtti, -rtti&lt;BODY&gt;Support C++ run-time type information"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--rtti"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CPP_DEFAULT"
+				name="Treat C files as C++ files (--cpp_default, -fg)"
+				tip="Aliases: --cpp_default, -fg&lt;BODY&gt;Treat C files as C++ files"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--cpp_default"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GCC"
+				name="Enable support for GCC extensions (DEPRECATED) (--gcc)"
+				tip="Aliases: --gcc&lt;BODY&gt;This option enables the support for GCC extensions.  This feature is incompatible with strict ANSI mode."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--gcc"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.USE_PCH"
+				name="Precompiled header file for compilation (--use_pch)"
+				tip="Aliases: --use_pch&lt;BODY&gt;This option specifies the file name of the precompiled header file for this compilation."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				command="--use_pch="
+				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
+				browseType="file"
+				browseFilterPath="${PROJECT_ROOT}"
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_ACP_XREF"
+				name="Output xref listing to .crl file (--gen_acp_xref, -px)"
+				tip="Aliases: --gen_acp_xref, -px&lt;BODY&gt;Output xref listing to .crl file"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--gen_acp_xref"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EXTERN_C_CAN_THROW"
+				name="Allow extern C functions to propagate exceptions (--extern_c_can_throw)"
+				tip="Aliases: --extern_c_can_throw&lt;BODY&gt;This option is only supported under EABI for table-driven exception handling (TDEH). This option is valid only when `--exceptions` is also present. This option allows a function defined in C++ with extern `C` linkage to propagate exceptions."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				applicabilityCalculator="com.ti.common.project.core.internal.options.VirtualOptionApplicability"
+				defaultValue="false"
+				command="--extern_c_can_throw"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.STATIC_TEMPLATE_INSTANTIATION"
+				name="Do static early template instantiation (--static_template_instantiation)"
+				tip="Aliases: --static_template_instantiation&lt;BODY&gt;All template entities are instantiated as needed in the file.  The instantiations are given internal (static) linkage."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--static_template_instantiation"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NO_INTRINSICS"
+				name="Disable intrinsic functions (--no_intrinsics, -pn)"
+				tip="Aliases: --no_intrinsics, -pn&lt;BODY&gt;Disable intrinsic functions in the parser."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--no_intrinsics"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.KEEP_UNNEEDED_STATICS"
+				name="Do not delete unreferenced static variables (--keep_unneeded_statics)"
+				tip="Aliases: --keep_unneeded_statics&lt;BODY&gt;The parser, by default, will remark about and then remove any unreferenced static variables.  This option will keep the parser from deleting unreferenced static variables and any static functions that are, in turn referenced by these variables."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--keep_unneeded_statics"
+				valueType="boolean"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PROGRAM_LEVEL_COMPILE"
 				name="Program mode compilation (--program_level_compile, -pm)"
 				tip="Aliases: --program_level_compile, -pm&lt;BODY&gt;Enable program mode compilation."
@@ -1133,6 +1102,29 @@ You will still be able to set breakpoints and profile on function-level boundari
 				resourceFilter="project"
 				defaultValue="false"
 				command="--program_level_compile"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PCH_VERBOSE"
+				name="Info on considered &amp; unused precompiled headers (--pch_verbose)"
+				tip="Aliases: --pch_verbose&lt;BODY&gt;This option displays a message for each precompiled header file that is considered but can not be used. It also gives the reason why it can not be used."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--pch_verbose"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PENDING_INSTANTIATIONS"
+				name="limit pending template instantiations (--pending_instantiations)"
+				tip="Aliases: --pending_instantiations&lt;BODY&gt;The number of template instantiations that may be in progress at any given time. Use 0 to specify an unlimited number."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				command="--pending_instantiations="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_ACP_RAW"
+				name="Output raw listing to .rl file (--gen_acp_raw, -pl)"
+				tip="Aliases: --gen_acp_raw, -pl&lt;BODY&gt;Output raw listing to .rl file"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				defaultValue="false"
+				command="--gen_acp_raw"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PCH"
@@ -1143,11 +1135,21 @@ You will still be able to set breakpoints and profile on function-level boundari
 				command="--pch"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.USE_PCH"
-				name="Precompiled header file for compilation (--use_pch)"
-				tip="Aliases: --use_pch&lt;BODY&gt;This option specifies the file name of the precompiled header file for this compilation."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PCH_DIR"
+				name="Specify precompiled header path (--pch_dir)"
+				tip="Aliases: --pch_dir&lt;BODY&gt;Specify path where precompiled header file will reside. This option will direct the parser to put the generated precompiled header file in the specified directory. If this option is not used, the precompiled header file will be put into the same directory as the primary source file"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
-				command="--use_pch="
+				command="--pch_dir="
+				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
+				browseType="directory"
+				browseFilterPath="${PROJECT_ROOT}"
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CREATE_PCH"
+				name="Create a precompiled header file as named (--create_pch)"
+				tip="Aliases: --create_pch&lt;BODY&gt;Create a precompiled header file with the name specified. This option specifies the filename for the precompiled header file. If this option is not used, the precompiled header file will use the primary source file name as its filename with .pch as suffix."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PARSER"
+				command="--create_pch="
 				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
 				browseType="file"
 				browseFilterPath="${PROJECT_ROOT}"
@@ -1215,15 +1217,6 @@ You will still be able to set breakpoints and profile on function-level boundari
 				command="--preproc_with_line"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PREPROC_WITH_COMMENT"
-				name="Preprocess only; maintain comments (--preproc_with_comment, -ppc)"
-				tip="Aliases: --preproc_with_comment, -ppc&lt;BODY&gt;Only preprocess the source file(s) and then stop; maintain source comments in the output."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PREPROC"
-				applicabilityCalculator="com.ti.ccstudio.project.core.internal.options.PreprocOptionApplicabilityCalculator"
-				defaultValue="false"
-				command="--preproc_with_comment"
-				valueType="boolean"/>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PREPROC_ONLY"
 				name="Preprocess only (--preproc_only, -ppo)"
 				tip="Aliases: --preproc_only, -ppo&lt;BODY&gt;Only preprocess the source file(s) and then stop."
@@ -1241,18 +1234,19 @@ You will still be able to set breakpoints and profile on function-level boundari
 				defaultValue="false"
 				command="--preproc_with_compile"
 				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PREPROC_WITH_COMMENT"
+				name="Preprocess only; maintain comments (--preproc_with_comment, -ppc)"
+				tip="Aliases: --preproc_with_comment, -ppc&lt;BODY&gt;Only preprocess the source file(s) and then stop; maintain source comments in the output."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PREPROC"
+				applicabilityCalculator="com.ti.ccstudio.project.core.internal.options.PreprocOptionApplicabilityCalculator"
+				defaultValue="false"
+				command="--preproc_with_comment"
+				valueType="boolean"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PREPROC"
 				name="Parser Preprocessing Options"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ADVANCED"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.UNDEFINE"
-				name="Undefine NAME (--undefine, -U)"
-				tip="Aliases: --undefine, -U&lt;BODY&gt;Undefine the symbol with the id 'NAME'."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.DEFINES"
-				command="--undefine="
-				valueType="stringList">
-			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DEFINE"
 				name="Pre-define NAME (--define, -D)"
@@ -1260,6 +1254,14 @@ You will still be able to set breakpoints and profile on function-level boundari
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.DEFINES"
 				command="--define="
 				valueType="definedSymbols">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.UNDEFINE"
+				name="Undefine NAME (--undefine, -U)"
+				tip="Aliases: --undefine, -U&lt;BODY&gt;Undefine the symbol with the id 'NAME'."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.DEFINES"
+				command="--undefine="
+				valueType="stringList">
 			</option>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.DEFINES"
@@ -1290,20 +1292,28 @@ You will still be able to set breakpoints and profile on function-level boundari
 					command="--super_quiet"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_WARNING"
-				name="Treat diagnostic &lt;id&gt; as warning (--diag_warning, -pdsw)"
-				tip="Aliases: --diag_warning, -pdsw&lt;BODY&gt;Treat diagnostic &lt;id&gt; as warning"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				command="--diag_warning="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.WRITE_DIAGNOSTICS_FILE"
-				name="Output diagnostic to .err file (--write_diagnostics_file, -pdf)"
-				tip="Aliases: --write_diagnostics_file, -pdf&lt;BODY&gt;Write diagnostics to an .err file instead of the standard output.  The file name with be the same as the source file but with an .err extension."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DISPLAY_ERROR_NUMBER"
+				name="Emit diagnostic identifier numbers (--display_error_number, -pden)"
+				tip="Aliases: --display_error_number, -pden&lt;BODY&gt;Emit the diagnostic identifier numbers along with diagnostic messages.  These identifiers can be used with options such as -pds to suppress a specific diagnostic."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
 				defaultValue="false"
-				command="--write_diagnostics_file"
+				command="--display_error_number"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.TOOL_VERSION"
+				name="Print version numbers for each tool (--tool_version, -version)"
+				tip="Aliases: --tool_version, -version&lt;BODY&gt;Print version numbers for each tool"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				defaultValue="false"
+				command="--tool_version"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.VERBOSE_DIAGNOSTICS"
+				name="Verbose diagnostics (--verbose_diagnostics, -pdv)"
+				tip="Aliases: --verbose_diagnostics, -pdv&lt;BODY&gt;Enable verbose diagnostic information from the parser, including the source line of the error and an indicator of the error position within the line."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				defaultValue="false"
+				command="--verbose_diagnostics"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_REMARK"
@@ -1314,12 +1324,12 @@ You will still be able to set breakpoints and profile on function-level boundari
 				valueType="stringList">
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ISSUE_REMARKS"
-				name="Issue remarks (--issue_remarks, -pdr)"
-				tip="Aliases: --issue_remarks, -pdr&lt;BODY&gt;Issue remarks, which are normally suppressed."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_AUX_USER_INFO"
+				name="Generate user information file (--gen_aux_user_info, -b)"
+				tip="Aliases: --gen_aux_user_info, -b&lt;BODY&gt;Generate auxiliary user information file."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
 				defaultValue="false"
-				command="--issue_remarks"
+				command="--gen_aux_user_info"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_WRAP"
@@ -1342,75 +1352,12 @@ You will still be able to set breakpoints and profile on function-level boundari
 					command="--diag_wrap=off"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SET_ERROR_LIMIT"
-				name="Set error limit to &lt;count&gt; (--set_error_limit, -pdel)"
-				tip="Aliases: --set_error_limit, -pdel&lt;BODY&gt;Set error limit to &lt;count&gt;"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				command="--set_error_limit="
-				valueType="string"/>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.BUFFER_DIAGNOSTICS"
 				name="Line buffer diagnostic output (--buffer_diagnostics, -pdb)"
 				tip="Aliases: --buffer_diagnostics, -pdb&lt;BODY&gt;Line buffer diagnostic output to reduce message mixing when compiling in parallel."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
 				defaultValue="false"
 				command="--buffer_diagnostics"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_SUPPRESS"
-				name="Suppress diagnostic &lt;id&gt; (--diag_suppress, -pds)"
-				tip="Aliases: --diag_suppress, -pds&lt;BODY&gt;Suppress diagnostic &lt;id&gt;"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				command="--diag_suppress="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_AUX_USER_INFO"
-				name="Generate user information file (--gen_aux_user_info, -b)"
-				tip="Aliases: --gen_aux_user_info, -b&lt;BODY&gt;Generate auxiliary user information file."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				defaultValue="false"
-				command="--gen_aux_user_info"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DISPLAY_ERROR_NUMBER"
-				name="Emit diagnostic identifier numbers (--display_error_number, -pden)"
-				tip="Aliases: --display_error_number, -pden&lt;BODY&gt;Emit the diagnostic identifier numbers along with diagnostic messages.  These identifiers can be used with options such as -pds to suppress a specific diagnostic."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				defaultValue="false"
-				command="--display_error_number"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NO_WARNINGS"
-				name="Suppress warnings (--no_warnings, -pdw)"
-				tip="Aliases: --no_warnings, -pdw&lt;BODY&gt;Suppress all parser warnings."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				defaultValue="false"
-				command="--no_warnings"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.TOOL_VERSION"
-				name="Print version numbers for each tool (--tool_version, -version)"
-				tip="Aliases: --tool_version, -version&lt;BODY&gt;Print version numbers for each tool"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				defaultValue="false"
-				command="--tool_version"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_ERROR"
-				name="Treat diagnostic &lt;id&gt; as error (--diag_error, -pdse)"
-				tip="Aliases: --diag_error, -pdse&lt;BODY&gt;Treat diagnostic &lt;id&gt; as error"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				command="--diag_error="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.VERBOSE_DIAGNOSTICS"
-				name="Verbose diagnostics (--verbose_diagnostics, -pdv)"
-				tip="Aliases: --verbose_diagnostics, -pdv&lt;BODY&gt;Enable verbose diagnostic information from the parser, including the source line of the error and an indicator of the error position within the line."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
-				defaultValue="false"
-				command="--verbose_diagnostics"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SECTION_SIZES"
@@ -1433,6 +1380,29 @@ You will still be able to set breakpoints and profile on function-level boundari
 					command="--section_sizes=off"/>
 			</option>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.WRITE_DIAGNOSTICS_FILE"
+				name="Output diagnostic to .err file (--write_diagnostics_file, -pdf)"
+				tip="Aliases: --write_diagnostics_file, -pdf&lt;BODY&gt;Write diagnostics to an .err file instead of the standard output.  The file name with be the same as the source file but with an .err extension."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				defaultValue="false"
+				command="--write_diagnostics_file"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NO_WARNINGS"
+				name="Suppress warnings (--no_warnings, -pdw)"
+				tip="Aliases: --no_warnings, -pdw&lt;BODY&gt;Suppress all parser warnings."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				defaultValue="false"
+				command="--no_warnings"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SET_ERROR_LIMIT"
+				name="Set error limit to &lt;count&gt; (--set_error_limit, -pdel)"
+				tip="Aliases: --set_error_limit, -pdel&lt;BODY&gt;Set error limit to &lt;count&gt;"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				command="--set_error_limit="
+				valueType="string"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMIT_WARNINGS_AS_ERRORS"
 				name="Treat warnings as errors (--emit_warnings_as_errors, -pdew)"
 				tip="Aliases: --emit_warnings_as_errors, -pdew&lt;BODY&gt;Treat warnings as errors"
@@ -1440,6 +1410,38 @@ You will still be able to set breakpoints and profile on function-level boundari
 				defaultValue="false"
 				command="--emit_warnings_as_errors"
 				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_SUPPRESS"
+				name="Suppress diagnostic &lt;id&gt; (--diag_suppress, -pds)"
+				tip="Aliases: --diag_suppress, -pds&lt;BODY&gt;Suppress diagnostic &lt;id&gt;"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				command="--diag_suppress="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_ERROR"
+				name="Treat diagnostic &lt;id&gt; as error (--diag_error, -pdse)"
+				tip="Aliases: --diag_error, -pdse&lt;BODY&gt;Treat diagnostic &lt;id&gt; as error"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				command="--diag_error="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ISSUE_REMARKS"
+				name="Issue remarks (--issue_remarks, -pdr)"
+				tip="Aliases: --issue_remarks, -pdr&lt;BODY&gt;Issue remarks, which are normally suppressed."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				defaultValue="false"
+				command="--issue_remarks"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DIAG_WARNING"
+				name="Treat diagnostic &lt;id&gt; as warning (--diag_warning, -pdsw)"
+				tip="Aliases: --diag_warning, -pdsw&lt;BODY&gt;Treat diagnostic &lt;id&gt; as warning"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
+				command="--diag_warning="
+				valueType="stringList">
+			</option>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.PDIAG"
 				name="Diagnostic Options"
@@ -1512,20 +1514,137 @@ You will still be able to set breakpoints and profile on function-level boundari
 				command="--use_dead_funcs_list="
 				valueType="string"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NEON"
-				name="Generates SIMD instructions targeting Neon (--neon)"
-				tip="Aliases: --neon&lt;BODY&gt;Generates SIMD instructions targeting the Neon coprocessor"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ALIGN_STRUCTS"
+				name="Force alignment of structures to &lt;bytecount&gt; bytes (--align_structs)"
+				tip="Aliases: --align_structs&lt;BODY&gt;Force alignment of structures to &lt;bytecount&gt; bytes"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--align_structs="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC"
+				name="Allow reassociation of sat arithmetic (--sat_reassoc)"
+				tip="Aliases: --sat_reassoc&lt;BODY&gt;Set to on to allow reassociation of saturating arithmetic even in cases where the reassociation will cause saturation to occur differently."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--sat_reassoc"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC.on"
+					name="on"
+					command="--sat_reassoc=on"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC.off"
+					name="off"
+					command="--sat_reassoc=off"/>
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PROFILE__POWER"
+				name="Compile for power profiling (--profile:power)"
+				tip="Aliases: --profile:power&lt;BODY&gt;Enable power profiling support by inserting NOPs into the frame code.  These NOPs can then be instrumented by the power profiling tooling to track power usage of functions.  If the power profiling tool is not used, this option will increase the cycle count of each function because of the NOPs.  This switch also disables optimizations that cannot be handled by the power-profiler."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
 				defaultValue="false"
-				command="--neon"
+				command="--profile:power"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DISABLE_BRANCH_CHAINING"
-				name="Prevent generation of branch chains in Thumb mode (--disable_branch_chaining)"
-				tip="Aliases: --disable_branch_chaining&lt;BODY&gt;Prevent generation of branch chains in Thumb mode"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MAX_BRANCH_CHAIN"
+				name="Specify length of maximum branch chain (--max_branch_chain, -ab)"
+				tip="Aliases: --max_branch_chain, -ab&lt;BODY&gt;The maximum number of jumps (branches) allowed to reach a branch label. Increasing the branch chain length causes slow down but may result in smaller code"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--max_branch_chain="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PROFILE__BREAKPT"
+				name="Compile for breakpoint-based profiling (--profile:breakpt)"
+				tip="Aliases: --profile:breakpt&lt;BODY&gt;Disable optimizations that cannot be handled by a breakpoint-based profiler"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
 				defaultValue="false"
-				command="--disable_branch_chaining"
+				command="--profile:breakpt"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON"
+				name="Use ELF common symbols (--common)"
+				tip="Aliases: --common&lt;BODY&gt;Emit uninitialized variables as common symbols, instead of allocating them to a section. Any variables that have no conflicting requirements, such as data section pragmas, will become common symbols. Unused common blocks may be omitted by the linker to save memory at runtime."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--common"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON.on"
+					name="on"
+					command="--common=on"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON.off"
+					name="off"
+					command="--common=off"/>
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GLOBAL_REGISTER"
+				name="Reserve as global register (--global_register, -r)"
+				tip="Aliases: --global_register, -r&lt;BODY&gt;Reserve the specified register 'rx' (r5, r6 or r9) as a global register for use by the user.  Disallow the use of that register by the compiler."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--global_register="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SMALL_ENUM"
+				name="Enums may be char/short, instead of int (--small_enum, --small-enum)"
+				tip="Aliases: --small_enum, --small-enum&lt;BODY&gt;Enums may be char/short, instead of int"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				defaultValue="false"
+				command="--small_enum"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS"
+				name="Specify whether constants can be embedded in code sections (--embedded_constants)"
+				tip="Aliases: --embedded_constants&lt;BODY&gt;Control whether or not constants will be embedded in code sections. Normally it is advantageous to utilize embedded constants and this is the default behavior.  However, embedded constants can not be used if code sections are considered execute-only with no read access.  The use of embedded constants can only be turned off for Cortex-M devices."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--embedded_constants"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS.on"
+					name="on"
+					command="--embedded_constants=on"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS.off"
+					name="off"
+					command="--embedded_constants=off"/>
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR"
+				name="Specify how to treat plain chars (signed/unsigned) (--plain_char)"
+				tip="Aliases: --plain_char&lt;BODY&gt;Specify how to treat plain chars (signed/unsigned)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--plain_char"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR.signed"
+					name="signed"
+					command="--plain_char=signed"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR.unsigned"
+					name="unsigned"
+					command="--plain_char=unsigned"/>
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.THUMB_STATE"
+				name="Enable 16 bit code (--thumb_state, -mt)"
+				tip="Aliases: --thumb_state, -mt&lt;BODY&gt;Enable 16 bit code"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				defaultValue="false"
+				command="-mt"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.WCHAR_T"
@@ -1548,52 +1667,28 @@ You will still be able to set breakpoints and profile on function-level boundari
 					command="--wchar_t=32"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON"
-				name="Use ELF common symbols (--common)"
-				tip="Aliases: --common&lt;BODY&gt;Emit uninitialized variables as common symbols, instead of allocating them to a section. Any variables that have no conflicting requirements, such as data section pragmas, will become common symbols. Unused common blocks may be omitted by the linker to save memory at runtime."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--common"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON.on"
-					name="on"
-					command="--common=on"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.COMMON.off"
-					name="off"
-					command="--common=off"/>
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC"
-				name="Allow reassociation of FP arithmetic (--fp_reassoc)"
-				tip="Aliases: --fp_reassoc&lt;BODY&gt;Set to on to allow reassociation of floating point arithmetic even in cases where the reassociation will result in a slightly different answer."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--fp_reassoc"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC.on"
-					name="on"
-					command="--fp_reassoc=on"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC.off"
-					name="off"
-					command="--fp_reassoc=off"/>
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.STACK_OVERFLOW_CHECK"
-				name="Enable dynamic stack overflow checking (--stack_overflow_check, -mo)"
-				tip="Aliases: --stack_overflow_check, -mo&lt;BODY&gt;Enable dynamic stack overflow checking"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DISABLE_BRANCH_CHAINING"
+				name="Prevent generation of branch chains in Thumb mode (--disable_branch_chaining)"
+				tip="Aliases: --disable_branch_chaining&lt;BODY&gt;Prevent generation of branch chains in Thumb mode"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
 				defaultValue="false"
-				command="--stack_overflow_check"
+				command="--disable_branch_chaining"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NEON"
+				name="Generates SIMD instructions targeting Neon (--neon)"
+				tip="Aliases: --neon&lt;BODY&gt;Generates SIMD instructions targeting the Neon coprocessor"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				defaultValue="false"
+				command="--neon"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SIGNED_CHARS"
+				name="Chars signed by default (--signed_chars, -mc)"
+				tip="Aliases: --signed_chars, -mc&lt;BODY&gt;Chars signed by default"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				defaultValue="false"
+				command="--signed_chars"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.DISABLE_DUAL_STATE"
@@ -1604,32 +1699,13 @@ You will still be able to set breakpoints and profile on function-level boundari
 				command="--disable_dual_state"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ALIGN_STRUCTS"
-				name="Force alignment of structures to &lt;bytecount&gt; bytes (--align_structs)"
-				tip="Aliases: --align_structs&lt;BODY&gt;Force alignment of structures to &lt;bytecount&gt; bytes"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.STACK_OVERFLOW_CHECK"
+				name="Enable dynamic stack overflow checking (--stack_overflow_check, -mo)"
+				tip="Aliases: --stack_overflow_check, -mo&lt;BODY&gt;Enable dynamic stack overflow checking"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--align_structs="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS"
-				name="Specify whether constants can be embedded in code sections (--embedded_constants)"
-				tip="Aliases: --embedded_constants&lt;BODY&gt;Control whether or not constants will be embedded in code sections. Normally it is advantageous to utilize embedded constants and this is the default behavior.  However, embedded constants can not be used if code sections are considered execute-only with no read access.  The use of embedded constants can only be turned off for Cortex-M devices."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--embedded_constants"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS.on"
-					name="on"
-					command="--embedded_constants=on"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EMBEDDED_CONSTANTS.off"
-					name="off"
-					command="--embedded_constants=off"/>
-			</option>
+				defaultValue="false"
+				command="--stack_overflow_check"
+				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.UNALIGNED_ACCESS"
 				name="Generate unaligned loads and stores (--unaligned_access)"
@@ -1650,93 +1726,6 @@ You will still be able to set breakpoints and profile on function-level boundari
 					name="off"
 					command="--unaligned_access=off"/>
 			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SIGNED_CHARS"
-				name="Chars signed by default (--signed_chars, -mc)"
-				tip="Aliases: --signed_chars, -mc&lt;BODY&gt;Chars signed by default"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				defaultValue="false"
-				command="--signed_chars"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PROFILE__POWER"
-				name="Compile for power profiling (--profile:power)"
-				tip="Aliases: --profile:power&lt;BODY&gt;Enable power profiling support by inserting NOPs into the frame code.  These NOPs can then be instrumented by the power profiling tooling to track power usage of functions.  If the power profiling tool is not used, this option will increase the cycle count of each function because of the NOPs.  This switch also disables optimizations that cannot be handled by the power-profiler."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				defaultValue="false"
-				command="--profile:power"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GLOBAL_REGISTER"
-				name="Reserve as global register (--global_register, -r)"
-				tip="Aliases: --global_register, -r&lt;BODY&gt;Reserve the specified register 'rx' (r5, r6 or r9) as a global register for use by the user.  Disallow the use of that register by the compiler."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--global_register="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR"
-				name="Specify how to treat plain chars (signed/unsigned) (--plain_char)"
-				tip="Aliases: --plain_char&lt;BODY&gt;Specify how to treat plain chars (signed/unsigned)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--plain_char"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR.signed"
-					name="signed"
-					command="--plain_char=signed"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PLAIN_CHAR.unsigned"
-					name="unsigned"
-					command="--plain_char=unsigned"/>
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC"
-				name="Allow reassociation of sat arithmetic (--sat_reassoc)"
-				tip="Aliases: --sat_reassoc&lt;BODY&gt;Set to on to allow reassociation of saturating arithmetic even in cases where the reassociation will cause saturation to occur differently."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--sat_reassoc"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC.on"
-					name="on"
-					command="--sat_reassoc=on"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SAT_REASSOC.off"
-					name="off"
-					command="--sat_reassoc=off"/>
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.THUMB_STATE"
-				name="Enable 16 bit code (--thumb_state, -mt)"
-				tip="Aliases: --thumb_state, -mt&lt;BODY&gt;Enable 16 bit code"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				defaultValue="false"
-				command="-mt"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PROFILE__BREAKPT"
-				name="Compile for breakpoint-based profiling (--profile:breakpt)"
-				tip="Aliases: --profile:breakpt&lt;BODY&gt;Disable optimizations that cannot be handled by a breakpoint-based profiler"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				defaultValue="false"
-				command="--profile:breakpt"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SMALL_ENUM"
-				name="Enums may be char/short, instead of int (--small_enum, --small-enum)"
-				tip="Aliases: --small_enum, --small-enum&lt;BODY&gt;Enums may be char/short, instead of int"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				defaultValue="false"
-				command="--small_enum"
-				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ENUM_TYPE"
 				name="Designate enum type (Default is packed for EABI) (--enum_type)"
@@ -1768,13 +1757,6 @@ unpacked - When neither of the above are specified, the underlying type is chose
 					command="--enum_type=int"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.MAX_BRANCH_CHAIN"
-				name="Specify length of maximum branch chain (--max_branch_chain, -ab)"
-				tip="Aliases: --max_branch_chain, -ab&lt;BODY&gt;The maximum number of jumps (branches) allowed to reach a branch label. Increasing the branch chain length causes slow down but may result in smaller code"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
-				command="--max_branch_chain="
-				valueType="string"/>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ABI"
 				name="Application binary interface. (--abi)"
 				tip="Aliases: --abi&lt;BODY&gt;Specify the application binary interface. EABI is the industry standard ABI for ARM applications and is required for interlinking with other compiler vendors.  The ti_arm9_abi ABI and tiabi ABI are no longer supported."
@@ -1800,10 +1782,37 @@ unpacked - When neither of the above are specified, the underlying type is chose
 					name="tiabi [deprecated]"
 					command="--abi=tiabi"/>
 			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC"
+				name="Allow reassociation of FP arithmetic (--fp_reassoc)"
+				tip="Aliases: --fp_reassoc&lt;BODY&gt;Set to on to allow reassociation of floating point arithmetic even in cases where the reassociation will result in a slightly different answer."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
+				command="--fp_reassoc"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC.on"
+					name="on"
+					command="--fp_reassoc=on"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FP_REASSOC.off"
+					name="off"
+					command="--fp_reassoc=off"/>
+			</option>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.MODEL"
 				name="Runtime Model Options"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ADVANCED"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.AUTO_INLINE"
+				name="Specify threshold for automatic inlining (--auto_inline, -oi)"
+				tip="Aliases: --auto_inline, -oi&lt;BODY&gt;Specify threshold for automatic inlining"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.OPTIM"
+				command="--auto_inline="
+				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.OPT_FOR_CACHE"
 				name="Optimize for instruction cache (--opt_for_cache)"
@@ -1813,12 +1822,45 @@ unpacked - When neither of the above are specified, the underlying type is chose
 				command="--opt_for_cache"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.AUTO_INLINE"
-				name="Specify threshold for automatic inlining (--auto_inline, -oi)"
-				tip="Aliases: --auto_inline, -oi&lt;BODY&gt;Specify threshold for automatic inlining"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.REMOVE_HOOKS_WHEN_INLINING"
+				name="Remove entry/exit hooks from inlined functions (--remove_hooks_when_inlining)"
+				tip="Aliases: --remove_hooks_when_inlining&lt;BODY&gt;Remove the entry and exit hooks from the bodies of inlined functions."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.OPTIM"
-				command="--auto_inline="
-				valueType="string"/>
+				defaultValue="false"
+				command="--remove_hooks_when_inlining"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SINGLE_INLINE"
+				name="Inline functions only called once. (--single_inline)"
+				tip="Aliases: --single_inline&lt;BODY&gt;Inline function that are called only once.  Will inline these functions even if auto inlining has been turned off (-oi0)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.OPTIM"
+				defaultValue="false"
+				command="--single_inline"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO"
+				name="Generate optimizer information file at level [0-2] (--gen_opt_info, -on)"
+				tip="Aliases: --gen_opt_info, -on&lt;BODY&gt;Set the optimizer information file level, or disable with 0. Level 1 includes basic information.  Level 2 includes detailed information.  The file will be created in the assembly directory if a custom asm directory is specified on the command line otherwise it will be created in the object file directory."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.OPTIM"
+				command="--gen_opt_info"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO.0"
+					name="0"
+					command="--gen_opt_info=0"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO.1"
+					name="1"
+					command="--gen_opt_info=1"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO.2"
+					name="2"
+					command="--gen_opt_info=2"/>
+			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CALL_ASSUMPTIONS"
 				name="Specify call assumptions when optimizing (--call_assumptions, -op)"
@@ -1856,46 +1898,6 @@ Level 3 (-op3) indicates that the module has functions that are called by other 
 					command="--call_assumptions=3"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SINGLE_INLINE"
-				name="Inline functions only called once. (--single_inline)"
-				tip="Aliases: --single_inline&lt;BODY&gt;Inline function that are called only once.  Will inline these functions even if auto inlining has been turned off (-oi0)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.OPTIM"
-				defaultValue="false"
-				command="--single_inline"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.REMOVE_HOOKS_WHEN_INLINING"
-				name="Remove entry/exit hooks from inlined functions (--remove_hooks_when_inlining)"
-				tip="Aliases: --remove_hooks_when_inlining&lt;BODY&gt;Remove the entry and exit hooks from the bodies of inlined functions."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.OPTIM"
-				defaultValue="false"
-				command="--remove_hooks_when_inlining"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO"
-				name="Generate optimizer information file at level [0-2] (--gen_opt_info, -on)"
-				tip="Aliases: --gen_opt_info, -on&lt;BODY&gt;Set the optimizer information file level, or disable with 0. Level 1 includes basic information.  Level 2 includes detailed information.  The file will be created in the assembly directory if a custom asm directory is specified on the command line otherwise it will be created in the object file directory."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.OPTIM"
-				command="--gen_opt_info"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO.0"
-					name="0"
-					command="--gen_opt_info=0"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO.1"
-					name="1"
-					command="--gen_opt_info=1"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_OPT_INFO.2"
-					name="2"
-					command="--gen_opt_info=2"/>
-			</option>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ALIASED_VARIABLES"
 				name="Assume called funcs create hidden aliases (rare) (--aliased_variables, -ma)"
 				tip="Aliases: --aliased_variables, -ma&lt;BODY&gt;Assume called funcs create hidden aliases (rare)"
@@ -1913,6 +1915,13 @@ Level 3 (-op3) indicates that the module has functions that are called by other 
 				tip="Aliases: --entry_hook&lt;BODY&gt;Insert this call at entry to each function"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.HOOK"
 				command="--entry_hook="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EXIT_HOOK"
+				name="Insert this call at exit from each function (--exit_hook)"
+				tip="Aliases: --exit_hook&lt;BODY&gt;Insert this call at exit from each function"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.HOOK"
+				command="--exit_hook="
 				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ENTRY_PARM"
@@ -1938,13 +1947,6 @@ Level 3 (-op3) indicates that the module has functions that are called by other 
 					name="none"
 					command="--entry_parm=none"/>
 			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EXIT_HOOK"
-				name="Insert this call at exit from each function (--exit_hook)"
-				tip="Aliases: --exit_hook&lt;BODY&gt;Insert this call at exit from each function"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.HOOK"
-				command="--exit_hook="
-				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EXIT_PARM"
 				name="Pass caller's name or address to exit hook (--exit_parm)"
@@ -1974,6 +1976,25 @@ Level 3 (-op3) indicates that the module has functions that are called by other 
 				name="Entry/Exit Hook Options"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ADVANCED"/>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.USE_PROFILE_INFO"
+				name="Use profile feedback file(s) (--use_profile_info)"
+				tip="Aliases: --use_profile_info&lt;BODY&gt;This option is used in combination with the --analyze option to generate analysis information about code coverage or call graph information in the form of CSV files.  This information can then be read and interpreted by other tools.  For example, the cache layout tool, clt6x, can be used to interpret the call graph information and produce a preferred function order that can be incorporated into the application link.  The compiler can only generate one kind of analysis information for a given invocation of the compiler."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FEEDBACK"
+				command="--use_profile_info="
+				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
+				browseType="file"
+				browseFilterPath="${PROJECT_ROOT}"
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_PROFILE_INFO"
+				name="Generate profile feedback data (--gen_profile_info)"
+				tip="Aliases: --gen_profile_info&lt;BODY&gt;Instrument the object code that is generated for a compilation with path profiling information.  The compiler will annotate the code that is generated for an application so that, when executed, the application can generate information about which code paths were executed and how often.  This profile data can then be used by subsequent compiles to analyze code coverage or call graph information to assist with subsequent development."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FEEDBACK"
+				defaultValue="false"
+				command="--gen_profile_info"
+				valueType="boolean"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ANALYZE"
 				name="Generate analysis info from profile data (--analyze)"
 				tip="Aliases: --analyze&lt;BODY&gt;Generate analysis information about code coverage or call graph information in the form of CSV files.  This information can then be read and interpreted by other tools.  For example, the cache layout tool, clt6x, can be used to interpret the call graph information and produce a preferred function order that can be incorporated into the application link.  The compiler can only generate one kind of analysis information for a given invocation of the compiler."
@@ -2001,29 +2022,18 @@ Level 3 (-op3) indicates that the module has functions that are called by other 
 				defaultValue="false"
 				command="--analyze_only"
 				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GEN_PROFILE_INFO"
-				name="Generate profile feedback data (--gen_profile_info)"
-				tip="Aliases: --gen_profile_info&lt;BODY&gt;Instrument the object code that is generated for a compilation with path profiling information.  The compiler will annotate the code that is generated for an application so that, when executed, the application can generate information about which code paths were executed and how often.  This profile data can then be used by subsequent compiles to analyze code coverage or call graph information to assist with subsequent development."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FEEDBACK"
-				defaultValue="false"
-				command="--gen_profile_info"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.USE_PROFILE_INFO"
-				name="Use profile feedback file(s) (--use_profile_info)"
-				tip="Aliases: --use_profile_info&lt;BODY&gt;This option is used in combination with the --analyze option to generate analysis information about code coverage or call graph information in the form of CSV files.  This information can then be read and interpreted by other tools.  For example, the cache layout tool, clt6x, can be used to interpret the call graph information and produce a preferred function order that can be incorporated into the application link.  The compiler can only generate one kind of analysis information for a given invocation of the compiler."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FEEDBACK"
-				command="--use_profile_info="
-				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
-				browseType="file"
-				browseFilterPath="${PROJECT_ROOT}"
-				valueType="stringList">
-			</option>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FEEDBACK"
 				name="Feedback and Analysis Options"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ADVANCED"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.STD_LIB_FUNC_REDEFINED"
+				name="File redefines an RTS library function. (--std_lib_func_redefined, -ol0)"
+				tip="Aliases: --std_lib_func_redefined, -ol0&lt;BODY&gt;File redefines an RTS library function."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.LIB"
+				defaultValue="false"
+				command="--std_lib_func_redefined"
+				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.PRINTF_SUPPORT"
 				name="Level of printf/scanf support required (--printf_support)"
@@ -2059,14 +2069,6 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.LIB"
 				defaultValue="false"
 				command="--std_lib_func_not_defined"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.STD_LIB_FUNC_REDEFINED"
-				name="File redefines an RTS library function. (--std_lib_func_redefined, -ol0)"
-				tip="Aliases: --std_lib_func_redefined, -ol0&lt;BODY&gt;File redefines an RTS library function."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.LIB"
-				defaultValue="false"
-				command="--std_lib_func_redefined"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.STD_LIB_FUNC_DEFINED"
@@ -2117,12 +2119,28 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				command="--asm_listing"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.UAL"
-				name="Use unified assembly language (--ual)"
-				tip="Aliases: --ual&lt;BODY&gt;The ARM unified assembly language (UAL) is used for processing assembly files.  This is automatic for v7 targets and above.  This option allows the use of UAL for earlier architectures."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ASM_INCLUDES"
+				name="Generate first-level assembly include file list (--asm_includes, -api)"
+				tip="Aliases: --asm_includes, -api&lt;BODY&gt;Generate first-level assembly include file list"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
 				defaultValue="false"
-				command="--ual"
+				command="--asm_includes"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ASM_DEFINE"
+				name="Pre-define assembly symbol NAME (--asm_define, -ad)"
+				tip="Aliases: --asm_define, -ad&lt;BODY&gt;Pre-define the assembly symbol NAME, optionally setting its contents to 'value'."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
+				command="--asm_define="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CROSS_REFERENCE"
+				name="Generate cross reference file (--cross_reference, -ax)"
+				tip="Aliases: --cross_reference, -ax&lt;BODY&gt;Generate cross reference file"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
+				defaultValue="false"
+				command="--cross_reference"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.NO_CONST_CLINK"
@@ -2153,6 +2171,30 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				valueType="stringList">
 			</option>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ASM_UNDEFINE"
+				name="Undefine assembly symbol NAME (--asm_undefine, -au)"
+				tip="Aliases: --asm_undefine, -au&lt;BODY&gt;Undefine assembly symbol NAME"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
+				command="--asm_undefine="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.UAL"
+				name="Use unified assembly language (--ual)"
+				tip="Aliases: --ual&lt;BODY&gt;The ARM unified assembly language (UAL) is used for processing assembly files.  This is automatic for v7 targets and above.  This option allows the use of UAL for earlier architectures."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
+				defaultValue="false"
+				command="--ual"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.OUTPUT_ALL_SYMS"
+				name="Keep local symbols in output file (--output_all_syms, -as)"
+				tip="Aliases: --output_all_syms, -as&lt;BODY&gt;Keep local symbols in output file"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
+				defaultValue="false"
+				command="--output_all_syms"
+				valueType="boolean"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.INCLUDE_FILE"
 				name="Simulate source '.include filename' (--include_file, -ahi)"
 				tip="Aliases: --include_file, -ahi&lt;BODY&gt;Simulate source '.include filename'"
@@ -2173,61 +2215,10 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				browseType="file"
 				browseFilterPath="${PROJECT_ROOT}"
 				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ASM_INCLUDES"
-				name="Generate first-level assembly include file list (--asm_includes, -api)"
-				tip="Aliases: --asm_includes, -api&lt;BODY&gt;Generate first-level assembly include file list"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
-				defaultValue="false"
-				command="--asm_includes"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ASM_DEFINE"
-				name="Pre-define assembly symbol NAME (--asm_define, -ad)"
-				tip="Aliases: --asm_define, -ad&lt;BODY&gt;Pre-define the assembly symbol NAME, optionally setting its contents to 'value'."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
-				command="--asm_define="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ASM_UNDEFINE"
-				name="Undefine assembly symbol NAME (--asm_undefine, -au)"
-				tip="Aliases: --asm_undefine, -au&lt;BODY&gt;Undefine assembly symbol NAME"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
-				command="--asm_undefine="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.OUTPUT_ALL_SYMS"
-				name="Keep local symbols in output file (--output_all_syms, -as)"
-				tip="Aliases: --output_all_syms, -as&lt;BODY&gt;Keep local symbols in output file"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
-				defaultValue="false"
-				command="--output_all_syms"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CROSS_REFERENCE"
-				name="Generate cross reference file (--cross_reference, -ax)"
-				tip="Aliases: --cross_reference, -ax&lt;BODY&gt;Generate cross reference file"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
-				defaultValue="false"
-				command="--cross_reference"
-				valueType="boolean"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ASM"
 				name="Assembler Options"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ADVANCED"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.C_FILE"
-				name="File is a C file (default for .c/no ext) (--c_file, -fc)"
-				tip="Aliases: --c_file, -fc&lt;BODY&gt;File is a C file (default for .c/no ext)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILE"
-				command="--c_file="
-				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
-				browseType="file"
-				browseFilterPath="${PROJECT_ROOT}"
-				valueType="stringList">
-			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CPP_FILE"
 				name="File is a C++ file (default for .C .cpp .cc) (--cpp_file, -fp)"
@@ -2245,6 +2236,17 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				tip="Aliases: --obj_file, -fo&lt;BODY&gt;File is an object file (default for .obj)"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILE"
 				command="--obj_file="
+				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
+				browseType="file"
+				browseFilterPath="${PROJECT_ROOT}"
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.C_FILE"
+				name="File is a C file (default for .c/no ext) (--c_file, -fc)"
+				tip="Aliases: --c_file, -fc&lt;BODY&gt;File is a C file (default for .c/no ext)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILE"
+				command="--c_file="
 				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
 				browseType="file"
 				browseFilterPath="${PROJECT_ROOT}"
@@ -2292,16 +2294,6 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				browseFilterPath="${PROJECT_BUILD_DIR}"
 				valueType="string"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.LIST_DIRECTORY"
-				name="Listing/xref file directory (default is .obj dir) (--list_directory, -ff)"
-				tip="Aliases: --list_directory, -ff&lt;BODY&gt;Listing/xref file directory (default is .obj dir)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.DIRECTORY"
-				command="--list_directory="
-				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
-				browseType="directory"
-				browseFilterPath="${PROJECT_BUILD_DIR}"
-				valueType="string"/>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ASM_DIRECTORY"
 				name="Assembly file directory (default is .) (--asm_directory, -fs)"
 				tip="Aliases: --asm_directory, -fs&lt;BODY&gt;Assembly file directory (default is .)"
@@ -2317,6 +2309,16 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				tip="Aliases: --temp_directory, -ft&lt;BODY&gt;Temporary file directory (default is .)"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.DIRECTORY"
 				command="--temp_directory="
+				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
+				browseType="directory"
+				browseFilterPath="${PROJECT_BUILD_DIR}"
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.LIST_DIRECTORY"
+				name="Listing/xref file directory (default is .obj dir) (--list_directory, -ff)"
+				tip="Aliases: --list_directory, -ff&lt;BODY&gt;Listing/xref file directory (default is .obj dir)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.DIRECTORY"
+				command="--list_directory="
 				commandGenerator="com.ti.common.project.core.internal.options.QuotedOptionCommandGenerator"
 				browseType="directory"
 				browseFilterPath="${PROJECT_BUILD_DIR}"
@@ -2348,6 +2350,27 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				name="Directory Specifier"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.ADVANCED"/>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.OBJ_EXTENSION"
+				name="Extension for object files (default is .obj) (--obj_extension, -eo)"
+				tip="Aliases: --obj_extension, -eo&lt;BODY&gt;Extension for object files (default is .obj)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
+				command="--obj_extension="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.LISTING_EXTENSION"
+				name="Extension for listing files (default is .lst) (--listing_extension, -es)"
+				tip="Aliases: --listing_extension, -es&lt;BODY&gt;Extension for listing files (default is .lst)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
+				command="--listing_extension="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CPP_EXTENSION"
+				name="Extension for C++ files (default is .cpp) (--cpp_extension, -ep)"
+				tip="Aliases: --cpp_extension, -ep&lt;BODY&gt;Extension for C++ files (default is .cpp)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
+				command="--cpp_extension="
+				valueType="string"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.C_EXTENSION"
 				name="Extension for C files (default is .c) (--c_extension, -ec)"
 				tip="Aliases: --c_extension, -ec&lt;BODY&gt;Extension for C files (default is .c)"
@@ -2360,27 +2383,6 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				tip="Aliases: --asm_extension, -ea&lt;BODY&gt;Extension for assembly files (default is .asm)"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
 				command="--asm_extension="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.CPP_EXTENSION"
-				name="Extension for C++ files (default is .cpp) (--cpp_extension, -ep)"
-				tip="Aliases: --cpp_extension, -ep&lt;BODY&gt;Extension for C++ files (default is .cpp)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
-				command="--cpp_extension="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.LISTING_EXTENSION"
-				name="Extension for listing files (default is .lst) (--listing_extension, -es)"
-				tip="Aliases: --listing_extension, -es&lt;BODY&gt;Extension for listing files (default is .lst)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
-				command="--listing_extension="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.OBJ_EXTENSION"
-				name="Extension for object files (default is .obj) (--obj_extension, -eo)"
-				tip="Aliases: --obj_extension, -eo&lt;BODY&gt;Extension for object files (default is .obj)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
-				command="--obj_extension="
 				valueType="string"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.compilerID.FILEEXT"
@@ -2459,20 +2461,20 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				browseFilterExtensions="*.map,*.*"
 				valueType="string"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STACK_SIZE"
-				name="Set C system stack size (--stack_size, -stack)"
-				tip="Aliases: --stack_size, -stack&lt;BODY&gt;Set C system stack size"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKBASIC"
-				resourceFilter="project"
-				command="--stack_size="
-				valueType="string"/>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.HEAP_SIZE"
 				name="Heap size for C/C++ dynamic memory allocation (--heap_size, -heap)"
 				tip="Aliases: --heap_size, -heap&lt;BODY&gt;Specify the maximum heap size for C/C++ dynamic memory allocation."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKBASIC"
 				resourceFilter="project"
 				command="--heap_size="
+				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STACK_SIZE"
+				name="Set C system stack size (--stack_size, -stack)"
+				tip="Aliases: --stack_size, -stack&lt;BODY&gt;Set C system stack size"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKBASIC"
+				resourceFilter="project"
+				command="--stack_size="
 				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.CINIT_HOLD_WDT"
@@ -2539,15 +2541,6 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				valueType="libPaths">
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.REREAD_LIBS"
-				name="Reread libraries; resolve backward references (--reread_libs, -x)"
-				tip="Aliases: --reread_libs, -x&lt;BODY&gt;Reread libraries; resolve backward references"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIR"
-				resourceFilter="project"
-				defaultValue="true"
-				command="--reread_libs"
-				valueType="boolean"/>
-			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.PRIORITY"
 				name="Search libraries in priority order (--priority, -priority)"
 				tip="Aliases: --priority, -priority&lt;BODY&gt;Search libraries in priority order"
@@ -2555,6 +2548,15 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				resourceFilter="project"
 				defaultValue="false"
 				command="--priority"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.REREAD_LIBS"
+				name="Reread libraries; resolve backward references (--reread_libs, -x)"
+				tip="Aliases: --reread_libs, -x&lt;BODY&gt;Reread libraries; resolve backward references"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIR"
+				resourceFilter="project"
+				defaultValue="true"
+				command="--reread_libs"
 				valueType="boolean"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DISABLE_AUTO_RTS"
@@ -2601,32 +2603,23 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				name="Command File Preprocessing"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKADV"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_ERROR"
-				name="Treat diagnostic &lt;id&gt; as error (--diag_error)"
-				tip="Aliases: --diag_error&lt;BODY&gt;Treat diagnostic &lt;id&gt; as error"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.WARN_SECTIONS"
+				name="Warn if an unspecified output section is created (--warn_sections, -w)"
+				tip="Aliases: --warn_sections, -w&lt;BODY&gt;Warn if an unspecified output section is created"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
 				resourceFilter="project"
-				command="--diag_error="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_WARNING"
-				name="Treat diagnostic &lt;id&gt; as warning (--diag_warning)"
-				tip="Aliases: --diag_warning&lt;BODY&gt;Treat diagnostic &lt;id&gt; as warning"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
-				resourceFilter="project"
-				command="--diag_warning="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.EMIT_WARNINGS_AS_ERRORS"
-				name="Treat warnings as errors (--emit_warnings_as_errors, -pdew)"
-				tip="Aliases: --emit_warnings_as_errors, -pdew&lt;BODY&gt;Treat warnings as errors"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
-				resourceFilter="project"
-				defaultValue="false"
-				command="--emit_warnings_as_errors"
+				defaultValue="true"
+				command="--warn_sections"
 				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_REMARK"
+				name="Treat diagnostic &lt;id&gt; as remark (--diag_remark)"
+				tip="Aliases: --diag_remark&lt;BODY&gt;Treat diagnostic &lt;id&gt; as remark"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
+				resourceFilter="project"
+				command="--diag_remark="
+				valueType="stringList">
+			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.NO_DEMANGLE"
 				name="Don't demangle symbol names in diagnostics (--no_demangle)"
@@ -2637,6 +2630,51 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				command="--no_demangle"
 				valueType="boolean"/>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.EMIT_WARNINGS_AS_ERRORS"
+				name="Treat warnings as errors (--emit_warnings_as_errors, -pdew)"
+				tip="Aliases: --emit_warnings_as_errors, -pdew&lt;BODY&gt;Treat warnings as errors"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
+				resourceFilter="project"
+				defaultValue="false"
+				command="--emit_warnings_as_errors"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_SUPPRESS"
+				name="Suppress diagnostic &lt;id&gt; (--diag_suppress)"
+				tip="Aliases: --diag_suppress&lt;BODY&gt;Suppress diagnostic &lt;id&gt;"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
+				resourceFilter="project"
+				command="--diag_suppress="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.NO_WARNINGS"
+				name="Suppress warnings (--no_warnings)"
+				tip="Aliases: --no_warnings&lt;BODY&gt;Suppress warnings"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
+				resourceFilter="project"
+				defaultValue="false"
+				command="--no_warnings"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DISPLAY_ERROR_NUMBER"
+				name="Emit diagnostic identifier numbers (--display_error_number)"
+				tip="Aliases: --display_error_number&lt;BODY&gt;Emit diagnostic identifier numbers"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
+				resourceFilter="project"
+				defaultValue="false"
+				command="--display_error_number"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.VERBOSE_DIAGNOSTICS"
+				name="Verbose diagnostics (--verbose_diagnostics)"
+				tip="Aliases: --verbose_diagnostics&lt;BODY&gt;Verbose diagnostics"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
+				resourceFilter="project"
+				defaultValue="false"
+				command="--verbose_diagnostics"
+				valueType="boolean"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ISSUE_REMARKS"
 				name="Issue remarks (--issue_remarks)"
 				tip="Aliases: --issue_remarks&lt;BODY&gt;Issue remarks"
@@ -2645,6 +2683,14 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				defaultValue="false"
 				command="--issue_remarks"
 				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.SET_ERROR_LIMIT"
+				name="Set error limit to &lt;count&gt; (--set_error_limit)"
+				tip="Aliases: --set_error_limit&lt;BODY&gt;Set error limit to &lt;count&gt;"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
+				resourceFilter="project"
+				command="--set_error_limit="
+				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.BUFFER_DIAGNOSTICS"
 				name="Line buffer diagnostic output (--buffer_diagnostics, -pdb)"
@@ -2676,97 +2722,27 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 					command="--diag_wrap=off"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.VERBOSE_DIAGNOSTICS"
-				name="Verbose diagnostics (--verbose_diagnostics)"
-				tip="Aliases: --verbose_diagnostics&lt;BODY&gt;Verbose diagnostics"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_WARNING"
+				name="Treat diagnostic &lt;id&gt; as warning (--diag_warning)"
+				tip="Aliases: --diag_warning&lt;BODY&gt;Treat diagnostic &lt;id&gt; as warning"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
 				resourceFilter="project"
-				defaultValue="false"
-				command="--verbose_diagnostics"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.NO_WARNINGS"
-				name="Suppress warnings (--no_warnings)"
-				tip="Aliases: --no_warnings&lt;BODY&gt;Suppress warnings"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
-				resourceFilter="project"
-				defaultValue="false"
-				command="--no_warnings"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.SET_ERROR_LIMIT"
-				name="Set error limit to &lt;count&gt; (--set_error_limit)"
-				tip="Aliases: --set_error_limit&lt;BODY&gt;Set error limit to &lt;count&gt;"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
-				resourceFilter="project"
-				command="--set_error_limit="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.WARN_SECTIONS"
-				name="Warn if an unspecified output section is created (--warn_sections, -w)"
-				tip="Aliases: --warn_sections, -w&lt;BODY&gt;Warn if an unspecified output section is created"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
-				resourceFilter="project"
-				defaultValue="true"
-				command="--warn_sections"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_SUPPRESS"
-				name="Suppress diagnostic &lt;id&gt; (--diag_suppress)"
-				tip="Aliases: --diag_suppress&lt;BODY&gt;Suppress diagnostic &lt;id&gt;"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
-				resourceFilter="project"
-				command="--diag_suppress="
+				command="--diag_warning="
 				valueType="stringList">
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DISPLAY_ERROR_NUMBER"
-				name="Emit diagnostic identifier numbers (--display_error_number)"
-				tip="Aliases: --display_error_number&lt;BODY&gt;Emit diagnostic identifier numbers"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_ERROR"
+				name="Treat diagnostic &lt;id&gt; as error (--diag_error)"
+				tip="Aliases: --diag_error&lt;BODY&gt;Treat diagnostic &lt;id&gt; as error"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
 				resourceFilter="project"
-				defaultValue="false"
-				command="--display_error_number"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DIAG_REMARK"
-				name="Treat diagnostic &lt;id&gt; as remark (--diag_remark)"
-				tip="Aliases: --diag_remark&lt;BODY&gt;Treat diagnostic &lt;id&gt; as remark"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
-				resourceFilter="project"
-				command="--diag_remark="
+				command="--diag_error="
 				valueType="stringList">
 			</option>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKDIAG"
 				name="Diagnostics"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKADV"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ECC__DATA_ERROR"
-				name="Introduce bit errors (--ecc:data_error)"
-				tip="Aliases: --ecc:data_error&lt;BODY&gt;--ecc:data_error=(address|symbol+offset),[page,]bitmask - Introduce bit errors in the outfile. The bits to be flipped in the outfile are located in the unit at the specified offset. The offset is relative to either the origin of the page, or relative to the position of the base symbol, if specified. The default page is zero, and any page may be specified. The bits to be flipped at the specified location are indicated by set bits in the bitmask. In effect, the data in the outfile will be the bitwise-exclusive-or of the bitmask with original code or data. Bit errors can only be applied to initialized data, such as the contents of Flash memory. The effective address of the error must lie inside either the output memory range or the input memory range of an ECC specification."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
-				resourceFilter="project"
-				command="--ecc:data_error="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ABSOLUTE_EXE"
-				name="Produce absolute executable object file (default) (--absolute_exe, -a)"
-				tip="Aliases: --absolute_exe, -a&lt;BODY&gt;Produce absolute executable object file (default)"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
-				resourceFilter="project"
-				defaultValue="false"
-				command="--absolute_exe"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MAPFILE_CONTENTS"
-				name="Display attribute settings in map file (--mapfile_contents)"
-				tip="Aliases: --mapfile_contents&lt;BODY&gt;Enable the display of &lt;attribute&gt; or disable with no&lt;attribute&gt; in the linker generated map file.  Multiple attributes can be specified by separating them with commas (e.g. --mapfile_contents=sections,nosymbols).  Type --mapfile_contents=help for a list of attributes."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
-				resourceFilter="project"
-				command="--mapfile_contents="
-				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.RELOCATABLE"
 				name="Produce a relocatable output module (--relocatable, -r)"
@@ -2777,14 +2753,22 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				command="--relocatable"
 				valueType="boolean"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ECC__ECC_ERROR"
-				name="Introduce bit errors in ECC memory (--ecc:ecc_error)"
-				tip="Aliases: --ecc:ecc_error&lt;BODY&gt;--ecc:ecc_error=(address|symbol+offset),[page,]bitmask - Introduce bit errors in corresponding ECC memory. This option behaves like the --ecc:data_error option, except that the bits are not flipped in the code/data memory at the specified location. Instead, the bits are flipped in the ECC memory area that corresponds to the specified location. The bitmask is 8 bits wide. In the presence of mirroring, bits will be flipped in all mirrored copies of the corresponding ECC byte. The effective address of the error must lie inside the input memory range of an ECC specification."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ECC__DATA_ERROR"
+				name="Introduce bit errors (--ecc:data_error)"
+				tip="Aliases: --ecc:data_error&lt;BODY&gt;--ecc:data_error=(address|symbol+offset),[page,]bitmask - Introduce bit errors in the outfile. The bits to be flipped in the outfile are located in the unit at the specified offset. The offset is relative to either the origin of the page, or relative to the position of the base symbol, if specified. The default page is zero, and any page may be specified. The bits to be flipped at the specified location are indicated by set bits in the bitmask. In effect, the data in the outfile will be the bitwise-exclusive-or of the bitmask with original code or data. Bit errors can only be applied to initialized data, such as the contents of Flash memory. The effective address of the error must lie inside either the output memory range or the input memory range of an ECC specification."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
 				resourceFilter="project"
-				command="--ecc:ecc_error="
+				command="--ecc:data_error="
 				valueType="stringList">
 			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MAPFILE_CONTENTS"
+				name="Display attribute settings in map file (--mapfile_contents)"
+				tip="Aliases: --mapfile_contents&lt;BODY&gt;Enable the display of &lt;attribute&gt; or disable with no&lt;attribute&gt; in the linker generated map file.  Multiple attributes can be specified by separating them with commas (e.g. --mapfile_contents=sections,nosymbols).  Type --mapfile_contents=help for a list of attributes."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
+				resourceFilter="project"
+				command="--mapfile_contents="
+				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.XML_LINK_INFO"
 				name="Detailed link information data-base into &lt;file&gt; (--xml_link_info, -xml_link_info)"
@@ -2797,6 +2781,15 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				browseFilterPath="${PROJECT_ROOT}"
 				valueType="string"/>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ECC__ECC_ERROR"
+				name="Introduce bit errors in ECC memory (--ecc:ecc_error)"
+				tip="Aliases: --ecc:ecc_error&lt;BODY&gt;--ecc:ecc_error=(address|symbol+offset),[page,]bitmask - Introduce bit errors in corresponding ECC memory. This option behaves like the --ecc:data_error option, except that the bits are not flipped in the code/data memory at the specified location. Instead, the bits are flipped in the ECC memory area that corresponds to the specified location. The bitmask is 8 bits wide. In the presence of mirroring, bits will be flipped in all mirrored copies of the corresponding ECC byte. The effective address of the error must lie inside the input memory range of an ECC specification."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
+				resourceFilter="project"
+				command="--ecc:ecc_error="
+				valueType="stringList">
+			</option>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.GENERATE_DEAD_FUNCS_LIST"
 				name="List removed dead functions into file (--generate_dead_funcs_list)"
 				tip="Aliases: --generate_dead_funcs_list&lt;BODY&gt;Create a list, into the file &lt;fname&gt;, of the routines and sections that are dead (never referenced) and were removed by the linker.  The default &lt;fname&gt; is 'dead_funcs.txt'."
@@ -2804,81 +2797,28 @@ Use '--printf_support=minimal' to exclude support for width and precision flags 
 				resourceFilter="project"
 				command="--generate_dead_funcs_list="
 				valueType="string"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ABSOLUTE_EXE"
+				name="Produce absolute executable object file (default) (--absolute_exe, -a)"
+				tip="Aliases: --absolute_exe, -a&lt;BODY&gt;Produce absolute executable object file (default)"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
+				resourceFilter="project"
+				defaultValue="false"
+				command="--absolute_exe"
+				valueType="boolean"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOUTF"
 				name="Linker Output"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKADV"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.GLOBALIZE"
-				name="Do not localize symbols matching pattern (--globalize)"
-				tip="Aliases: --globalize&lt;BODY&gt;The option '--localize=l_pattern' makes the symbols matching the l_pattern hidden. The '--globalilze=g_pattern' option excludes symbols matching g_pattern from symbol localization provided g_pattern is more restrictive than l_pattern."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
-				resourceFilter="project"
-				command="--globalize="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.HIDE"
-				name="Hide symbols matching pattern (--hide)"
-				tip="Aliases: --hide&lt;BODY&gt;Hide the symbols matching the pattern by changing the name to empty string"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
-				resourceFilter="project"
-				command="--hide="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ENTRY_POINT"
-				name="Specify program entry point for the output module (--entry_point, -e)"
-				tip="Aliases: --entry_point, -e&lt;BODY&gt;Specify program entry point for the output module"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
-				resourceFilter="project"
-				command="--entry_point="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MAKE_GLOBAL"
-				name="Don't make global symbol static if -h is specified (--make_global, -g)"
-				tip="Aliases: --make_global, -g&lt;BODY&gt;Don't make global symbol static if -h is specified"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
-				resourceFilter="project"
-				command="--make_global="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.UNHIDE"
-				name="Exclude symbols matching pattern from hiding (--unhide)"
-				tip="Aliases: --unhide&lt;BODY&gt;The option --hide=hide_pattern makes the symbols matching the hide_pattern hidden. The --unhide=unhide_pattern option excludes symbols matching unhide_pattern from symbol hiding provided unhide_pattern is more restrictive than hide_pattern."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
-				resourceFilter="project"
-				command="--unhide="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MAKE_STATIC"
-				name="Make all global symbols static (--make_static, -h)"
-				tip="Aliases: --make_static, -h&lt;BODY&gt;Make all global symbols static"
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.NO_SYM_MERGE"
+				name="No type merging in symbolic debugging information (--no_sym_merge, -b)"
+				tip="Aliases: --no_sym_merge, -b&lt;BODY&gt;Disable type merging in symbolic debugging information."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
 				resourceFilter="project"
 				defaultValue="false"
-				command="--make_static"
+				command="--no_sym_merge"
 				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.NO_SYMTABLE"
-				name="Strip symbol table and line number entries (--no_symtable, -s)"
-				tip="Aliases: --no_symtable, -s&lt;BODY&gt;Strip symbol table and line number entries"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
-				resourceFilter="project"
-				defaultValue="false"
-				command="--no_symtable"
-				valueType="boolean"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.UNDEF_SYM"
-				name="Add &lt;sym&gt; to symbol table as an unresolved symbol (--undef_sym, -u)"
-				tip="Aliases: --undef_sym, -u&lt;BODY&gt;Add &lt;sym&gt; to symbol table as an unresolved symbol"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
-				resourceFilter="project"
-				command="--undef_sym="
-				valueType="stringList">
-			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.RETAIN"
 				name="Specify symbols/sections to be retained by linker (--retain)"
@@ -2906,14 +2846,14 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 				valueType="stringList">
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.NO_SYM_MERGE"
-				name="No type merging in symbolic debugging information (--no_sym_merge, -b)"
-				tip="Aliases: --no_sym_merge, -b&lt;BODY&gt;Disable type merging in symbolic debugging information."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.HIDE"
+				name="Hide symbols matching pattern (--hide)"
+				tip="Aliases: --hide&lt;BODY&gt;Hide the symbols matching the pattern by changing the name to empty string"
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
 				resourceFilter="project"
-				defaultValue="false"
-				command="--no_sym_merge"
-				valueType="boolean"/>
+				command="--hide="
+				valueType="stringList">
+			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.SYMBOL_MAP"
 				name="Specify a symbol map, mapping refname to defname (--symbol_map)"
@@ -2924,6 +2864,23 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 				valueType="stringList">
 			</option>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MAKE_STATIC"
+				name="Make all global symbols static (--make_static, -h)"
+				tip="Aliases: --make_static, -h&lt;BODY&gt;Make all global symbols static"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
+				resourceFilter="project"
+				defaultValue="false"
+				command="--make_static"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ENTRY_POINT"
+				name="Specify program entry point for the output module (--entry_point, -e)"
+				tip="Aliases: --entry_point, -e&lt;BODY&gt;Specify program entry point for the output module"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
+				resourceFilter="project"
+				command="--entry_point="
+				valueType="string"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.SCAN_LIBRARIES"
 				name="Scan libraries for duplicate symbol definitions (--scan_libraries, -scanlibs)"
 				tip="Aliases: --scan_libraries, -scanlibs&lt;BODY&gt;Check whether symbol definitions that are pulled into the link are duplicated in any of the libraries included in the build.  This information is typically ignored as the linker will pull in the first definition it encounters."
@@ -2931,6 +2888,51 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 				resourceFilter="project"
 				defaultValue="false"
 				command="--scan_libraries"
+				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.UNDEF_SYM"
+				name="Add &lt;sym&gt; to symbol table as an unresolved symbol (--undef_sym, -u)"
+				tip="Aliases: --undef_sym, -u&lt;BODY&gt;Add &lt;sym&gt; to symbol table as an unresolved symbol"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
+				resourceFilter="project"
+				command="--undef_sym="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.GLOBALIZE"
+				name="Do not localize symbols matching pattern (--globalize)"
+				tip="Aliases: --globalize&lt;BODY&gt;The option '--localize=l_pattern' makes the symbols matching the l_pattern hidden. The '--globalilze=g_pattern' option excludes symbols matching g_pattern from symbol localization provided g_pattern is more restrictive than l_pattern."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
+				resourceFilter="project"
+				command="--globalize="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.UNHIDE"
+				name="Exclude symbols matching pattern from hiding (--unhide)"
+				tip="Aliases: --unhide&lt;BODY&gt;The option --hide=hide_pattern makes the symbols matching the hide_pattern hidden. The --unhide=unhide_pattern option excludes symbols matching unhide_pattern from symbol hiding provided unhide_pattern is more restrictive than hide_pattern."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
+				resourceFilter="project"
+				command="--unhide="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MAKE_GLOBAL"
+				name="Don't make global symbol static if -h is specified (--make_global, -g)"
+				tip="Aliases: --make_global, -g&lt;BODY&gt;Don't make global symbol static if -h is specified"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
+				resourceFilter="project"
+				command="--make_global="
+				valueType="stringList">
+			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.NO_SYMTABLE"
+				name="Strip symbol table and line number entries (--no_symtable, -s)"
+				tip="Aliases: --no_symtable, -s&lt;BODY&gt;Strip symbol table and line number entries"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
+				resourceFilter="project"
+				defaultValue="false"
+				command="--no_symtable"
 				valueType="boolean"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKSYM"
@@ -2981,6 +2983,14 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 					command="--be8"/>
 			</option>
 			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ARG_SIZE"
+				name="Set C argc/argv memory size (--arg_size, --args)"
+				tip="Aliases: --arg_size, --args&lt;BODY&gt;Set C argc/argv memory size"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKRTENV"
+				resourceFilter="project"
+				command="--arg_size="
+				valueType="string"/>
+			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.TRAMPOLINES"
 				name="Generate far call trampolines (--trampolines)"
 				tip="Aliases: --trampolines&lt;BODY&gt;Generate far call trampolines"
@@ -3009,18 +3019,18 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 				resourceFilter="project"
 				command="--fill_value="
 				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ARG_SIZE"
-				name="Set C argc/argv memory size (--arg_size, --args)"
-				tip="Aliases: --arg_size, --args&lt;BODY&gt;Set C argc/argv memory size"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKRTENV"
-				resourceFilter="project"
-				command="--arg_size="
-				valueType="string"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKRTENV"
 				name="Runtime Environment"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKADV"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.CINIT_COMPRESSION"
+				name="Compress ELF C style auto initialization data (--cinit_compression)"
+				tip="Aliases: --cinit_compression&lt;BODY&gt;Specify the compression to apply to the c auto initialization data"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOPT"
+				resourceFilter="project"
+				command="--cinit_compression="
+				valueType="string"/>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.COMPRESS_DWARF"
 				name="Aggressively reduce size of the DWARF information (--compress_dwarf)"
@@ -3071,46 +3081,18 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 					name="off"
 					command="--unused_section_elimination=off"/>
 			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.CINIT_COMPRESSION"
-				name="Compress ELF C style auto initialization data (--cinit_compression)"
-				tip="Aliases: --cinit_compression&lt;BODY&gt;Specify the compression to apply to the c auto initialization data"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOPT"
-				resourceFilter="project"
-				command="--cinit_compression="
-				valueType="string"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKOPT"
 				name="Linktime Optimization"
 				owner="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKADV"/>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.TRAMPOLINE_MIN_SPACING"
-				name="Minimum space between non-adjacent trampolines (--trampoline_min_spacing)"
-				tip="Aliases: --trampoline_min_spacing&lt;BODY&gt;When trampoline reservations are spaced more closely than this limit, try to make them adjacent.  A higher value minimizes fragmentation, but may result in more trampolines. A lower value may reduce trampolines, at the expense of fragmentation and linker running time.  Specifying 0 for this option disables coalescing.  The default is 16K."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.PREFERRED_ORDER"
+				name="Add &lt;function&gt; to preferred placement order list (--preferred_order)"
+				tip="Aliases: --preferred_order&lt;BODY&gt;Insert a function into the preferred function order list for placement.  Functions that are close to each other in the preferred function order list will tend to be placed close together (increase program locality between them).  Static functions of the same name can be distinguished from each other by prefixing the function name with the path and file in which the function is defined followed by a ':' character to delimit the beginning of the function name."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKMISC"
 				resourceFilter="project"
-				command="--trampoline_min_spacing="
-				valueType="string"/>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES"
-				name="Select trampoline minimization algorithm (--minimize_trampolines)"
-				tip="Aliases: --minimize_trampolines&lt;BODY&gt;This option attempts to place sections so as to minimize the number of far call trampolines required, possibly at the expense of optimal memory packing. The argument selects a heuristic to use. The 'postorder' heuristic attempts to place functions before their callers so that the PC-relative offset is known when the caller is placed."
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKMISC"
-				resourceFilter="project"
-				command="--minimize_trampolines"
-				valueType="enumerated">
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES._none"
-					name=""
-					command=""/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES.postorder"
-					name="postorder"
-					command="--minimize_trampolines=postorder"/>
-				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES.off"
-					name="off"
-					command="--minimize_trampolines=off"/>
+				command="--preferred_order="
+				valueType="stringList">
 			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.DISABLE_CLINK"
@@ -3121,6 +3103,27 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 				defaultValue="false"
 				command="--disable_clink"
 				valueType="boolean"/>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY"
+				name="Strict compatibility checking (--strict_compatibility)"
+				tip="Aliases: --strict_compatibility&lt;BODY&gt;Strict compatibility checking"
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKMISC"
+				resourceFilter="project"
+				command="--strict_compatibility"
+				valueType="enumerated">
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY._none"
+					name=""
+					command=""/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY.on"
+					name="on"
+					command="--strict_compatibility=on"/>
+				<enumeratedOptionValue
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY.off"
+					name="off"
+					command="--strict_compatibility=off"/>
+			</option>
 			<option
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.ZERO_INIT"
 				name="Zero initialize ELF uninitialized sections (--zero_init)"
@@ -3143,35 +3146,34 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 					command="--zero_init=off"/>
 			</option>
 			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.PREFERRED_ORDER"
-				name="Add &lt;function&gt; to preferred placement order list (--preferred_order)"
-				tip="Aliases: --preferred_order&lt;BODY&gt;Insert a function into the preferred function order list for placement.  Functions that are close to each other in the preferred function order list will tend to be placed close together (increase program locality between them).  Static functions of the same name can be distinguished from each other by prefixing the function name with the path and file in which the function is defined followed by a ':' character to delimit the beginning of the function name."
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES"
+				name="Select trampoline minimization algorithm (--minimize_trampolines)"
+				tip="Aliases: --minimize_trampolines&lt;BODY&gt;This option attempts to place sections so as to minimize the number of far call trampolines required, possibly at the expense of optimal memory packing. The argument selects a heuristic to use. The 'postorder' heuristic attempts to place functions before their callers so that the PC-relative offset is known when the caller is placed."
 				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKMISC"
 				resourceFilter="project"
-				command="--preferred_order="
-				valueType="stringList">
-			</option>
-			<option
-				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY"
-				name="Strict compatibility checking (--strict_compatibility)"
-				tip="Aliases: --strict_compatibility&lt;BODY&gt;Strict compatibility checking"
-				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKMISC"
-				resourceFilter="project"
-				command="--strict_compatibility"
+				command="--minimize_trampolines"
 				valueType="enumerated">
 				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY._none"
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES._none"
 					name=""
 					command=""/>
 				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY.on"
-					name="on"
-					command="--strict_compatibility=on"/>
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES.postorder"
+					name="postorder"
+					command="--minimize_trampolines=postorder"/>
 				<enumeratedOptionValue
-					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.STRICT_COMPATIBILITY.off"
+					id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.MINIMIZE_TRAMPOLINES.off"
 					name="off"
-					command="--strict_compatibility=off"/>
+					command="--minimize_trampolines=off"/>
 			</option>
+			<option
+				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.linkerID.TRAMPOLINE_MIN_SPACING"
+				name="Minimum space between non-adjacent trampolines (--trampoline_min_spacing)"
+				tip="Aliases: --trampoline_min_spacing&lt;BODY&gt;When trampoline reservations are spaced more closely than this limit, try to make them adjacent.  A higher value minimizes fragmentation, but may result in more trampolines. A lower value may reduce trampolines, at the expense of fragmentation and linker running time.  Specifying 0 for this option disables coalescing.  The default is 16K."
+				category="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKMISC"
+				resourceFilter="project"
+				command="--trampoline_min_spacing="
+				valueType="string"/>
 			<optionCategory
 				id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.cat.linkerID.LNKMISC"
 				name="Miscellaneous"
@@ -3858,7 +3860,6 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--preinclude" tag="PREINCLUDE"/>
 			<option command="-I" tag="INCLUDE_PATH"/>
 			<option command="--include_path" tag="INCLUDE_PATH"/>
-			<option command="--check_misra" tag="CHECK_MISRA"/>
 			<option command="--misra_required=error" tag="MISRA_REQUIRED.error"/>
 			<option command="--misra_required=warning" tag="MISRA_REQUIRED.warning"/>
 			<option command="--misra_required=remark" tag="MISRA_REQUIRED.remark"/>
@@ -3867,6 +3868,7 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--misra_advisory=warning" tag="MISRA_ADVISORY.warning"/>
 			<option command="--misra_advisory=remark" tag="MISRA_ADVISORY.remark"/>
 			<option command="--misra_advisory=suppress" tag="MISRA_ADVISORY.suppress"/>
+			<option command="--check_misra" tag="CHECK_MISRA"/>
 			<option command="--advice:power" tag="ADVICE__POWER"/>
 			<option command="--advice:power_severity=error" tag="ADVICE__POWER_SEVERITY.error"/>
 			<option command="--advice:power_severity=warning" tag="ADVICE__POWER_SEVERITY.warning"/>
@@ -3899,37 +3901,37 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="-pr" tag="LANGUAGE_MODE.RELAXED_ANSI"/>
 			<option command="--strict_ansi" tag="LANGUAGE_MODE.STRICT_ANSI"/>
 			<option command="-ps" tag="LANGUAGE_MODE.STRICT_ANSI"/>
-			<option command="--create_pch" tag="CREATE_PCH"/>
-			<option command="--gcc" tag="GCC"/>
-			<option command="--pch_verbose" tag="PCH_VERBOSE"/>
-			<option command="-pi" tag="NO_INLINING"/>
-			<option command="--no_inlining" tag="NO_INLINING"/>
-			<option command="-pn" tag="NO_INTRINSICS"/>
-			<option command="--no_intrinsics" tag="NO_INTRINSICS"/>
-			<option command="--pch_dir" tag="PCH_DIR"/>
-			<option command="-fg" tag="CPP_DEFAULT"/>
-			<option command="--cpp_default" tag="CPP_DEFAULT"/>
-			<option command="-rtti" tag="RTTI"/>
-			<option command="--rtti" tag="RTTI"/>
-			<option command="--static_template_instantiation" tag="STATIC_TEMPLATE_INSTANTIATION"/>
-			<option command="--pending_instantiations" tag="PENDING_INSTANTIATIONS"/>
-			<option command="-px" tag="GEN_ACP_XREF"/>
-			<option command="--gen_acp_xref" tag="GEN_ACP_XREF"/>
-			<option command="-pc" tag="MULTIBYTE_CHARS"/>
-			<option command="--multibyte_chars" tag="MULTIBYTE_CHARS"/>
-			<option command="--extern_c_can_throw" tag="EXTERN_C_CAN_THROW"/>
 			<option command="--float_operations_allowed=all" tag="FLOAT_OPERATIONS_ALLOWED.all"/>
 			<option command="--float_operations_allowed=32" tag="FLOAT_OPERATIONS_ALLOWED.32"/>
 			<option command="--float_operations_allowed=64" tag="FLOAT_OPERATIONS_ALLOWED.64"/>
 			<option command="--float_operations_allowed=none" tag="FLOAT_OPERATIONS_ALLOWED.none"/>
-			<option command="--keep_unneeded_statics" tag="KEEP_UNNEEDED_STATICS"/>
-			<option command="-pl" tag="GEN_ACP_RAW"/>
-			<option command="--gen_acp_raw" tag="GEN_ACP_RAW"/>
+			<option command="-pi" tag="NO_INLINING"/>
+			<option command="--no_inlining" tag="NO_INLINING"/>
+			<option command="-pc" tag="MULTIBYTE_CHARS"/>
+			<option command="--multibyte_chars" tag="MULTIBYTE_CHARS"/>
 			<option command="--exceptions" tag="EXCEPTIONS"/>
+			<option command="-rtti" tag="RTTI"/>
+			<option command="--rtti" tag="RTTI"/>
+			<option command="-fg" tag="CPP_DEFAULT"/>
+			<option command="--cpp_default" tag="CPP_DEFAULT"/>
+			<option command="--gcc" tag="GCC"/>
+			<option command="--use_pch" tag="USE_PCH"/>
+			<option command="-px" tag="GEN_ACP_XREF"/>
+			<option command="--gen_acp_xref" tag="GEN_ACP_XREF"/>
+			<option command="--extern_c_can_throw" tag="EXTERN_C_CAN_THROW"/>
+			<option command="--static_template_instantiation" tag="STATIC_TEMPLATE_INSTANTIATION"/>
+			<option command="-pn" tag="NO_INTRINSICS"/>
+			<option command="--no_intrinsics" tag="NO_INTRINSICS"/>
+			<option command="--keep_unneeded_statics" tag="KEEP_UNNEEDED_STATICS"/>
 			<option command="-pm" tag="PROGRAM_LEVEL_COMPILE"/>
 			<option command="--program_level_compile" tag="PROGRAM_LEVEL_COMPILE"/>
+			<option command="--pch_verbose" tag="PCH_VERBOSE"/>
+			<option command="--pending_instantiations" tag="PENDING_INSTANTIATIONS"/>
+			<option command="-pl" tag="GEN_ACP_RAW"/>
+			<option command="--gen_acp_raw" tag="GEN_ACP_RAW"/>
 			<option command="--pch" tag="PCH"/>
-			<option command="--use_pch" tag="USE_PCH"/>
+			<option command="--pch_dir" tag="PCH_DIR"/>
+			<option command="--create_pch" tag="CREATE_PCH"/>
 			<option command="-ppd" tag="PREPROC_DEPENDENCY"/>
 			<option command="--preproc_dependency" tag="PREPROC_DEPENDENCY"/>
 			<option command="-ppi" tag="PREPROC_INCLUDES"/>
@@ -3938,55 +3940,55 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--preproc_macros" tag="PREPROC_MACROS"/>
 			<option command="-ppl" tag="PREPROC_WITH_LINE"/>
 			<option command="--preproc_with_line" tag="PREPROC_WITH_LINE"/>
-			<option command="-ppc" tag="PREPROC_WITH_COMMENT"/>
-			<option command="--preproc_with_comment" tag="PREPROC_WITH_COMMENT"/>
 			<option command="-ppo" tag="PREPROC_ONLY"/>
 			<option command="--preproc_only" tag="PREPROC_ONLY"/>
 			<option command="-ppa" tag="PREPROC_WITH_COMPILE"/>
 			<option command="--preproc_with_compile" tag="PREPROC_WITH_COMPILE"/>
-			<option command="-U" tag="UNDEFINE"/>
-			<option command="--undefine" tag="UNDEFINE"/>
+			<option command="-ppc" tag="PREPROC_WITH_COMMENT"/>
+			<option command="--preproc_with_comment" tag="PREPROC_WITH_COMMENT"/>
 			<option command="-D" tag="DEFINE"/>
 			<option command="--define" tag="DEFINE"/>
+			<option command="-U" tag="UNDEFINE"/>
+			<option command="--undefine" tag="UNDEFINE"/>
 			<option command="--verbose" tag="QUIET_LEVEL.VERBOSE"/>
 			<option command="--quiet" tag="QUIET_LEVEL.QUIET"/>
 			<option command="-q" tag="QUIET_LEVEL.QUIET"/>
 			<option command="--super_quiet" tag="QUIET_LEVEL.SUPER_QUIET"/>
 			<option command="-qq" tag="QUIET_LEVEL.SUPER_QUIET"/>
-			<option command="-pdsw" tag="DIAG_WARNING"/>
-			<option command="--diag_warning" tag="DIAG_WARNING"/>
-			<option command="-pdf" tag="WRITE_DIAGNOSTICS_FILE"/>
-			<option command="--write_diagnostics_file" tag="WRITE_DIAGNOSTICS_FILE"/>
+			<option command="-pden" tag="DISPLAY_ERROR_NUMBER"/>
+			<option command="--display_error_number" tag="DISPLAY_ERROR_NUMBER"/>
+			<option command="-version" tag="TOOL_VERSION"/>
+			<option command="--tool_version" tag="TOOL_VERSION"/>
+			<option command="-pdv" tag="VERBOSE_DIAGNOSTICS"/>
+			<option command="--verbose_diagnostics" tag="VERBOSE_DIAGNOSTICS"/>
 			<option command="-pdsr" tag="DIAG_REMARK"/>
 			<option command="--diag_remark" tag="DIAG_REMARK"/>
-			<option command="-pdr" tag="ISSUE_REMARKS"/>
-			<option command="--issue_remarks" tag="ISSUE_REMARKS"/>
+			<option command="-b" tag="GEN_AUX_USER_INFO"/>
+			<option command="--gen_aux_user_info" tag="GEN_AUX_USER_INFO"/>
 			<option command="--diag_wrap" tag="DIAG_WRAP.on"/>
 			<option command="--diag_wrap=on" tag="DIAG_WRAP.on"/>
 			<option command="--diag_wrap=off" tag="DIAG_WRAP.off"/>
-			<option command="-pdel" tag="SET_ERROR_LIMIT"/>
-			<option command="--set_error_limit" tag="SET_ERROR_LIMIT"/>
 			<option command="-pdb" tag="BUFFER_DIAGNOSTICS"/>
 			<option command="--buffer_diagnostics" tag="BUFFER_DIAGNOSTICS"/>
-			<option command="-pds" tag="DIAG_SUPPRESS"/>
-			<option command="--diag_suppress" tag="DIAG_SUPPRESS"/>
-			<option command="-b" tag="GEN_AUX_USER_INFO"/>
-			<option command="--gen_aux_user_info" tag="GEN_AUX_USER_INFO"/>
-			<option command="-pden" tag="DISPLAY_ERROR_NUMBER"/>
-			<option command="--display_error_number" tag="DISPLAY_ERROR_NUMBER"/>
-			<option command="-pdw" tag="NO_WARNINGS"/>
-			<option command="--no_warnings" tag="NO_WARNINGS"/>
-			<option command="-version" tag="TOOL_VERSION"/>
-			<option command="--tool_version" tag="TOOL_VERSION"/>
-			<option command="-pdse" tag="DIAG_ERROR"/>
-			<option command="--diag_error" tag="DIAG_ERROR"/>
-			<option command="-pdv" tag="VERBOSE_DIAGNOSTICS"/>
-			<option command="--verbose_diagnostics" tag="VERBOSE_DIAGNOSTICS"/>
 			<option command="--section_sizes" tag="SECTION_SIZES.on"/>
 			<option command="--section_sizes=on" tag="SECTION_SIZES.on"/>
 			<option command="--section_sizes=off" tag="SECTION_SIZES.off"/>
+			<option command="-pdf" tag="WRITE_DIAGNOSTICS_FILE"/>
+			<option command="--write_diagnostics_file" tag="WRITE_DIAGNOSTICS_FILE"/>
+			<option command="-pdw" tag="NO_WARNINGS"/>
+			<option command="--no_warnings" tag="NO_WARNINGS"/>
+			<option command="-pdel" tag="SET_ERROR_LIMIT"/>
+			<option command="--set_error_limit" tag="SET_ERROR_LIMIT"/>
 			<option command="-pdew" tag="EMIT_WARNINGS_AS_ERRORS"/>
 			<option command="--emit_warnings_as_errors" tag="EMIT_WARNINGS_AS_ERRORS"/>
+			<option command="-pds" tag="DIAG_SUPPRESS"/>
+			<option command="--diag_suppress" tag="DIAG_SUPPRESS"/>
+			<option command="-pdse" tag="DIAG_ERROR"/>
+			<option command="--diag_error" tag="DIAG_ERROR"/>
+			<option command="-pdr" tag="ISSUE_REMARKS"/>
+			<option command="--issue_remarks" tag="ISSUE_REMARKS"/>
+			<option command="-pdsw" tag="DIAG_WARNING"/>
+			<option command="--diag_warning" tag="DIAG_WARNING"/>
 			<option command="-ms" tag="GEN_FUNC_SUBSECTIONS.on"/>
 			<option command="--gen_func_subsections" tag="GEN_FUNC_SUBSECTIONS.on"/>
 			<option command="-mson" tag="GEN_FUNC_SUBSECTIONS.on"/>
@@ -3999,48 +4001,56 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--ramfunc=on" tag="RAMFUNC.on"/>
 			<option command="--ramfunc=off" tag="RAMFUNC.off"/>
 			<option command="--use_dead_funcs_list" tag="USE_DEAD_FUNCS_LIST"/>
-			<option command="--neon" tag="NEON"/>
-			<option command="--disable_branch_chaining" tag="DISABLE_BRANCH_CHAINING"/>
-			<option command="--wchar_t=16" tag="WCHAR_T.16"/>
-			<option command="--wchar_t=32" tag="WCHAR_T.32"/>
-			<option command="--common=on" tag="COMMON.on"/>
-			<option command="--common=off" tag="COMMON.off"/>
-			<option command="--fp_reassoc=on" tag="FP_REASSOC.on"/>
-			<option command="--fp_reassoc=off" tag="FP_REASSOC.off"/>
-			<option command="-mo" tag="STACK_OVERFLOW_CHECK"/>
-			<option command="--stack_overflow_check" tag="STACK_OVERFLOW_CHECK"/>
-			<option command="-md" tag="DISABLE_DUAL_STATE"/>
-			<option command="--disable_dual_state" tag="DISABLE_DUAL_STATE"/>
 			<option command="--align_structs" tag="ALIGN_STRUCTS"/>
-			<option command="--embedded_constants=on" tag="EMBEDDED_CONSTANTS.on"/>
-			<option command="--embedded_constants=off" tag="EMBEDDED_CONSTANTS.off"/>
-			<option command="--unaligned_access=on" tag="UNALIGNED_ACCESS.on"/>
-			<option command="--unaligned_access=off" tag="UNALIGNED_ACCESS.off"/>
-			<option command="-mc" tag="SIGNED_CHARS"/>
-			<option command="--signed_chars" tag="SIGNED_CHARS"/>
-			<option command="--profile:power" tag="PROFILE__POWER"/>
-			<option command="-r" tag="GLOBAL_REGISTER"/>
-			<option command="--global_register" tag="GLOBAL_REGISTER"/>
-			<option command="--plain_char=signed" tag="PLAIN_CHAR.signed"/>
-			<option command="--plain_char=unsigned" tag="PLAIN_CHAR.unsigned"/>
 			<option command="--sat_reassoc=on" tag="SAT_REASSOC.on"/>
 			<option command="--sat_reassoc=off" tag="SAT_REASSOC.off"/>
-			<option command="-mt" tag="THUMB_STATE"/>
-			<option command="--thumb_state" tag="THUMB_STATE"/>
+			<option command="--profile:power" tag="PROFILE__POWER"/>
+			<option command="-ab" tag="MAX_BRANCH_CHAIN"/>
+			<option command="--max_branch_chain" tag="MAX_BRANCH_CHAIN"/>
 			<option command="--profile:breakpt" tag="PROFILE__BREAKPT"/>
+			<option command="--common=on" tag="COMMON.on"/>
+			<option command="--common=off" tag="COMMON.off"/>
+			<option command="-r" tag="GLOBAL_REGISTER"/>
+			<option command="--global_register" tag="GLOBAL_REGISTER"/>
 			<option command="--small-enum" tag="SMALL_ENUM"/>
 			<option command="--small_enum" tag="SMALL_ENUM"/>
+			<option command="--embedded_constants=on" tag="EMBEDDED_CONSTANTS.on"/>
+			<option command="--embedded_constants=off" tag="EMBEDDED_CONSTANTS.off"/>
+			<option command="--plain_char=signed" tag="PLAIN_CHAR.signed"/>
+			<option command="--plain_char=unsigned" tag="PLAIN_CHAR.unsigned"/>
+			<option command="-mt" tag="THUMB_STATE"/>
+			<option command="--thumb_state" tag="THUMB_STATE"/>
+			<option command="--wchar_t=16" tag="WCHAR_T.16"/>
+			<option command="--wchar_t=32" tag="WCHAR_T.32"/>
+			<option command="--disable_branch_chaining" tag="DISABLE_BRANCH_CHAINING"/>
+			<option command="--neon" tag="NEON"/>
+			<option command="-mc" tag="SIGNED_CHARS"/>
+			<option command="--signed_chars" tag="SIGNED_CHARS"/>
+			<option command="-md" tag="DISABLE_DUAL_STATE"/>
+			<option command="--disable_dual_state" tag="DISABLE_DUAL_STATE"/>
+			<option command="-mo" tag="STACK_OVERFLOW_CHECK"/>
+			<option command="--stack_overflow_check" tag="STACK_OVERFLOW_CHECK"/>
+			<option command="--unaligned_access=on" tag="UNALIGNED_ACCESS.on"/>
+			<option command="--unaligned_access=off" tag="UNALIGNED_ACCESS.off"/>
 			<option command="--enum_type=unpacked" tag="ENUM_TYPE.unpacked"/>
 			<option command="--enum_type=packed" tag="ENUM_TYPE.packed"/>
 			<option command="--enum_type=int" tag="ENUM_TYPE.int"/>
-			<option command="-ab" tag="MAX_BRANCH_CHAIN"/>
-			<option command="--max_branch_chain" tag="MAX_BRANCH_CHAIN"/>
 			<option command="--abi=eabi" tag="ABI.eabi"/>
 			<option command="--abi=ti_arm9_abi" tag="ABI.ti_arm9_abi"/>
 			<option command="--abi=tiabi" tag="ABI.tiabi"/>
-			<option command="--opt_for_cache" tag="OPT_FOR_CACHE"/>
+			<option command="--fp_reassoc=on" tag="FP_REASSOC.on"/>
+			<option command="--fp_reassoc=off" tag="FP_REASSOC.off"/>
 			<option command="-oi" tag="AUTO_INLINE"/>
 			<option command="--auto_inline" tag="AUTO_INLINE"/>
+			<option command="--opt_for_cache" tag="OPT_FOR_CACHE"/>
+			<option command="--remove_hooks_when_inlining" tag="REMOVE_HOOKS_WHEN_INLINING"/>
+			<option command="--single_inline" tag="SINGLE_INLINE"/>
+			<option command="-on0" tag="GEN_OPT_INFO.0"/>
+			<option command="--gen_opt_info=0" tag="GEN_OPT_INFO.0"/>
+			<option command="-on1" tag="GEN_OPT_INFO.1"/>
+			<option command="--gen_opt_info=1" tag="GEN_OPT_INFO.1"/>
+			<option command="-on2" tag="GEN_OPT_INFO.2"/>
+			<option command="--gen_opt_info=2" tag="GEN_OPT_INFO.2"/>
 			<option command="-op0" tag="CALL_ASSUMPTIONS.0"/>
 			<option command="--call_assumptions=0" tag="CALL_ASSUMPTIONS.0"/>
 			<option command="-op1" tag="CALL_ASSUMPTIONS.1"/>
@@ -4049,36 +4059,28 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--call_assumptions=2" tag="CALL_ASSUMPTIONS.2"/>
 			<option command="-op3" tag="CALL_ASSUMPTIONS.3"/>
 			<option command="--call_assumptions=3" tag="CALL_ASSUMPTIONS.3"/>
-			<option command="--single_inline" tag="SINGLE_INLINE"/>
-			<option command="--remove_hooks_when_inlining" tag="REMOVE_HOOKS_WHEN_INLINING"/>
-			<option command="-on0" tag="GEN_OPT_INFO.0"/>
-			<option command="--gen_opt_info=0" tag="GEN_OPT_INFO.0"/>
-			<option command="-on1" tag="GEN_OPT_INFO.1"/>
-			<option command="--gen_opt_info=1" tag="GEN_OPT_INFO.1"/>
-			<option command="-on2" tag="GEN_OPT_INFO.2"/>
-			<option command="--gen_opt_info=2" tag="GEN_OPT_INFO.2"/>
 			<option command="-ma" tag="ALIASED_VARIABLES"/>
 			<option command="--aliased_variables" tag="ALIASED_VARIABLES"/>
 			<option command="--entry_hook" tag="ENTRY_HOOK"/>
+			<option command="--exit_hook" tag="EXIT_HOOK"/>
 			<option command="--entry_parm=name" tag="ENTRY_PARM.name"/>
 			<option command="--entry_parm=address" tag="ENTRY_PARM.address"/>
 			<option command="--entry_parm=none" tag="ENTRY_PARM.none"/>
-			<option command="--exit_hook" tag="EXIT_HOOK"/>
 			<option command="--exit_parm=name" tag="EXIT_PARM.name"/>
 			<option command="--exit_parm=address" tag="EXIT_PARM.address"/>
 			<option command="--exit_parm=none" tag="EXIT_PARM.none"/>
+			<option command="--use_profile_info" tag="USE_PROFILE_INFO"/>
+			<option command="--gen_profile_info" tag="GEN_PROFILE_INFO"/>
 			<option command="--analyze=codecov" tag="ANALYZE.codecov"/>
 			<option command="--analyze=callgraph" tag="ANALYZE.callgraph"/>
 			<option command="--analyze_only" tag="ANALYZE_ONLY"/>
-			<option command="--gen_profile_info" tag="GEN_PROFILE_INFO"/>
-			<option command="--use_profile_info" tag="USE_PROFILE_INFO"/>
+			<option command="-ol0" tag="STD_LIB_FUNC_REDEFINED"/>
+			<option command="--std_lib_func_redefined" tag="STD_LIB_FUNC_REDEFINED"/>
 			<option command="--printf_support=nofloat" tag="PRINTF_SUPPORT.nofloat"/>
 			<option command="--printf_support=minimal" tag="PRINTF_SUPPORT.minimal"/>
 			<option command="--printf_support=full" tag="PRINTF_SUPPORT.full"/>
 			<option command="-ol2" tag="STD_LIB_FUNC_NOT_DEFINED"/>
 			<option command="--std_lib_func_not_defined" tag="STD_LIB_FUNC_NOT_DEFINED"/>
-			<option command="-ol0" tag="STD_LIB_FUNC_REDEFINED"/>
-			<option command="--std_lib_func_redefined" tag="STD_LIB_FUNC_REDEFINED"/>
 			<option command="-ol1" tag="STD_LIB_FUNC_DEFINED"/>
 			<option command="--std_lib_func_defined" tag="STD_LIB_FUNC_DEFINED"/>
 			<option command="-k" tag="KEEP_ASM"/>
@@ -4089,55 +4091,55 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="-ss" tag="SOURCE_INTERLIST.C_SRC_INTERLIST"/>
 			<option command="-al" tag="ASM_LISTING"/>
 			<option command="--asm_listing" tag="ASM_LISTING"/>
-			<option command="--ual" tag="UAL"/>
+			<option command="-api" tag="ASM_INCLUDES"/>
+			<option command="--asm_includes" tag="ASM_INCLUDES"/>
+			<option command="-ad" tag="ASM_DEFINE"/>
+			<option command="--asm_define" tag="ASM_DEFINE"/>
+			<option command="-ax" tag="CROSS_REFERENCE"/>
+			<option command="--cross_reference" tag="CROSS_REFERENCE"/>
 			<option command="--no_const_clink" tag="NO_CONST_CLINK"/>
 			<option command="-ac" tag="SYMS_IGNORE_CASE"/>
 			<option command="--syms_ignore_case" tag="SYMS_IGNORE_CASE"/>
 			<option command="-ahc" tag="COPY_FILE"/>
 			<option command="--copy_file" tag="COPY_FILE"/>
+			<option command="-au" tag="ASM_UNDEFINE"/>
+			<option command="--asm_undefine" tag="ASM_UNDEFINE"/>
+			<option command="--ual" tag="UAL"/>
+			<option command="-as" tag="OUTPUT_ALL_SYMS"/>
+			<option command="--output_all_syms" tag="OUTPUT_ALL_SYMS"/>
 			<option command="-ahi" tag="INCLUDE_FILE"/>
 			<option command="--include_file" tag="INCLUDE_FILE"/>
 			<option command="-apd" tag="ASM_DEPENDENCY"/>
 			<option command="--asm_dependency" tag="ASM_DEPENDENCY"/>
-			<option command="-api" tag="ASM_INCLUDES"/>
-			<option command="--asm_includes" tag="ASM_INCLUDES"/>
-			<option command="-ad" tag="ASM_DEFINE"/>
-			<option command="--asm_define" tag="ASM_DEFINE"/>
-			<option command="-au" tag="ASM_UNDEFINE"/>
-			<option command="--asm_undefine" tag="ASM_UNDEFINE"/>
-			<option command="-as" tag="OUTPUT_ALL_SYMS"/>
-			<option command="--output_all_syms" tag="OUTPUT_ALL_SYMS"/>
-			<option command="-ax" tag="CROSS_REFERENCE"/>
-			<option command="--cross_reference" tag="CROSS_REFERENCE"/>
-			<option command="-fc" tag="C_FILE"/>
-			<option command="--c_file" tag="C_FILE"/>
 			<option command="-fp" tag="CPP_FILE"/>
 			<option command="--cpp_file" tag="CPP_FILE"/>
 			<option command="-fo" tag="OBJ_FILE"/>
 			<option command="--obj_file" tag="OBJ_FILE"/>
+			<option command="-fc" tag="C_FILE"/>
+			<option command="--c_file" tag="C_FILE"/>
 			<option command="-fa" tag="ASM_FILE"/>
 			<option command="--asm_file" tag="ASM_FILE"/>
 			<option command="-fe" tag="OUTPUT_FILE"/>
 			<option command="--output_file" tag="OUTPUT_FILE"/>
-			<option command="-ff" tag="LIST_DIRECTORY"/>
-			<option command="--list_directory" tag="LIST_DIRECTORY"/>
 			<option command="-fs" tag="ASM_DIRECTORY"/>
 			<option command="--asm_directory" tag="ASM_DIRECTORY"/>
 			<option command="-ft" tag="TEMP_DIRECTORY"/>
 			<option command="--temp_directory" tag="TEMP_DIRECTORY"/>
+			<option command="-ff" tag="LIST_DIRECTORY"/>
+			<option command="--list_directory" tag="LIST_DIRECTORY"/>
 			<option command="-fr" tag="OBJ_DIRECTORY"/>
 			<option command="--obj_directory" tag="OBJ_DIRECTORY"/>
 			<option command="--pp_directory" tag="PP_DIRECTORY"/>
+			<option command="-eo" tag="OBJ_EXTENSION"/>
+			<option command="--obj_extension" tag="OBJ_EXTENSION"/>
+			<option command="-es" tag="LISTING_EXTENSION"/>
+			<option command="--listing_extension" tag="LISTING_EXTENSION"/>
+			<option command="-ep" tag="CPP_EXTENSION"/>
+			<option command="--cpp_extension" tag="CPP_EXTENSION"/>
 			<option command="-ec" tag="C_EXTENSION"/>
 			<option command="--c_extension" tag="C_EXTENSION"/>
 			<option command="-ea" tag="ASM_EXTENSION"/>
 			<option command="--asm_extension" tag="ASM_EXTENSION"/>
-			<option command="-ep" tag="CPP_EXTENSION"/>
-			<option command="--cpp_extension" tag="CPP_EXTENSION"/>
-			<option command="-es" tag="LISTING_EXTENSION"/>
-			<option command="--listing_extension" tag="LISTING_EXTENSION"/>
-			<option command="-eo" tag="OBJ_EXTENSION"/>
-			<option command="--obj_extension" tag="OBJ_EXTENSION"/>
 			<option command="-@" tag="CMD_FILE"/>
 			<option command="--cmd_file" tag="CMD_FILE"/>
 		</tool>
@@ -4146,10 +4148,10 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--output_file" tag="OUTPUT_FILE"/>
 			<option command="-m" tag="MAP_FILE"/>
 			<option command="--map_file" tag="MAP_FILE"/>
-			<option command="-stack" tag="STACK_SIZE"/>
-			<option command="--stack_size" tag="STACK_SIZE"/>
 			<option command="-heap" tag="HEAP_SIZE"/>
 			<option command="--heap_size" tag="HEAP_SIZE"/>
+			<option command="-stack" tag="STACK_SIZE"/>
+			<option command="--stack_size" tag="STACK_SIZE"/>
 			<option command="--cinit_hold_wdt" tag="CINIT_HOLD_WDT.on"/>
 			<option command="--cinit_hold_wdt=on" tag="CINIT_HOLD_WDT.on"/>
 			<option command="--cinit_hold_wdt=off" tag="CINIT_HOLD_WDT.off"/>
@@ -4157,76 +4159,77 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--library" tag="LIBRARY"/>
 			<option command="-i" tag="SEARCH_PATH"/>
 			<option command="--search_path" tag="SEARCH_PATH"/>
-			<option command="-x" tag="REREAD_LIBS"/>
-			<option command="--reread_libs" tag="REREAD_LIBS"/>
 			<option command="-priority" tag="PRIORITY"/>
 			<option command="--priority" tag="PRIORITY"/>
+			<option command="-x" tag="REREAD_LIBS"/>
+			<option command="--reread_libs" tag="REREAD_LIBS"/>
 			<option command="--disable_auto_rts" tag="DISABLE_AUTO_RTS"/>
 			<option command="--define" tag="DEFINE"/>
 			<option command="--undefine" tag="UNDEFINE"/>
 			<option command="--disable_pp" tag="DISABLE_PP"/>
-			<option command="--diag_error" tag="DIAG_ERROR"/>
-			<option command="--diag_warning" tag="DIAG_WARNING"/>
+			<option command="-w" tag="WARN_SECTIONS"/>
+			<option command="--warn_sections" tag="WARN_SECTIONS"/>
+			<option command="--diag_remark" tag="DIAG_REMARK"/>
+			<option command="--no_demangle" tag="NO_DEMANGLE"/>
 			<option command="-pdew" tag="EMIT_WARNINGS_AS_ERRORS"/>
 			<option command="--emit_warnings_as_errors" tag="EMIT_WARNINGS_AS_ERRORS"/>
-			<option command="--no_demangle" tag="NO_DEMANGLE"/>
+			<option command="--diag_suppress" tag="DIAG_SUPPRESS"/>
+			<option command="--no_warnings" tag="NO_WARNINGS"/>
+			<option command="--display_error_number" tag="DISPLAY_ERROR_NUMBER"/>
+			<option command="--verbose_diagnostics" tag="VERBOSE_DIAGNOSTICS"/>
 			<option command="--issue_remarks" tag="ISSUE_REMARKS"/>
+			<option command="--set_error_limit" tag="SET_ERROR_LIMIT"/>
 			<option command="-pdb" tag="BUFFER_DIAGNOSTICS"/>
 			<option command="--buffer_diagnostics" tag="BUFFER_DIAGNOSTICS"/>
 			<option command="--diag_wrap" tag="DIAG_WRAP.on"/>
 			<option command="--diag_wrap=on" tag="DIAG_WRAP.on"/>
 			<option command="--diag_wrap=off" tag="DIAG_WRAP.off"/>
-			<option command="--verbose_diagnostics" tag="VERBOSE_DIAGNOSTICS"/>
-			<option command="--no_warnings" tag="NO_WARNINGS"/>
-			<option command="--set_error_limit" tag="SET_ERROR_LIMIT"/>
-			<option command="-w" tag="WARN_SECTIONS"/>
-			<option command="--warn_sections" tag="WARN_SECTIONS"/>
-			<option command="--diag_suppress" tag="DIAG_SUPPRESS"/>
-			<option command="--display_error_number" tag="DISPLAY_ERROR_NUMBER"/>
-			<option command="--diag_remark" tag="DIAG_REMARK"/>
-			<option command="--ecc:data_error" tag="ECC__DATA_ERROR"/>
-			<option command="-a" tag="ABSOLUTE_EXE"/>
-			<option command="--absolute_exe" tag="ABSOLUTE_EXE"/>
-			<option command="--mapfile_contents" tag="MAPFILE_CONTENTS"/>
+			<option command="--diag_warning" tag="DIAG_WARNING"/>
+			<option command="--diag_error" tag="DIAG_ERROR"/>
 			<option command="-r" tag="RELOCATABLE"/>
 			<option command="--relocatable" tag="RELOCATABLE"/>
-			<option command="--ecc:ecc_error" tag="ECC__ECC_ERROR"/>
+			<option command="--ecc:data_error" tag="ECC__DATA_ERROR"/>
+			<option command="--mapfile_contents" tag="MAPFILE_CONTENTS"/>
 			<option command="-xml_link_info" tag="XML_LINK_INFO"/>
 			<option command="--xml_link_info" tag="XML_LINK_INFO"/>
+			<option command="--ecc:ecc_error" tag="ECC__ECC_ERROR"/>
 			<option command="--generate_dead_funcs_list" tag="GENERATE_DEAD_FUNCS_LIST"/>
-			<option command="--globalize" tag="GLOBALIZE"/>
-			<option command="--hide" tag="HIDE"/>
-			<option command="-e" tag="ENTRY_POINT"/>
-			<option command="--entry_point" tag="ENTRY_POINT"/>
-			<option command="-g" tag="MAKE_GLOBAL"/>
-			<option command="--make_global" tag="MAKE_GLOBAL"/>
-			<option command="--unhide" tag="UNHIDE"/>
-			<option command="-h" tag="MAKE_STATIC"/>
-			<option command="--make_static" tag="MAKE_STATIC"/>
-			<option command="-s" tag="NO_SYMTABLE"/>
-			<option command="--no_symtable" tag="NO_SYMTABLE"/>
-			<option command="-u" tag="UNDEF_SYM"/>
-			<option command="--undef_sym" tag="UNDEF_SYM"/>
-			<option command="--retain" tag="RETAIN"/>
-			<option command="--localize" tag="LOCALIZE"/>
+			<option command="-a" tag="ABSOLUTE_EXE"/>
+			<option command="--absolute_exe" tag="ABSOLUTE_EXE"/>
 			<option command="-b" tag="NO_SYM_MERGE"/>
 			<option command="--no_sym_merge" tag="NO_SYM_MERGE"/>
+			<option command="--retain" tag="RETAIN"/>
+			<option command="--localize" tag="LOCALIZE"/>
+			<option command="--hide" tag="HIDE"/>
 			<option command="--symbol_map" tag="SYMBOL_MAP"/>
+			<option command="-h" tag="MAKE_STATIC"/>
+			<option command="--make_static" tag="MAKE_STATIC"/>
+			<option command="-e" tag="ENTRY_POINT"/>
+			<option command="--entry_point" tag="ENTRY_POINT"/>
 			<option command="-scanlibs" tag="SCAN_LIBRARIES"/>
 			<option command="--scan_libraries" tag="SCAN_LIBRARIES"/>
+			<option command="-u" tag="UNDEF_SYM"/>
+			<option command="--undef_sym" tag="UNDEF_SYM"/>
+			<option command="--globalize" tag="GLOBALIZE"/>
+			<option command="--unhide" tag="UNHIDE"/>
+			<option command="-g" tag="MAKE_GLOBAL"/>
+			<option command="--make_global" tag="MAKE_GLOBAL"/>
+			<option command="-s" tag="NO_SYMTABLE"/>
+			<option command="--no_symtable" tag="NO_SYMTABLE"/>
 			<option command="--rom_model" tag="INITIALIZATION_MODEL.ROM_MODEL"/>
 			<option command="-c" tag="INITIALIZATION_MODEL.ROM_MODEL"/>
 			<option command="--ram_model" tag="INITIALIZATION_MODEL.RAM_MODEL"/>
 			<option command="-cr" tag="INITIALIZATION_MODEL.RAM_MODEL"/>
 			<option command="--be32" tag="ARM_BIG_ENDIAN_MODES.BE32"/>
 			<option command="--be8" tag="ARM_BIG_ENDIAN_MODES.BE8"/>
+			<option command="--args" tag="ARG_SIZE"/>
+			<option command="--arg_size" tag="ARG_SIZE"/>
 			<option command="--trampolines" tag="TRAMPOLINES.on"/>
 			<option command="--trampolines=on" tag="TRAMPOLINES.on"/>
 			<option command="--trampolines=off" tag="TRAMPOLINES.off"/>
 			<option command="-f" tag="FILL_VALUE"/>
 			<option command="--fill_value" tag="FILL_VALUE"/>
-			<option command="--args" tag="ARG_SIZE"/>
-			<option command="--arg_size" tag="ARG_SIZE"/>
+			<option command="--cinit_compression" tag="CINIT_COMPRESSION"/>
 			<option command="--compress_dwarf" tag="COMPRESS_DWARF.on"/>
 			<option command="--compress_dwarf=on" tag="COMPRESS_DWARF.on"/>
 			<option command="--compress_dwarf=off" tag="COMPRESS_DWARF.off"/>
@@ -4234,20 +4237,19 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 			<option command="--unused_section_elimination" tag="UNUSED_SECTION_ELIMINATION.on"/>
 			<option command="--unused_section_elimination=on" tag="UNUSED_SECTION_ELIMINATION.on"/>
 			<option command="--unused_section_elimination=off" tag="UNUSED_SECTION_ELIMINATION.off"/>
-			<option command="--cinit_compression" tag="CINIT_COMPRESSION"/>
-			<option command="--trampoline_min_spacing" tag="TRAMPOLINE_MIN_SPACING"/>
-			<option command="--minimize_trampolines" tag="MINIMIZE_TRAMPOLINES.postorder"/>
-			<option command="--minimize_trampolines=postorder" tag="MINIMIZE_TRAMPOLINES.postorder"/>
-			<option command="--minimize_trampolines=off" tag="MINIMIZE_TRAMPOLINES.off"/>
+			<option command="--preferred_order" tag="PREFERRED_ORDER"/>
 			<option command="-j" tag="DISABLE_CLINK"/>
 			<option command="--disable_clink" tag="DISABLE_CLINK"/>
-			<option command="--zero_init" tag="ZERO_INIT.on"/>
-			<option command="--zero_init=on" tag="ZERO_INIT.on"/>
-			<option command="--zero_init=off" tag="ZERO_INIT.off"/>
-			<option command="--preferred_order" tag="PREFERRED_ORDER"/>
 			<option command="--strict_compatibility" tag="STRICT_COMPATIBILITY.on"/>
 			<option command="--strict_compatibility=on" tag="STRICT_COMPATIBILITY.on"/>
 			<option command="--strict_compatibility=off" tag="STRICT_COMPATIBILITY.off"/>
+			<option command="--zero_init" tag="ZERO_INIT.on"/>
+			<option command="--zero_init=on" tag="ZERO_INIT.on"/>
+			<option command="--zero_init=off" tag="ZERO_INIT.off"/>
+			<option command="--minimize_trampolines" tag="MINIMIZE_TRAMPOLINES.postorder"/>
+			<option command="--minimize_trampolines=postorder" tag="MINIMIZE_TRAMPOLINES.postorder"/>
+			<option command="--minimize_trampolines=off" tag="MINIMIZE_TRAMPOLINES.off"/>
+			<option command="--trampoline_min_spacing" tag="TRAMPOLINE_MIN_SPACING"/>
 		</tool>
 		<tool id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.hex">
 			<option command="--byte" tag="BYTE"/>
@@ -4358,13 +4360,14 @@ NOTE: User can specify --retain='*(*)' to retain all the sections from all the i
 		id="TMS470_15.12"
 		name="ARM v15.12 Build-option Metadata Index">
 	
+		<enumeratedOptionValue id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.FLOAT_SUPPORT.fpalib"><deprecate severity="5" diagnostic="--float_support=fpalib is deprecated. To compile without hardware floating point support, use --float_support=vfplib."/></enumeratedOptionValue>
 		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.LITTLE_ENDIAN" chain="--endian=little "></option>
 		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SYMDEBUG__KEEP_ALL_TYPES" chain="--keep_unneeded_types=true "></option>
-		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GCC" chain="--relaxed_ansi "></option>
 		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.EXCEPTIONS" chain="--rtti --disable_custom_call_conv "></option>
-		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SIGNED_CHARS" chain="--plain_char=signed "></option>
-		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.THUMB_STATE" chain="--code_state=16 "></option>
+		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.GCC" chain="--relaxed_ansi "></option>
 		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SMALL_ENUM" chain="--enum_type=packed "></option>
+		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.THUMB_STATE" chain="--code_state=16 "></option>
+		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.SIGNED_CHARS" chain="--plain_char=signed "></option>
 		<enumeratedOptionValue id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ABI.ti_arm9_abi"><deprecate severity="6" diagnostic="As of version 15.3.0.STS of the ARM CGT, COFF ABI support (ti_arm9_abi) is discontinued. If COFF ABI support is needed for your application, please use ARM CGT version 5.2.x."/></enumeratedOptionValue>
 		<enumeratedOptionValue id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ABI.tiabi"><deprecate severity="6" diagnostic="As of version 5.2.0 of the ARM CGT, tiabi ABI support is discontinued. If tiabi ABI support is needed for your application, please use ARM CGT version 5.1.x."/></enumeratedOptionValue>
 		<option id="com.ti.ccstudio.buildDefinitions.TMS470_15.12.compilerID.ABI" hide="true"><deprecate severity="3" diagnostic="The '--abi' option is deprecated.  The only setting is eabi (elf)."/></option>
