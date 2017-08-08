@@ -75,7 +75,7 @@ int main(void) {
 		parseString(user_input, command, value);
 
 
-		if(!strncmp(user_input, "setFrequency", 12)){
+		if(!strncmp(command, "setFrequency", 12)){
 
 			char out[20], intMode[3];
 			int out_factor, intModeDecision;
@@ -103,7 +103,7 @@ int main(void) {
 			printString("Enter command: ");
 		}
 
-		else if(!strncmp(user_input, "setReference", 12)){
+		else if(!strncmp(command, "setReference", 12)){
 
 			char externalReference[20], refDivider[20], refDoubler[5], multEnable[5], multiplier[20], AutoTune[5];
 			double ExternalReferenceValue, RefFreqRatio;
@@ -174,7 +174,7 @@ int main(void) {
 
 		}
 
-		else if(!strncmp(user_input, "setOutputPower", 14)){
+		else if(!strncmp(command, "setOutputPower", 14)){
 
 			char RF_OUTB[3], outDoubler[3], outDivider[5], MuteUntilLD[3], QA_pwr[10], QB_pwr[10];
 			int RF_OUTB_Result, outDoublerResult, MuteUntilLDResult;
@@ -223,13 +223,13 @@ int main(void) {
 			printString("Enter command: ");
 		}
 
-		else if(!strncmp(user_input, "lockStatus", 10)){
+		else if(!strncmp(command, "lockStatus", 10)){
 
 			ReadFromStatusRegisters("DigLock");
 			printString("Enter command: ");
 		}
 
-		else if(!strncmp(user_input, "setupChargePump", 15)){
+		else if(!strncmp(command, "setupChargePump", 15)){
 
 			char charge_current[10], delta[10], bleeder_current[10], CP_HiZ[5];
 			unsigned long NMOS_Current = 0, PMOS_Current = 0, bleederValue = 0;
@@ -281,7 +281,7 @@ int main(void) {
 
 		}
 
-		else if(!strncmp(user_input, "sleep", 5)){
+		else if(!strncmp(command, "sleep", 5)){
 
 			printString(new_line);
 			printString(new_line);
